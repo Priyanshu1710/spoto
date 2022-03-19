@@ -1,0 +1,9 @@
+{
+  "name": "Spoto",
+  "version": "1.0.0",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.5.0",
+    "@truffle/hdwallet-provider": "^2.0.3",
+    "@uniswap/lib": "^4.0.1-alpha"
+  }
+}
