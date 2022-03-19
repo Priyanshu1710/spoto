@@ -14,7 +14,7 @@ contract LiquidityPool is Ownable {
     event TradedTokens(
         address indexed _account,
         uint256 _ethTraded,
-        uint256 _spcTraded
+        uint256 _sptTraded
     );
 
     LPT lpToken;
