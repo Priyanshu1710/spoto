@@ -30,6 +30,7 @@ const ConnectWallet = () => {
                     footer={null}
                     onOk={handleOk}
                     onCancel={handleCancel}
+                    centered={true}
                     className='connect_wallet_main_container'
                 >
                     <div>
