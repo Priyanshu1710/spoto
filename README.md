@@ -1,71 +1,54 @@
-# Getting Started with Create React App
+# Liquidity pool
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Accepts depositing/withdrawing liquidity.
+- Mints LP tokens on deposit and burning them on withdrawal.
+- Allows swapping ETH/SPT.
+- 1% tax for every trade
 
-## Available Scripts
+## Running it
 
-In the project directory, you can run:
+You can start the frontend by:
 
-### `npm start`
+- Add a .env file on the root of the project, and add the field `PRIVATE_KEY`
+- Set `PRIVATE_KEY` to your account's private key (so hardhat.config.js knows from which account to deploy)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Then running:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+npm install
+npx hardhat compile (generates the artifacts the frontend will use)
+cd frontend
+npm install
+npm start
+```
 
-### `npm test`
+## Re-deploying
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+By default the frontend is connected to the deployed version of all the contracts on Rinkeby:
 
-### `npm run build`
+```
+export const contracts = {
+  SPOTO_COIN: {
+    abi: SpotoCoin.abi,
+    address: "0x48eB0799f8F266c2D05586098382f57fCF132015",
+  },
+  LIQUIDITY_POOL: {
+    abi: LiquidityPool.abi,
+    address: "0x0511010C236F4372cA6e6201b0855C372B0708b1",
+  },
+  LPT: {
+    abi: LPT.abi,
+    address: "0x906697209543137DA9e95CB22618Ac829a2Bce4d",
+  },
+  SPOTO_ROUTER: {
+    abi: SpotoRouter.abi,
+    address: "0x37834371D0b7055077ffb5510219C9Ed1Df63D70",
+  },
+};
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+If you'd like to change that:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# spoto
+- In your env, set `TREASURY_WALLET` to the account that will receive the 2% tax
+- Run `npx hardhat run scripts/deploy.js --network rinkeby`
+- You'll get the new addresses in your console, change them at `frontend/src/utils/index.js`
