@@ -8,19 +8,19 @@ import { ethers } from "ethers";
 export const contracts = {
   SPOTO_COIN: {
     abi: SpotoCoin.abi,
-    address: "0x48eB0799f8F266c2D05586098382f57fCF132015",
+    address: "0x7748927847FFFf339764fAA81e6692a239F79261",
   },
   LIQUIDITY_POOL: {
     abi: LiquidityPool.abi,
-    address: "0x0511010C236F4372cA6e6201b0855C372B0708b1",
+    address: "0x3CAe819c23ebbf0EE0663B35777d7b2928034E5c",
   },
   LPT: {
     abi: LPT.abi,
-    address: "0x906697209543137DA9e95CB22618Ac829a2Bce4d",
+    address: "0x5A2B6727A2AE7941B849998aB6Ef10bC69cBc876",
   },
   SPOTO_ROUTER: {
     abi: SpotoRouter.abi,
-    address: "0x37834371D0b7055077ffb5510219C9Ed1Df63D70",
+    address: "0x9d52F36A5C48Eea6399ea4D98b69865C90FcC6e5",
   },
 };
 
@@ -38,12 +38,8 @@ const mapErrorToFriendlyMessage = (error) => {
       return "This is meant for the owner! What are you doing here?";
     case "FUNDS_MOVED_TO_LP":
       return "Funds have been already moved to the liquidity pool!";
-    case "NOT_LAST_PHASE":
-      return "Not at OPEN phase yet!";
     case "NO_AVAILABLE_TOKENS":
       return "Not enough SPT available!";
-    case "LAST_PHASE":
-      return "Already at last phase!";
     case "CONTRACT_PAUSED":
       return "Contract is paused!";
     case "NOT_ALLOWED":
@@ -64,9 +60,7 @@ const getErrorFromReversion = (revertReason) => {
   const revertErrors = [
     "NOT_ALLOWED",
     "OWNER_ONLY",
-    "NOT_LAST_PHASE",
     "NO_AVAILABLE_TOKENS",
-    "LAST_PHASE",
     "FUNDS_MOVED_TO_LP",
     "CONTRACT_PAUSED",
     "User denied transaction",

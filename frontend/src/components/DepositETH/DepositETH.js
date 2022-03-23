@@ -32,11 +32,11 @@ const DepositETH = ({ spotoCoin }) => {
 
   return (
     <div className="deposit-eth-container">
-      <h3>Buy SpotoCoin!</h3>
+      <h3>Buy SpotoCoin</h3>
       <div className="contribute-container">
         <input
           className="contribute-amount"
-          placeholder="Amount to contribute..."
+          placeholder="Amount"
           type="text"
           value={amount}
           onChange={handleAmountChange}
@@ -46,10 +46,10 @@ const DepositETH = ({ spotoCoin }) => {
       {amount && (
         <>
           <div className="estimated-sc">
-            Will get you: {amount * 5} <strong>SC</strong>
+            Will get you: {amount * 5} <strong>SPT</strong>
           </div>
           <button className="cool-button" onClick={contribute}>
-            Contribute
+            Buy
           </button>
         </>
       )}

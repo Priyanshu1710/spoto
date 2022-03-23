@@ -19,7 +19,7 @@ const Trading = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [inputAmount, setInputAmount] = useState("");
   const [inputToken, setInputToken] = useState("ETH");
-  const [areFundsMoved, setAreFundsMoved] = useState();
+  // const [areFundsMoved, setAreFundsMoved] = useState();
 
   const [ethReserve, setEthReserve] = useState("");
   const [sptReserve, setSptReserve] = useState("");
@@ -67,17 +67,17 @@ const Trading = () => {
     setSptReserve(reserves[1]);
   }, [lp]);
 
-  const getFundsMovedOrNot = useCallback(async () => {
-    const { result, error } = await callContractMethod(() =>
-      spotoCoin.fundsAlreadyMoved()
-    );
+  // const getFundsMovedOrNot = useCallback(async () => {
+  //   const { result, error } = await callContractMethod(() =>
+  //     spotoCoin.fundsAlreadyMoved()
+  //   );
 
-    if (error) {
-      return toast.error(error);
-    }
+  //   if (error) {
+  //     return toast.error(error);
+  //   }
 
-    setAreFundsMoved(result);
-  }, [spotoCoin]);
+  //   setAreFundsMoved(result);
+  // }, [spotoCoin]);
 
   const getApproximateTradedAmount = () => {
     const product = ethReserve * sptReserve;
@@ -97,14 +97,13 @@ const Trading = () => {
   useEffect(() => {
     if (spotoRouter && lp && spotoCoin) {
       getCurrentReserves();
-      getFundsMovedOrNot();
       setIsLoading(false);
     }
-  }, [spotoRouter, lp, spotoCoin, getCurrentReserves, getFundsMovedOrNot]);
+  }, [spotoRouter, lp, spotoCoin, getCurrentReserves]);
 
-  if (areFundsMoved === false) {
-    return "Funds haven't been moved to LP yet!";
-  }
+  // if (areFundsMoved === false) {
+  //   return "Funds haven't been moved to LP yet!";
+  // }
 
   return (
     <Loading isLoading={isLoading}>

@@ -21,20 +21,20 @@ const ManageLiquidity = () => {
   const account = useMetamaskAccount();
 
   const [lpBalance, setLPBalance] = useState(null);
-  const [areFundsMoved, setAreFundsMoved] = useState();
+  // const [areFundsMoved, setAreFundsMoved] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  const getFundsMovedOrNot = useCallback(async () => {
-    const { result, error } = await callContractMethod(() =>
-      spotoCoin.fundsAlreadyMoved()
-    );
+  // const getFundsMovedOrNot = useCallback(async () => {
+  //   const { result, error } = await callContractMethod(() =>
+  //     spotoCoin.fundsAlreadyMoved()
+  //   );
 
-    if (error) {
-      return toast.error(error);
-    }
+  //   if (error) {
+  //     return toast.error(error);
+  //   }
 
-    setAreFundsMoved(result);
-  }, [spotoCoin]);
+  //   setAreFundsMoved(result);
+  // }, [spotoCoin]);
 
   const getBalance = useCallback(async () => {
     const { result, error } = await callContractMethod(() =>
@@ -52,7 +52,7 @@ const ManageLiquidity = () => {
     setIsLoading(true);
     if (lp && lpToken && account && spotoCoin && spotoRouter) {
       await getBalance();
-      await getFundsMovedOrNot();
+      // await getFundsMovedOrNot();
     }
     setIsLoading(false);
   }, [
@@ -62,7 +62,7 @@ const ManageLiquidity = () => {
     spotoCoin,
     spotoRouter,
     getBalance,
-    getFundsMovedOrNot,
+    // getFundsMovedOrNot,
   ]);
 
   useEffect(getInfo, [getInfo]);
@@ -76,9 +76,9 @@ const ManageLiquidity = () => {
     }
   }, [account, getInfo, lp]);
 
-  if (areFundsMoved === false) {
-    return "Funds haven't been moved to LP yet!";
-  }
+  // if (areFundsMoved === false) {
+  //   return "Funds haven't been moved to LP yet!";
+  // }
 
   return (
     <Loading isLoading={isLoading && lpBalance === null}>
