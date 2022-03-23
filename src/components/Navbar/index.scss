@@ -1,7 +1,16 @@
 @import "../../assets/scss/style.scss";
 .navbar_main_container {
+  // background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: brightness(0.7);
+  // border-bottom: 2px solid #61547a;
   .navbar_container {
-    // background-color: $primary-color;
-    background: #010203;
+    // background: #010203;
+    // .navbar-nav {
+    //   button {
+    //     clip-path: polygon(15% 0%, 100% 0, 100% 65%, 83% 100%, 0 100%, 0% 50%);
+    //     background: #2da0e2;
+    //     font-weight: 600;
+    //   }
+    // }
   }
 }

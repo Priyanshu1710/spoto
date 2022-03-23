@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'antd';
 import './index.scss';
 import metaMaskIcon from '../../assets/images/MetaMask_Fox.png';
+import { useSelector, useDispatch } from 'react-redux';
+import { setDashboardModalState } from '../../actions';
 
 const ConnectWallet = () => {
+    const dispatch = useDispatch();
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const modalStage = useSelector((state) => state.spoto.updateDashboardModexStage);
+
+    useEffect(() => {
+        setIsModalVisible(modalStage);
+    }, [modalStage])
+
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -12,22 +21,28 @@ const ConnectWallet = () => {
 
     const handleOk = () => {
         setIsModalVisible(false);
+        dispatch(setDashboardModalState(false))
     };
 
     const handleCancel = () => {
         setIsModalVisible(false);
+        dispatch(setDashboardModalState(false))
     };
 
     return (
         <>
-            <div >
-                <Button type="primary" onClick={showModal}>
-                    Connect Wallet
-                </Button>
+            <div className='nav_modal_btn' >
+                <div className="nav_btn_container" type="primary" onClick={showModal}>
+                    {/* <Button type="primary" onClick={showModal}>
+                        Connect Wallet
+                    </Button> */}
+                    <p>Connect Wallet</p>
+                </div>
                 <Modal
-                    title="Connect Wallet"
+                    // title="Connect Wallet"
                     visible={isModalVisible}
                     footer={null}
+                 
                     onOk={handleOk}
                     onCancel={handleCancel}
                     centered={true}

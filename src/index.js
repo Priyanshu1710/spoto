@@ -3,15 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-
-// store.subscribe(() => console.log(store.getState()));
-
+import store from './store';
+import { Provider } from "react-redux";
+store.subscribe(() => console.log(store.getState()));
+// store.subscribe(() => { });
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
+
+  <BrowserRouter>
+    <Provider store={store}>
       <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
