@@ -10,18 +10,10 @@ contract SpotoCoin is ERC20 {
     event OwnerAction();
     event FundsMoved();
 
-    enum Phase {
-        SEED,
-        GENERAL,
-        OPEN
-    }
-    Phase public currentPhase = Phase.SEED;
-
     uint256 public MAX_SUPPLY;
     uint256 public constant TAX = 2; // 0.02, 2% of the tx;
     uint256 public totalContributed;
     bool public isContractPaused;
-    bool public fundsAlreadyMoved;
     bool public isTaxOn = true;
     address public owner;
     address payable public treasuryWallet;
@@ -29,14 +21,12 @@ contract SpotoCoin is ERC20 {
 
     mapping(address => uint256) public balancesToClaim;
     mapping(address => uint256) public contributionsOf;
-    mapping(address => bool) public isWhitelisted;
 
     constructor(address payable treasury) ERC20("Spoto Coin", "SPT") {
         MAX_SUPPLY = 500000 * 10**decimals();
         _mint(address(this), MAX_SUPPLY);
         owner = msg.sender;
         treasuryWallet = treasury;
-        isWhitelisted[owner] = true;
     }
 
     modifier ownerOnly() {
@@ -46,11 +36,6 @@ contract SpotoCoin is ERC20 {
 
     modifier routerOnly() {
         require(msg.sender == spotoRouter, "ROUTER_ONLY");
-        _;
-    }
-
-    modifier areFundsMoved() {
-        require(!fundsAlreadyMoved, "FUNDS_MOVED_TO_LP");
         _;
     }
 
@@ -64,16 +49,7 @@ contract SpotoCoin is ERC20 {
         _;
     }
 
-    function contribute() external payable isPaused areFundsMoved {
-        require(canUserContribute(msg.sender), "NOT_ALLOWED");
-        require(
-            contributionsOf[msg.sender] + msg.value <= getIndividualLimit(),
-            "ABOVE_MAX_INDIVIDUAL_CONTRIBUTION"
-        );
-        require(
-            totalContributed + msg.value <= getPhaseLimit(),
-            "ABOVE_MAX_CONTRIBUTION"
-        );
+    function contribute() external payable isPaused {
 
         /*
          * The spec says that the exchange rate must be 5 tokens to 1 ether, so give the sender 5 times the ether they sent
@@ -86,40 +62,12 @@ contract SpotoCoin is ERC20 {
         emit TokensBought(msg.sender, tokenAmount);
     }
 
-    function getIndividualLimit() private view returns (uint256) {
-        if (currentPhase == Phase.SEED) {
-            return 1500 ether;
-        } else if (currentPhase == Phase.GENERAL) {
-            return 1000 ether;
-        } else {
-            // No limit, just make it the same value so the tx goes through
-            return msg.value;
-        }
-    }
-
-    function getPhaseLimit() private view returns (uint256 limit) {
-        if (currentPhase == Phase.SEED) {
-            limit = 15000 ether;
-        } else if (
-            currentPhase == Phase.GENERAL || currentPhase == Phase.OPEN
-        ) {
-            limit = 30000 ether;
-        }
-    }
-
-    function claimTokens() external isPaused areFundsMoved {
-        require(currentPhase == Phase.OPEN, "NOT_LAST_PHASE");
+    function claimTokens() external isPaused {
         require(balancesToClaim[msg.sender] > 0, "NO_AVAILABLE_FUNDS");
         uint256 tokensToClaim = balancesToClaim[msg.sender];
         balancesToClaim[msg.sender] = 0;
 
         super._transfer(address(this), msg.sender, tokensToClaim);
-    }
-
-    function advancePhase() external ownerOnly {
-        require(currentPhase != Phase.OPEN, "LAST_PHASE");
-        currentPhase = Phase(uint256(currentPhase) + 1);
-        emit OwnerAction();
     }
 
     function togglePauseContract() external ownerOnly {
@@ -130,14 +78,6 @@ contract SpotoCoin is ERC20 {
     function toggleTax() external ownerOnly {
         isTaxOn = !isTaxOn;
         emit OwnerAction();
-    }
-
-    function addToWhitelist(address account) external ownerOnly {
-        isWhitelisted[account] = true;
-    }
-
-    function canUserContribute(address account) public view returns (bool) {
-        return isWhitelisted[account] || currentPhase != Phase.SEED;
     }
 
     function _transfer(
@@ -182,19 +122,7 @@ contract SpotoCoin is ERC20 {
 
     function sendLiquidityToLPContract(LiquidityPool liquidityPool)
         external
-        ownerOnly
-        areFundsMoved
     {
-        require(currentPhase == Phase.OPEN, "NOT_LAST_PHASE");
-
-        fundsAlreadyMoved = true;
-
-        /*
-         *  Max supply is 500,000 tokens, max total accepted contributions is 30,000 eth
-         *  The maximum value spotoCoinAmountToTransfer can be is 30k eth * 5, so 150,000 tokens
-         *  If 30k eth is reached, we'd have 350,000 available tokens, so we can count on
-         *  this function sending the appropiate amount
-         */
         uint256 spotoCoinAmountToTransfer = totalContributed * 5;
 
         super._transfer(
