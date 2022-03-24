@@ -1,89 +1,81 @@
 
 import React, { useState } from 'react';
-import { Form, Input, Button, Radio } from 'antd';
-import { Select } from 'antd';
-import './index.scss';
-
-const { Option } = Select;
-
+import NavigationBar from '../../components/Navbar'
+import { useDispatch } from 'react-redux';
+import { Avatar, Image } from 'antd';
+import { Form, Input, Button, Checkbox } from 'antd';
+import './index.scss'
 
 const ProfilePage = () => {
-    const [form] = Form.useForm();
-    const [requiredMark, setRequiredMarkType] = useState('optional');
+    const dispatch = useDispatch();
+    const [selectedUser, setSelectedUser] = useState(0)
 
-    const onRequiredTypeChange = ({ requiredMarkValue }) => {
-        setRequiredMarkType(requiredMarkValue);
-    };
+    const userImg = [
+        {
+            id: 1,
+            src: "https://joeschmoe.io/api/v1/random"
+        },
+        {
+            id: 2,
+            src: "https://joeschmoe.io/api/v1/animal"
+        },
+        {
+            id: 3,
+            src: "https://joeschmoe.io/api/v1/cat"
+        },
+        {
+            id: 4,
+            src: "https://joeschmoe.io/api/v1/tiger"
+        },
+        {
+            id: 5,
+            src: "https://joeschmoe.io/api/v1/men"
+        },
+        {
+            id: 1,
+            src: "https://joeschmoe.io/api/v1/lady"
+        },
+    ]
+
+
     return (
-        <div className="container mt-5">
-            <Form
-                form={form}
-                layout="vertical"
-                initialValues={{
-                    requiredMarkValue: requiredMark,
-                }}
-                onValuesChange={onRequiredTypeChange}
-                requiredMark={true}
-                className='profile_form_container '
-            >
-                <Form.Item
-                    label="Name :"
-                    required={true}
-                    tooltip="This is a required field"
-                >
-                    <Input placeholder="Enter Your Name" />
-                </Form.Item>
+        <div className="profile_page_main_container">
+            <div className="bg_container">
+                <NavigationBar />
+                <div className="dashboard_container">
+                    <div className="dashboard_centre_frame_container">
+                        <div className="dashboard_centre_frame max_width">
+                            <div className="frame_bg">
+                                <div className="content_main_container">
+                                    <div className="avarat_container" >
+                                        {userImg.map((item, index) => {
+                                            return (
+                                                <React.Fragment key={index}>
+                                                    < Avatar src={item.src} size={55} className={selectedUser === index ? 'single_avatar selected_avatar' : 'single_avatar '} onClick={(() => {
+                                                        setSelectedUser(index)
+                                                        console.log(item.src)
+                                                    })} />
+                                                </React.Fragment>
+                                            )
+                                        })}
+                                    </div>
+                                    <div className="detail_container">
+                                        <div className="input_container">
+                                            <label htmlFor="name">Name :</label> <br />
+                                            <input type="text" name="name" id="name" />
+                                        </div>
 
-                <div className=' mb-4'>
+                                    </div>
+                                    <div className="button">
+                                        <div className="btn_container"><span>Create</span> </div>
+                                    </div>
 
-                    <Select
-                        defaultValue="Select Avatar"
-                        style={{ width: "100% " }}
-                        allowClear>
-                        <Option value="1">1</Option>
-                        <Option value="2">2</Option>
-                        <Option value="3">3</Option>
-                        <Option value="4">4</Option>
-                        <Option value="5">5</Option>
-                    </Select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div className=' mb-4'>
-
-                    <Select
-                        defaultValue="Select Character 1"
-                        style={{ width: "100% " }}
-                        allowClear>
-                        <Option value="1">1</Option>
-                        <Option value="2">2</Option>
-                        <Option value="3">3</Option>
-                        <Option value="4">4</Option>
-                        <Option value="5">5</Option>
-                    </Select>
-                </div>
-
-                <div className='mt-2 mb-2'>
-
-                    <Select
-                        defaultValue="Select Character 2"
-                        style={{ width: "100% " }}
-                        allowClear>
-                        <Option value="1">1</Option>
-                        <Option value="2">2</Option>
-                        <Option value="3">3</Option>
-                        <Option value="4">4</Option>
-                        <Option value="5">5</Option>
-                    </Select>
-                </div>
-
-
-
-
-
-                <Form.Item className='mt-4'>
-                    <Button type="primary">Create</Button>
-                </Form.Item>
-            </Form>
+            </div>
         </div>
 
 

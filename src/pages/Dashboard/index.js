@@ -13,7 +13,7 @@ const Dashboard = () => {
         <NavigationBar />
         <div className="dashboard_container">
           <div className="dashboard_centre_frame_container">
-            <div className="dashboard_centre_frame container">
+            <div className="dashboard_centre_frame max_width">
               <div className="frame_bg">
 
                 <div className="content_main_container">
