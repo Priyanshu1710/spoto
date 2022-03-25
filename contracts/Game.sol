@@ -7,7 +7,7 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 
-contract MultiBetContract is Ownable{
+contract SportoBet is Ownable{
 
     AggregatorV3Interface internal priceFeed;
     address private _owner;
