@@ -43,7 +43,7 @@ const ConnectWallet = () => {
                     // title="Connect Wallet"
                     visible={isModalVisible}
                     footer={null}
-                 
+
                     onOk={handleOk}
                     onCancel={handleCancel}
                     centered={true}
@@ -55,7 +55,7 @@ const ConnectWallet = () => {
                                 onClick={() => console.log("Connect MetaMase")}
                             >
                                 <div className="img_container">
-                                    <img src={metaMaskIcon} alt="Metamask" onClick={useMetamaskAccount()}/>
+                                    <img src={metaMaskIcon} alt="Metamask" onClick={useMetamaskAccount} />
                                 </div>
                                 <h1>MetaMask</h1>
                             </div>
