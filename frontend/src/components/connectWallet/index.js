@@ -3,17 +3,21 @@ import { Modal, Button } from 'antd';
 import './index.scss';
 import metaMaskIcon from '../../assets/images/MetaMask_Fox.png';
 import { useSelector, useDispatch } from 'react-redux';
-import { setDashboardModalState } from '../../actions';
-import useMetamaskAccount from '../../utils/hooks/useMetamaskAccount';
+import { setDashboardModalState, setUserAdd } from '../../actions';
+import { requestAccount } from "../../utils/index";
+import { Menu, Dropdown, Space } from 'antd';
 
 const ConnectWallet = () => {
     const dispatch = useDispatch();
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [userAddress, setUserAddress] = useState(false);
     const modalStage = useSelector((state) => state.spoto.updateDashboardModexStage);
+    const walletAddress = useSelector((state) => state.spoto.userAdd);
 
     useEffect(() => {
         setIsModalVisible(modalStage);
     }, [modalStage])
+
 
 
     const showModal = () => {
@@ -29,16 +33,33 @@ const ConnectWallet = () => {
         setIsModalVisible(false);
         dispatch(setDashboardModalState(false))
     };
+    const metaMaskConnectHandle = async () => {
+        const metaMaskAccount = await requestAccount();
+        console.log(metaMaskAccount);
+        dispatch(setUserAdd(metaMaskAccount))
+        setUserAddress(true);
+
+    };
+
 
     return (
         <>
             <div className='nav_modal_btn' >
-                <div className="nav_btn_container" type="primary" onClick={showModal}>
-                    {/* <Button type="primary" onClick={showModal}>
-                        Connect Wallet
-                    </Button> */}
-                    <p>Connect Wallet</p>
-                </div>
+                {userAddress && (
+                    <>
+                        <div className="nav_btn_container" type="primary" onClick={showModal}>
+                            <p>Conneced</p>
+                        </div>
+                    </>
+                )}
+                {!userAddress && (
+                    <>
+                        <div className="nav_btn_container" type="primary" onClick={showModal}>
+                            <p>Connect Wallet</p>
+                        </div>
+                    </>
+                )}
+
                 <Modal
                     // title="Connect Wallet"
                     visible={isModalVisible}
@@ -52,12 +73,25 @@ const ConnectWallet = () => {
                     <div>
                         <div className="metamask_main_container" >
                             <div className="metamask_container"
-                                onClick={() => console.log("Connect MetaMase")}
+                                onClick={() => {
+                                    console.log("Connect MetaMase")
+                                    metaMaskConnectHandle();
+                                }}
                             >
-                                <div className="img_container">
-                                    <img src={metaMaskIcon} alt="Metamask" onClick={useMetamaskAccount} />
-                                </div>
-                                <h1>MetaMask</h1>
+                                {userAddress && (
+                                    <>
+                                        <div className='user_address'>{walletAddress}</div>
+                                    </>
+                                )}
+                                {!userAddress && (
+                                    <>
+                                        <div className="img_container">
+                                            <img src={metaMaskIcon} alt="Metamask" />
+                                        </div>
+                                        <h1>MetaMask</h1>
+                                    </>
+                                )}
+
                             </div>
                         </div>
                     </div>

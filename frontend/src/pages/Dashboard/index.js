@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.scss'
 import NavigationBar from '../../components/Navbar'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setDashboardModalState } from '../../actions';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
+  const [accountConnectedStatus, setAccountConnectedStatus] = useState(false)
+  const walletAddress = useSelector((state) => state.spoto.userAdd);
+
+
 
   return (
     <>
@@ -26,8 +30,9 @@ const Dashboard = () => {
                       <div className="btn_container"
                         onClick={(() => {
                           dispatch(setDashboardModalState(true))
+
                         })}
-                      >Connect Wallet</div> <br />
+                      > {walletAddress ? " Connected" : "Connect Wallet"}</div> <br />
                       <div className="btn_container">Explore Now</div>
                     </div>
                   </div>
