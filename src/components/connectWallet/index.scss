@@ -5,6 +5,9 @@
   height: 16rem;
   width: 100%;
   background-repeat: no-repeat;
+  .ant-modal-body {
+    margin-top: -4rem;
+  }
   .ant-modal-content {
     background: transparent;
     display: flex;
@@ -43,8 +46,7 @@
   }
 }
 .nav_modal_btn {
-  // background-color: violet;
-  height: 3.9rem;
+  height: 4rem;
   width: 12rem;
   .nav_btn_container {
     height: 100%;
@@ -55,13 +57,14 @@
     background-position: bottom;
     display: flex;
     justify-content: center;
-    align-items: center;
+    // align-items: center;
 
     p {
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       font-weight: 500;
       color: #fff;
       margin-bottom: 0%;
+      padding-top: 0.5rem;
     }
   }
 }
