@@ -20,8 +20,9 @@ module.exports = {
       },
     },
     rinkeby: {
-      url: [process.env.URL],
+      url: "https://eth-rinkeby.alchemyapi.io/v2/MRtDTqSU_Ls4RzMrX-qqOOnaKxv-ALr1",
       accounts: [process.env.PRIVATE_KEY],
+      gas: 5000000,
     },
   },
 };

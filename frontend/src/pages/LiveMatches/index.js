@@ -7,7 +7,69 @@ const gridStyle = {
     width: '25%',
     textAlign: 'center',
 };
+
 const LiveMatches = () => {
+    // prev matches ********************
+    // const options = {
+    //     method: 'GET',
+    //     headers: {
+    //         'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+    //         'X-RapidAPI-Key': 'c3b03416cfmshc81e3e32d4e66c4p1b6d9fjsnf9fbc9d9d530'
+    //     }
+    // };
+    
+    // fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?last=50', options)
+    //     .then(response => response.json())
+    //     .then(response => console.log(response))
+    //     .catch(err => console.error(err));
+
+
+    //live matches *******************
+    // const options = {
+    //     method: 'GET',
+    //     headers: {
+    //         'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+    //         'X-RapidAPI-Key': 'c3b03416cfmshc81e3e32d4e66c4p1b6d9fjsnf9fbc9d9d530'
+    //     }
+    // };
+    
+    // fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?live=all', options)
+    //     .then(response => response.json())
+    //     .then(response => console.log(response))
+    //     .catch(err => console.error(err));
+
+
+    //fixure id ***************
+    // const options = {
+    //     method: 'GET',
+    //     headers: {
+    //         'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+    //         'X-RapidAPI-Key': 'c3b03416cfmshc81e3e32d4e66c4p1b6d9fjsnf9fbc9d9d530'
+    //     }
+    // };
+    
+    // fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?id=157201', options)
+    //     .then(response => response.json())
+    //     .then(response => console.log(response))
+    //     .catch(err => console.error(err));
+
+
+    //upcomming matches
+    // const options = {
+    //     method: 'GET',
+    //     headers: {
+    //         'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+    //         'X-RapidAPI-Key': 'c3b03416cfmshc81e3e32d4e66c4p1b6d9fjsnf9fbc9d9d530'
+    //     }
+    // };
+    
+    // fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?next=50', options)
+    //     .then(response => response.json())
+    //     .then(response => console.log(response))
+    //     .catch(err => console.error(err));
+
+
+
 
     return (
         <>

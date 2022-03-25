@@ -4,6 +4,7 @@ import './index.scss';
 import metaMaskIcon from '../../assets/images/MetaMask_Fox.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { setDashboardModalState } from '../../actions';
+import useMetamaskAccount from '../../utils/hooks/useMetamaskAccount';
 
 const ConnectWallet = () => {
     const dispatch = useDispatch();
@@ -54,7 +55,7 @@ const ConnectWallet = () => {
                                 onClick={() => console.log("Connect MetaMase")}
                             >
                                 <div className="img_container">
-                                    <img src={metaMaskIcon} alt="Metamask" />
+                                    <img src={metaMaskIcon} alt="Metamask" onClick={useMetamaskAccount()}/>
                                 </div>
                                 <h1>MetaMask</h1>
                             </div>

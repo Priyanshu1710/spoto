@@ -15,13 +15,13 @@ async function main() {
   console.log("NFT Profile deployed to:", nFT_Profile.address);
 
   const Game = await hre.ethers.getContractFactory("SpotoGame");
-  const game = await Game.deploy();
-  console.log("Deploying Spoto game");
-  await game.deployed(
+  const game = await Game.deploy(
     spotoCoin.address,
     "0x8A753747A1Fa494EC906cE90E9f37563A8AF630e"
   );
-  console.log("Spoto NFT deployed to:", game.address);
+  console.log("Deploying Spoto game");
+  await game.deployed();
+  console.log("Spoto Game deployed to:", game.address);
 }
 
 main()

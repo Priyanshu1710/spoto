@@ -5,6 +5,9 @@
   height: 16rem;
   width: 100%;
   background-repeat: no-repeat;
+  .ant-modal-body {
+    margin-top: -4rem;
+  }
   .ant-modal-content {
     background: transparent;
     display: flex;
