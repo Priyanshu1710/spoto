@@ -1,0 +1,19 @@
+@import "./variable.scss";
+
+.btn_container {
+  height: 3rem;
+  width: 10rem;
+  background-image: url("../images/btn_bg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.max_width {
+  max-width: 1300px;
+  margin: 0 auto;
+}
