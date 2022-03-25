@@ -2,41 +2,26 @@ const { hardhatArguments } = require("hardhat");
 const hre = require("hardhat");
 
 async function main() {
-  const SpotoCoin = await hre.ethers.getContractFactory("SpotoCoin");
-  const spotoCoin = await SpotoCoin.deploy(
-    hardhatArguments.network === "localhost"
-      ? "0x4375e26d32dC497917e95Ba7c223801Ddf8174e6"
-      : process.env.TREASURY_WALLET
-  );
-  console.log("Deploying SpotoCoin");
+  const SpotoCoin = await hre.ethers.getContractFactory("SpotoToken");
+  const spotoCoin = await SpotoCoin.deploy();
+  console.log("Deploying SpotoToken");
   await spotoCoin.deployed();
-  console.log("Spoto Coin deployed to:", spotoCoin.address);
+  console.log("Spoto Token deployed to:", spotoCoin.address);
 
-  const LiquidityPool = await hre.ethers.getContractFactory("LiquidityPool");
-  const liquidityPool = await LiquidityPool.deploy();
-  console.log("Deploying LiquidityPool");
-  await liquidityPool.deployed();
-  console.log("Liquidity Pool deployed to:", liquidityPool.address);
+  const NFT_Profile = await hre.ethers.getContractFactory("NFTProfile");
+  const nFT_Profile = await NFT_Profile.deploy();
+  console.log("Deploying NFT Profile");
+  await nFT_Profile.deployed();
+  console.log("NFT Profile deployed to:", nFT_Profile.address);
 
-  const LPT = await hre.ethers.getContractFactory("LPT");
-  const lpt = await LPT.deploy(liquidityPool.address);
-  console.log("Deploying LPT");
-  await lpt.deployed();
-  console.log("LPT deployed to:", lpt.address);
-
-  await liquidityPool.setSpotoCoinAddress(spotoCoin.address);
-  await liquidityPool.setLPTAddress(lpt.address);
-
-  const SpotoRouter = await hre.ethers.getContractFactory("SpotoRouter");
-  const spotoRouter = await SpotoRouter.deploy(
-    liquidityPool.address,
-    spotoCoin.address
+  const Game = await hre.ethers.getContractFactory("SpotoGame");
+  const game = await Game.deploy();
+  console.log("Deploying Spoto game");
+  await game.deployed(
+    spotoCoin.address,
+    "0x8A753747A1Fa494EC906cE90E9f37563A8AF630e"
   );
-  console.log("Deploying SpotoRouter");
-  await spotoRouter.deployed();
-  console.log("Spoto Router deployed to:", spotoRouter.address);
-
-  await spotoCoin.setRouterAddress(spotoRouter.address);
+  console.log("Spoto NFT deployed to:", game.address);
 }
 
 main()
