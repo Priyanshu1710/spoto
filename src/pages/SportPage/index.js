@@ -38,14 +38,14 @@ const SelectSport = () => {
                                             cover={<img alt="example" src="https://wallpaperaccess.com/full/1088597.jpg" />}
                                             className='sportPage_card'
                                         >
-                                            <Meta title="Football" />
+                                            <Meta title="Cricket" />
                                         </Card>
                                     </div>
                                     <div className="coming_soon_cards">
                                         <Card title="Coming Soon">
-                                            <Card.Grid style={gridStyle}>Content</Card.Grid>
-                                            <Card.Grid style={gridStyle}>Content</Card.Grid>
-                                            <Card.Grid style={gridStyle}>Content</Card.Grid>
+                                            <Card.Grid style={gridStyle}>Game 1</Card.Grid>
+                                            <Card.Grid style={gridStyle}>Game 2</Card.Grid>
+                                            <Card.Grid style={gridStyle}>Game 3</Card.Grid>
 
                                         </Card>
                                     </div>
