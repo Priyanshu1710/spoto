@@ -4,7 +4,7 @@ import './index.scss';
 import metaMaskIcon from '../../assets/images/MetaMask_Fox.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { setDashboardModalState, setUserAdd } from '../../actions';
-import { requestAccount } from "../../utils/index";
+import { requestAccount, requestBalance } from "../../utils/index";
 import { Menu, Dropdown, Space } from 'antd';
 
 const ConnectWallet = () => {
@@ -38,7 +38,7 @@ const ConnectWallet = () => {
         console.log(metaMaskAccount);
         dispatch(setUserAdd(metaMaskAccount))
         setUserAddress(true);
-
+        await requestBalance();
     };
 
 
