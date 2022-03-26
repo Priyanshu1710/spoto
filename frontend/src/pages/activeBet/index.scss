@@ -1,5 +1,8 @@
 @import "../../assets/scss/style.scss";
 .bet_cards_conntainer {
+  .content_main_container {
+    position: relative;
+  }
   .active_bet_main_container {
     thead,
     tbody,
@@ -86,5 +89,95 @@
     table
     th:nth-child(3) {
     text-align: left;
+  }
+
+  .create_bet_main_container {
+    position: absolute;
+    top: -17px;
+    right: 0;
+    .button {
+      border: 2px solid $tersiary-color;
+      color: #fff;
+      padding: 0.6rem 1.3rem;
+      display: inline-block;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      &:hover {
+        box-shadow: 0px 0px 10px $tersiary-color;
+      }
+    }
+  }
+}
+.create_bet_modal_container {
+  .ant-modal-content {
+    background: indianred;
+    background: url("../../assets/images/home_centre_frame.svg");
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+    .ant-modal-header {
+      background: transparent;
+      border: none;
+      color: #fff;
+      text-align: center;
+      font-weight: 500;
+      .ant-modal-title {
+        color: #fff;
+        font-weight: 500;
+        font-size: 1rem;
+        letter-spacing: 1.2px;
+      }
+    }
+    .ant-modal-footer {
+      border: none;
+      text-align: center;
+      & > button:nth-child(1) {
+        display: none;
+      }
+    }
+  }
+  .create_bet_modal_container_inside {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      background: $primary-bg;
+      border: none;
+    }
+    .ant-select-arrow {
+      color: $tersiary-color;
+    }
+    .input_box {
+      input {
+        width: 350px;
+        background: $primary-bg;
+        outline: none;
+        border: none;
+        border: 2px solid $tersiary-color;
+        border-radius: 5px;
+        padding: 5px 13px;
+        margin: 1.5rem 0;
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          display: none;
+        }
+      }
+    }
+    .button {
+      border: 2px solid $tersiary-color;
+      color: #fff;
+      padding: 0.6rem 1.3rem;
+      display: inline-block;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      &:hover {
+        box-shadow: 0px 0px 10px $tersiary-color;
+      }
+    }
   }
 }

@@ -4,11 +4,13 @@ import NavigationBar from '../../components/Navbar'
 import './index.scss';
 import { Tabs } from 'antd';
 import { Table } from 'antd';
-
+import { Modal } from 'antd';
+import { Select } from 'antd';
 
 const ActiveBet = () => {
     const { TabPane } = Tabs;
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
     const columns = [
         {
             title: 'Home Team',
@@ -45,6 +47,23 @@ const ActiveBet = () => {
         },
     ];
 
+    const { Option } = Select;
+
+    function handleChange(value) {
+        console.log(`selected ${value}`);
+    }
+
+    const showModal = () => {
+        setIsCreateModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsCreateModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsCreateModalVisible(false);
+    };
 
 
     function callback(key) {
@@ -179,7 +198,7 @@ const ActiveBet = () => {
                 </div>,
         });
     }
-    // Live Matches Data 
+    //Active Matches Data 
     for (let i = 0; i < liveMatchesData?.length; i++) {
         liveMatches.push({
             key: liveMatchesData[i]?.fixture?.id,
@@ -301,6 +320,39 @@ const ActiveBet = () => {
 
 
                                                 </Tabs>
+                                            </div>
+                                            <div className="create_bet_main_container">
+                                                <div className="button" type="primary" onClick={showModal}>Create Bet</div>
+                                                <div className="create_bet_modal_main_container">
+                                                    <Modal
+                                                        title="Create Bet"
+                                                        visible={isCreateModalVisible}
+                                                        onOk={handleOk}
+                                                        centered={true}
+                                                        footer={false}
+                                                        onCancel={""}
+                                                        style={{
+                                                            height: 295,
+                                                        }}
+                                                        className="create_bet_modal_container"
+                                                    >
+                                                        <div className="create_bet_modal_container_inside">
+                                                            <Select defaultValue="team-1" style={{ width: 350, border: '2px solid #ce18c5', color: "white", borderRadius: "5px" }} onChange={handleChange}>
+                                                                <Option value="team-1">Team 1</Option>
+                                                                <Option value="team-2">Team 2</Option>
+                                                                <Option value="disabled" disabled>
+                                                                    For disable team
+                                                                </Option>
+                                                            </Select>
+                                                            <div className="input_box">
+                                                                <input type="number" placeholder='Please entre amount' />
+                                                            </div>
+                                                            <div className="button" onClick={(() => handleOk())}>Create Bet</div>
+
+                                                        </div>
+                                                    </Modal>
+                                                </div>
+
                                             </div>
 
                                         </div>
