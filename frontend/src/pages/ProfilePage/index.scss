@@ -23,12 +23,12 @@
         padding: 6px 2px;
         outline: none;
         border: none;
-        border: 3px solid $primary-color;
+        border: 3px solid $tersiary-color;
         border-radius: 5px;
         background: $primary-bg;
         color: #fff;
         &:focus {
-          box-shadow: 0px 0px 15px $primary-color;
+          box-shadow: 0px 0px 15px $tersiary-color;
         }
       }
     }

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { SET_USER_ADDRESS, UPDATE_DASHBOARD_MODAL } from "../constants";
+import { SET_USER_ADDRESS, SET_USER_BALANCE, UPDATE_DASHBOARD_MODAL } from "../constants";
 
 const updateDashboardModexStage = (state = false, action) => {
     if (action.type === UPDATE_DASHBOARD_MODAL) {
@@ -15,9 +15,17 @@ const userAdd = (state = false, action) => {
 
     return state;
 };
+const userBal = (state = 0, action) => {
+    if (action.type === SET_USER_BALANCE) {
+        return action.value;
+    }
+
+    return state;
+};
 
 
 export default combineReducers({
     updateDashboardModexStage,
     userAdd,
+    userBal,
 })

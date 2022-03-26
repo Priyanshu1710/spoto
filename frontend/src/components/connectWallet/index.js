@@ -3,7 +3,7 @@ import { Modal, Button } from 'antd';
 import './index.scss';
 import metaMaskIcon from '../../assets/images/MetaMask_Fox.png';
 import { useSelector, useDispatch } from 'react-redux';
-import { setDashboardModalState, setUserAdd } from '../../actions';
+import { setDashboardModalState, setUserAdd, setUserBal } from '../../actions';
 import { requestAccount, requestBalance } from "../../utils/index";
 import { Menu, Dropdown, Space } from 'antd';
 
@@ -14,9 +14,7 @@ const ConnectWallet = () => {
     const modalStage = useSelector((state) => state.spoto.updateDashboardModexStage);
     const walletAddress = useSelector((state) => state.spoto.userAdd);
 
-    useEffect(() => {
-        setIsModalVisible(modalStage);
-    }, [modalStage])
+
 
 
 
@@ -36,10 +34,17 @@ const ConnectWallet = () => {
     const metaMaskConnectHandle = async () => {
         const metaMaskAccount = await requestAccount();
         console.log(metaMaskAccount);
+        let userAccBal = localStorage.getItem("userBal")
+        console.log("userbal--->", userAccBal);
         dispatch(setUserAdd(metaMaskAccount))
+        dispatch(setUserBal(userAccBal));
         setUserAddress(true);
         await requestBalance();
     };
+
+    useEffect(() => {
+        setIsModalVisible(modalStage);
+    }, [modalStage])
 
 
     return (

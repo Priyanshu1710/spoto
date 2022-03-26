@@ -56,6 +56,7 @@ export const requestBalance = async () => {
 
     const bal = bigNumberToDecimal(data);
     console.log(bal);
+    localStorage.setItem("userBal", bal);
   } catch (error) {
     console.log(error);
     window.alert("Please connect Rinkeby Test Network");
