@@ -33,7 +33,7 @@ export const requestAccount = async () => {
   const [account] = await window.ethereum.request({
     method: "eth_requestAccounts",
   });
-  accnt=account;
+  accnt = account;
   return account;
 };
 
@@ -45,13 +45,24 @@ export const requestBalance = async () => {
   const signer = provider.getSigner();
 
   const Spotogame = new ethers.Contract(
-  contracts.SPOTO_GAME.address,
-  contracts.SPOTO_GAME.abi,
-  signer
-);
-const data = await Spotogame.balanceOf(accnt);
-const bal = bigNumberToDecimal(data);
-console.log(bal)
+    contracts.SPOTO_GAME.address,
+    contracts.SPOTO_GAME.abi,
+    signer
+  );
+
+  try {
+    console.log("balances line code start");
+    const data = await Spotogame.balanceOf(accnt);
+
+    const bal = bigNumberToDecimal(data);
+    console.log(bal);
+  } catch (error) {
+    console.log(error);
+    window.alert("Please connect Rinkeby Test Network");
+  }
+
+
+
 
 };
 
