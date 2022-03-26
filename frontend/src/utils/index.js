@@ -26,14 +26,11 @@ export const bigNumberToDecimal = (number) => {
   return tokens / 100; //Divided by 100 so to move the comma two spaces left
 };
 
-export let accnt = '';
-
 export const requestAccount = async () => {
 
   const [account] = await window.ethereum.request({
     method: "eth_requestAccounts",
   });
-  accnt = account;
   return account;
 };
 
