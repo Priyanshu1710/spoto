@@ -49,8 +49,8 @@ const LiveMatches = () => {
                 'X-RapidAPI-Key': 'c3b03416cfmshc81e3e32d4e66c4p1b6d9fjsnf9fbc9d9d530'
             }
         };
-
-        fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?last=20', options)
+// "https://api-football-v1.p.rapidapi.com/v3/fixtures?last=20"
+        fetch('', options)
             .then(response => response.json())
             .then(response => {
                 let data = response.response;
@@ -72,8 +72,8 @@ const LiveMatches = () => {
                 'X-RapidAPI-Key': 'c3b03416cfmshc81e3e32d4e66c4p1b6d9fjsnf9fbc9d9d530'
             }
         };
-
-        fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?live=all', options)
+        // 'https://api-football-v1.p.rapidapi.com/v3/fixtures?live=all'
+        fetch('', options)
             .then(response => response.json())
             .then(response => {
                 let data = response.response;
@@ -108,8 +108,8 @@ const LiveMatches = () => {
                 'X-RapidAPI-Key': 'c3b03416cfmshc81e3e32d4e66c4p1b6d9fjsnf9fbc9d9d530'
             }
         };
-
-        fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?next=20', options)
+        // https://api-football-v1.p.rapidapi.com/v3/fixtures?next=20
+        fetch('', options)
             .then(response => response.json())
             .then(response => {
                 let data = response.response;
