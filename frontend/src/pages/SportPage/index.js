@@ -2,9 +2,34 @@ import React from 'react'
 import { Card } from 'antd';
 import './index.scss';
 import NavigationBar from '../../components/Navbar';
+import { ethers } from 'ethers';
+import Web3Modal from 'web3modal';
+import { contracts } from '../../utils';
 
 
 const SelectSport = () => {
+
+    const approveTx = async () => {
+
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const Spototoken = new ethers.Contract(
+            contracts.SPOTO_COIN.address,
+            contracts.SPOTO_COIN.abi,
+            signer
+          );
+        const transaction = await Spototoken.approve(contracts.SPOTO_GAME.address, 100000000);
+        console.log(transaction);
+        let tx = await transaction.wait();
+        let event = tx.events[0];
+        let value = event.args[2];
+        console.log(tx)
+    };
+
+
     const { Meta } = Card;
 
     const gridStyle = {
@@ -41,6 +66,9 @@ const SelectSport = () => {
                                             <Meta title="Cricket" />
                                         </Card>
                                     </div>
+                                    
+                                    <button onClick={approveTx}>Approve</button>
+                                    
                                     <div className="coming_soon_cards">
                                         <Card title="Coming Soon">
                                             <Card.Grid style={gridStyle}>Game 1</Card.Grid>
