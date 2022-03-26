@@ -4,11 +4,56 @@ import NavigationBar from '../../components/Navbar'
 import { useDispatch } from 'react-redux';
 import { Avatar, Image } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
+import { ethers } from 'ethers';
+import Web3Modal from 'web3modal';
+// import NFTProfile from '../../artifacts/contracts/NFTProfile.sol/NFTProfile.json'
+import { contracts } from '../../utils';
+
 import './index.scss'
+const IPFS = require('ipfs-mini');
 
 const ProfilePage = () => {
+    const createNFT = async () => {
+        ips(username,trait,selectedUser);
+
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+        console.log(signer)
+
+        const NFTContract = new ethers.Contract(
+            contracts.NFT_PROFILE.address,
+            contracts.NFT_PROFILE.abi,
+            signer
+          );
+        const transaction = await NFTContract.safeMint(ipfsUrl);
+        console.log(transaction);
+        let tx = await transaction.wait();
+        let event = tx.events[0];
+        let value = event.args[2];
+        console.log(tx)
+    };
+
+    const [username, setUsername] = useState();
+    const [trait, setTrait] = useState();
+    const [ipfsUrl, setIpfsUrl] = useState();
+
+    const ips = (Username, Trait, Profile) => {
+        const ipfs = new IPFS({host: 'ipfs.infura.io', port: 5001, protocol: 'https'});
+        const data = { "UserName": Username, "Trait": Trait, "Profile": Profile };
+        ipfs.addJSON(data, (err, hash) => {
+            if(err){
+                return console.log(err);
+            }
+            setIpfsUrl('https://ipfs.infura.io/ipfs/'+hash);
+            console.log('https://ipfs.infura.io/ipfs/'+hash);
+        })
+    }
+
     const dispatch = useDispatch();
     const [selectedUser, setSelectedUser] = useState(0)
+    const [selectedAvatar, setSelectedAvatar] = useState(0)
 
     const userImg = [
         {
@@ -51,8 +96,9 @@ const ProfilePage = () => {
                                         {userImg.map((item, index) => {
                                             return (
                                                 <React.Fragment key={index}>
-                                                    < Avatar src={item.src} size={55} className={selectedUser === index ? 'single_avatar selected_avatar' : 'single_avatar '} onClick={(() => {
-                                                        setSelectedUser(index)
+                                                    < Avatar src={item.src} size={55} className={selectedAvatar === index ? 'single_avatar selected_avatar' : 'single_avatar '} onClick={(() => {
+                                                        setSelectedUser(item.src)
+                                                        setSelectedAvatar(index)
                                                         console.log(item.src)
                                                     })} />
                                                 </React.Fragment>
@@ -61,15 +107,15 @@ const ProfilePage = () => {
                                     </div>
                                     <div className="detail_container">
                                         <div className="input_container">
-                                            <label htmlFor="name">Name :</label> <br />
-                                            <input type="text" name="name" id="name" />
+                                            <label htmlFor="name">UserName :</label> <br />
+                                            <input type="text" name="name" id="name" onChange={event => setUsername(event.target.value)}/>
+                                            <label htmlFor="trait">Trait :</label> <br />
+                                            <input type="text" name="trait" id="trait" onChange={event => setTrait(event.target.value)}/>
                                         </div>
-
                                     </div>
                                     <div className="button">
-                                        <div className="btn_container"><span>Create</span> </div>
+                                        <div className="btn_container" onClick={createNFT}><span>Create</span> </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

@@ -26,6 +26,41 @@ export const requestAccount = async () => {
   return account;
 };
 
+export const callContractMethod = async (method) => {
+  let error, result;
+  try {
+    result = await method();
+  } catch (e) {
+    error = handleContractCallError(e.error || e);
+  }
+
+  return {
+    error,
+    result,
+  };
+};
+
+export const handleContractCallError = (error) => {
+  let errorReason = error?.message;
+
+  return errorReason;
+};
+
+export const handleContractInteractionResponse = async (
+  result,
+  error,
+) => {
+  if (error) {
+    return error;
+  }
+
+  window.success(
+    "Transaction sent! Waiting for confirmation from the network..."
+  );
+  await result.wait();
+  window.success("Transaction confirmed!");
+};
+
 export const getContractInstance = async (
   contractToGet,
   withSigner = false
