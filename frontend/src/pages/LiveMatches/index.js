@@ -50,9 +50,10 @@ const LiveMatches = () => {
             }
         };
         // "https://api-football-v1.p.rapidapi.com/v3/fixtures?last=20"
-        fetch('', options)
+        fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?last=20', options)
             .then(response => response.json())
             .then(response => {
+                console.log("Prev data--->", response);
                 let data = response.response;
                 setPrevMatchesData(data)
 
@@ -110,7 +111,7 @@ const LiveMatches = () => {
             }
         };
         // https://api-football-v1.p.rapidapi.com/v3/fixtures?next=20
-        fetch('', options)
+        fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?next=20', options)
             .then(response => response.json())
             .then(response => {
                 let data = response.response;

@@ -11,6 +11,7 @@ const ActiveBet = () => {
     const { TabPane } = Tabs;
     const [loading, setLoading] = useState(false);
     const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
+    const [isPlaceBetModalVisible, setIsPlaceBetModalVisible] = useState(false);
     const columns = [
         {
             title: 'Home Team',
@@ -56,14 +57,24 @@ const ActiveBet = () => {
     const showModal = () => {
         setIsCreateModalVisible(true);
     };
+    const placeBetShowModal = () => {
+        setIsPlaceBetModalVisible(true);
+    };
 
     const handleOk = () => {
         setIsCreateModalVisible(false);
+    };
+    const placeBetHandleOk = () => {
+        setIsPlaceBetModalVisible(false);
     };
 
     const handleCancel = () => {
         setIsCreateModalVisible(false);
     };
+    const placeBetHandleCancel = () => {
+        setIsPlaceBetModalVisible(false);
+    };
+
 
 
     function callback(key) {
@@ -223,7 +234,7 @@ const ActiveBet = () => {
             </div>,
             age:
                 <div className="bet_btn_container">
-                    <div className="btn_primary">Bet</div>
+                    <div className="btn_primary" onClick={(() => placeBetShowModal())} >Bet</div>
                 </div>,
             address:
                 <div className='withdraw_btn_container'>
@@ -330,7 +341,7 @@ const ActiveBet = () => {
                                                         onOk={handleOk}
                                                         centered={true}
                                                         footer={false}
-                                                        onCancel={""}
+                                                        onCancel={handleCancel}
                                                         style={{
                                                             height: 295,
                                                         }}
@@ -348,6 +359,36 @@ const ActiveBet = () => {
                                                                 <input type="number" placeholder='Please entre amount' />
                                                             </div>
                                                             <div className="button" onClick={(() => handleOk())}>Create Bet</div>
+
+                                                        </div>
+                                                    </Modal>
+                                                </div>
+
+                                                <div className="make_bet_main_container" type="primary">
+                                                    <Modal
+                                                        title="Place Bet"
+                                                        visible={isPlaceBetModalVisible}
+                                                        onOk={placeBetHandleOk}
+                                                        centered={true}
+                                                        footer={false}
+                                                        onCancel={placeBetHandleCancel}
+                                                        style={{
+                                                            height: 295,
+                                                        }}
+                                                        className="create_bet_modal_container"
+                                                    >
+                                                        <div className="create_bet_modal_container_inside">
+                                                            <Select defaultValue="team-1" style={{ width: 350, border: '2px solid #ce18c5', color: "white", borderRadius: "5px" }} onChange={handleChange}>
+                                                                <Option value="team-1">Team 1</Option>
+                                                                <Option value="team-2">Team 2</Option>
+                                                                <Option value="disabled" disabled>
+                                                                    For disable team
+                                                                </Option>
+                                                            </Select>
+                                                            <div className="input_box">
+                                                                <input type="number" placeholder='Please entre amount' />
+                                                            </div>
+                                                            <div className="button" onClick={(() => placeBetHandleOk())}>Place Bet</div>
 
                                                         </div>
                                                     </Modal>
