@@ -26,7 +26,7 @@ export const bigNumberToDecimal = (number) => {
   return tokens / 100; //Divided by 100 so to move the comma two spaces left
 };
 
-let accnt = '';
+export let accnt = '';
 
 export const requestAccount = async () => {
 

@@ -3,6 +3,30 @@ import NavigationBar from '../../components/Navbar';
 import { Card } from 'antd';
 import './index.scss';
 import { Nav, NavLink } from 'react-bootstrap';
+import { ethers } from "ethers";
+import Web3Modal from 'web3modal';
+import {contracts, bigNumberToDecimal, accnt} from '../../utils/index'
+
+export const listTokenIds = async () => {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+  
+    const Nftprofile = new ethers.Contract(
+      contracts.NFT_PROFILE.address,
+      contracts.NFT_PROFILE.abi,
+      signer
+    );
+    const tokenIds = await Nftprofile.walletOfOwner(accnt);
+    console.log(tokenIds);
+
+    for(var i=0; i < tokenIds.length; i++){
+        const ipfs = await Nftprofile.tokenURI(tokenIds[i]);
+        console.log(ipfs);
+    }
+}
+
 
 const SelectProfile = () => {
     const { Meta } = Card;
@@ -54,6 +78,7 @@ const SelectProfile = () => {
                                                 </Card.Grid>
                                             </Card>
                                         </div>
+                                        <button onClick={listTokenIds}>test</button>
 
                                     </div>
                                 </div>
