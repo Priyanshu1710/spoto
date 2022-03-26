@@ -1,0 +1,28 @@
+@import "../../assets/scss/style.scss";
+
+.select_profile {
+  .ant-card-meta-title {
+    color: #fff;
+  }
+  .sportPage_card {
+    &:hover {
+      box-shadow: 0px 2px 15px #ce18c5;
+    }
+  }
+  .coming_soon_cards {
+    .nav-link {
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      color: #fff;
+    }
+  }
+  .coming_soon_cards
+    .ant-card-contain-grid:not(.ant-card-loading)
+    .ant-card-body {
+    display: flex;
+    justify-content: center;
+  }
+}

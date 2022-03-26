@@ -3,12 +3,17 @@ import LiveMatches from "./pages/LiveMatches";
 import ProfilePage from "./pages/ProfilePage";
 import SelectSport from "./pages/SportPage";
 import Arena from './pages/Arena';
+import SelectProfile from "./pages/SelectProfile";
 
 
 const routes = [
     {
         path: "/homepage",
         element: <Dashboard />,
+    },
+    {
+        path: "/selectProfile",
+        element: <SelectProfile />,
     },
     {
         path: "/profile",
