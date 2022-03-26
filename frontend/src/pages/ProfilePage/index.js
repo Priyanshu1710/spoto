@@ -6,7 +6,8 @@ import { Avatar, Image } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
-// import NFTProfile from '../../artifacts/contracts/NFTProfile.sol/NFTProfile.json'
+
+
 import { contracts } from '../../utils';
 
 import './index.scss'
