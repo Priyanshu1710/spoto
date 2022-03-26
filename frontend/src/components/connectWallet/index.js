@@ -37,7 +37,7 @@ const ConnectWallet = () => {
         console.log(metaMaskAccount);
         localStorage.setItem("userAddresss", metaMaskAccount);
         let userAccBal = localStorage.getItem("userBal")
-        console.log("userbal--->", userAccBal);
+        // console.log("userbal--->", userAccBal);
         dispatch(setUserAdd(metaMaskAccount))
         dispatch(setUserBal(userAccBal));
         let userAccAdd = localStorage.getItem("userAddresss")
@@ -48,10 +48,10 @@ const ConnectWallet = () => {
     useEffect(() => {
         setIsModalVisible(modalStage);
         let userAccAdd = localStorage.getItem("userAddresss")
-        console.log("userbal--->", userAccAdd);
+        // console.log("userbal--->", userAccAdd);
         setAlreadyConnected(userAccAdd);
         setUserAddress(userAccAdd)
-        console.log(alreadyConnected);
+        // console.log(alreadyConnected);
     }, [modalStage, alreadyConnected])
 
 

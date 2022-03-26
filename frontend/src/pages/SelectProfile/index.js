@@ -7,7 +7,7 @@ import { ethers } from "ethers";
 import Web3Modal from 'web3modal';
 import {contracts, bigNumberToDecimal, accnt} from '../../utils/index'
 
-export const listTokenIds = async () => {
+ const listTokenIds = async () => {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
