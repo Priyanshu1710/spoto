@@ -1,7 +1,9 @@
 import SpotoToken from "../artifacts/contracts/SpotoToken.sol/SpotoToken.json";
 import NFTProfile from "../artifacts/contracts/NFTProfile.sol/NFTProfile.json";
 import SpotoGame from "../artifacts/contracts/SpotoGame.sol/SpotoGame.json";
+import { BigNumber } from "ethers";
 import { ethers } from "ethers";
+import Web3Modal from 'web3modal';
 
 export const contracts = {
   SPOTO_COIN: {
@@ -18,12 +20,74 @@ export const contracts = {
   },
 };
 
+export const bigNumberToDecimal = (number) => {
+  const decimals = BigNumber.from("10000000000000000"); //16 zeroes, the contract has 18 decimals so this would show 2
+  const tokens = number.div(decimals).toString();
+  return tokens / 100; //Divided by 100 so to move the comma two spaces left
+};
+
+let accnt = '';
+
 export const requestAccount = async () => {
+
   const [account] = await window.ethereum.request({
     method: "eth_requestAccounts",
   });
-
+  accnt=account;
   return account;
+};
+
+export const requestBalance = async () => {
+
+  const web3Modal = new Web3Modal();
+  const connection = await web3Modal.connect();
+  const provider = new ethers.providers.Web3Provider(connection);
+  const signer = provider.getSigner();
+
+  const Spotogame = new ethers.Contract(
+  contracts.SPOTO_GAME.address,
+  contracts.SPOTO_GAME.abi,
+  signer
+);
+const data = await Spotogame.balanceOf(accnt);
+const bal = bigNumberToDecimal(data);
+console.log(bal)
+
+};
+
+export const callContractMethod = async (method) => {
+  let error, result;
+  try {
+    result = await method();
+  } catch (e) {
+    error = handleContractCallError(e.error || e);
+  }
+
+  return {
+    error,
+    result,
+  };
+};
+
+export const handleContractCallError = (error) => {
+  let errorReason = error?.message;
+
+  return errorReason;
+};
+
+export const handleContractInteractionResponse = async (
+  result,
+  error,
+) => {
+  if (error) {
+    return error;
+  }
+
+  window.success(
+    "Transaction sent! Waiting for confirmation from the network..."
+  );
+  await result.wait();
+  window.success("Transaction confirmed!");
 };
 
 export const getContractInstance = async (
