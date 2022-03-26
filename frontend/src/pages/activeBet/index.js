@@ -6,24 +6,42 @@ import { Tabs } from 'antd';
 import { Table } from 'antd';
 
 
-const LiveMatches = () => {
+const ActiveBet = () => {
     const { TabPane } = Tabs;
     const [loading, setLoading] = useState(false)
     const columns = [
         {
             title: 'Home Team',
-            dataIndex: 'name',
-            // width: 150,
+            dataIndex: 'home',
+            width: 180,
+
+        },
+        {
+            title: '',
+            dataIndex: 'vs',
+            width: 60,
+
+
+        },
+        {
+            title: 'Away Team',
+            dataIndex: 'away',
+            width: 250,
+            style: {
+                textAlign: "left",
+
+            }
 
         },
         {
             title: '',
             dataIndex: 'age',
-            width: 150,
+            width: 100,
         },
         {
-            title: 'Away Team',
+            title: '',
             dataIndex: 'address',
+            width: 150,
         },
     ];
 
@@ -165,26 +183,32 @@ const LiveMatches = () => {
     for (let i = 0; i < liveMatchesData?.length; i++) {
         liveMatches.push({
             key: liveMatchesData[i]?.fixture?.id,
-            name:
+            home:
                 <div className='home_team_main_container'>
                     <div className="icon_container">
                         <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} />
                     </div>
-                    <div className="name_container">{liveMatchesData[i]?.teams?.home?.name}</div>
+                    <div className="name_container">Player Name</div>
+                    <div className="deposite">23</div>
+                    <div className="predection"> Team Name</div>
                 </div>
             ,
+            vs: <div>v/s</div>,
+            away: <div className='home_team_main_container away_team_main_container'>
+                <div className="name_container">Player Name</div>
+                <div className="deposite">23</div>
+                <div className="predection"> Team Name</div>
+                <div className="icon_container">
+                    <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} />
+                </div>
+            </div>,
             age:
-                <div className="vs_main_container">
-                    <div className="leauge_container">{liveMatchesData[i]?.league?.name}</div>
-                    <div className="vs_container">V/S</div>
-                    <div className="time_container"><span>{liveMatchesData[i]?.goals?.home}</span> - <span>{liveMatchesData[i]?.goals?.away}</span></div>
+                <div className="bet_btn_container">
+                    <div className="btn_primary">Bet</div>
                 </div>,
             address:
-                <div className='home_team_main_container away_team_main_container'>
-                    <div className="name_container">{liveMatchesData[i]?.teams?.away?.name}</div>
-                    <div className="icon_container">
-                        <img src={liveMatchesData[i]?.teams?.away?.logo} alt={liveMatchesData[i]?.teams?.away?.name} />
-                    </div>
+                <div className='withdraw_btn_container'>
+                    <div className="btn_primary">Withdraw</div>
                 </div>,
         });
     }
@@ -195,10 +219,10 @@ const LiveMatches = () => {
             name:
                 <div className='home_team_main_container'>
                     <div className="icon_container">
-                        <img src={upcomingMatchesData[i]?.teams?.home?.logo} alt={upcomingMatchesData[i]?.teams?.home?.name} />
-                    </div>
+                        < img src={upcomingMatchesData[i]?.teams?.home?.logo} alt={upcomingMatchesData[i]?.teams?.home?.name} />
+                    </div >
                     <div className="name_container">{upcomingMatchesData[i]?.teams?.home?.name}</div>
-                </div>
+                </div >
             ,
             age:
                 <div className="vs_main_container">
@@ -219,7 +243,7 @@ const LiveMatches = () => {
     return (
         <>
             <div className="">
-                <div className="match_cards_conntainer">
+                <div className="match_cards_conntainer  bet_cards_conntainer">
                     <div className="bg_container">
                         <NavigationBar />
                         <div className="dashboard_container">
@@ -227,10 +251,10 @@ const LiveMatches = () => {
                                 <div className="dashboard_centre_frame max_width">
                                     <div className="frame_bg">
                                         <div className="content_main_container">
-                                            <div className="live_matches_main_container">
+                                            <div className="live_matches_main_container active_bet_main_container">
                                                 <Tabs defaultActiveKey="1" onChange={callback} className='live_matches_tabs'>
 
-                                                    <TabPane tab="Previous Matches" key="3" style={{ color: "white" }}>
+                                                    {/* <TabPane tab="Previous Matches" key="3" style={{ color: "white" }}>
                                                         {!loading && (
                                                             <>
                                                                 <Table
@@ -243,8 +267,9 @@ const LiveMatches = () => {
                                                             </>
                                                         )}
                                                         {loading && (<h1 className='loading'>Loading...</h1>)}
-                                                    </TabPane>
-                                                    <TabPane tab="Live Matches" key="1" style={{ color: "white" }}>
+                                                    </TabPane> */}
+
+                                                    <TabPane tab="Active Bets" key="1" style={{ color: "white", textAlign: "left" }}>
 
                                                         {!loading && (
                                                             <>
@@ -259,7 +284,7 @@ const LiveMatches = () => {
                                                         )}
                                                         {loading && (<h1 className='loading'>Loading...</h1>)}
                                                     </TabPane>
-                                                    <TabPane tab="Upcoming Matches" key="2" style={{ color: "white" }}>
+                                                    {/* <TabPane tab="Upcoming Matches" key="2" style={{ color: "white" }}>
                                                         {!loading && (
                                                             <>
                                                                 <Table
@@ -272,7 +297,7 @@ const LiveMatches = () => {
                                                             </>
                                                         )}
                                                         {loading && (<h1 className='loading'>Loading...</h1>)}
-                                                    </TabPane>
+                                                    </TabPane> */}
 
 
                                                 </Tabs>
@@ -291,4 +316,4 @@ const LiveMatches = () => {
 
 }
 
-export default LiveMatches;
+export default ActiveBet;

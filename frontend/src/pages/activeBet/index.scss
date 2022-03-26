@@ -1,0 +1,90 @@
+@import "../../assets/scss/style.scss";
+.bet_cards_conntainer {
+  .active_bet_main_container {
+    thead,
+    tbody,
+    tfoot,
+    tr,
+    td {
+      color: #fff;
+      background: $primary-bg;
+      border-color: $tersiary-color;
+      padding: 0.8rem;
+      border: none;
+    }
+    .ant-table-tbody > tr.ant-table-row:hover > td,
+    .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+      background: transparent;
+      cursor: pointer;
+    }
+    .bet_btn_container {
+      border: 2px solid $tersiary-color;
+      border-radius: 10px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      text-align: center;
+      &:hover {
+        box-shadow: 0px 0px 10px $tersiary-color;
+      }
+    }
+    .withdraw_btn_container {
+      border: 2px solid $tersiary-color;
+      text-align: center;
+      border-radius: 10px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+
+      &:hover {
+        box-shadow: 0px 0px 10px $tersiary-color;
+      }
+    }
+
+    .home_team_main_container {
+      display: grid;
+      // align-items: center;
+      grid-template-columns: 3rem 1fr;
+      column-gap: 1rem;
+      .icon_container {
+        height: 3.5rem;
+        width: 3rem;
+        border-radius: 10%;
+        overflow: hidden;
+        border: 2px solid $tersiary-color;
+        grid-row: 1 / span 3;
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+      .name_container {
+        margin-left: 0rem;
+      }
+      .deposite {
+      }
+      .predection {
+      }
+    }
+    .away_team_main_container {
+      grid-template-columns: 6rem 3rem;
+      justify-content: flex-start;
+      text-align: left;
+      .icon_container {
+        // grid-column: 2 span/3;
+        // grid-row: 1 / span 3;
+        grid-row: 1 / span 3;
+        grid-column: 2 / span 1;
+      }
+      .name_container {
+        margin-right: 0rem;
+      }
+    }
+  }
+  .live_matches_main_container
+    .live_matches_tabs
+    .ant-table-header
+    table
+    th:nth-child(3) {
+    text-align: left;
+  }
+}

@@ -4,6 +4,7 @@ import ProfilePage from "./pages/ProfilePage";
 import SelectSport from "./pages/SportPage";
 import Arena from './pages/Arena';
 import SelectProfile from "./pages/SelectProfile";
+import ActiveBet from "./pages/activeBet";
 
 
 const routes = [
@@ -26,6 +27,10 @@ const routes = [
     {
         path: "/liveMatches",
         element: <LiveMatches />,
+    },
+    {
+        path: "/activeBet",
+        element: <ActiveBet />,
     },
     {
         path: "/arena",
