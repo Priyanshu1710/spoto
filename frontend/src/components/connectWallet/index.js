@@ -10,7 +10,8 @@ import { Menu, Dropdown, Space } from 'antd';
 const ConnectWallet = () => {
     const dispatch = useDispatch();
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [userAddress, setUserAddress] = useState(false);
+    const [userAddress, setUserAddress] = useState();
+    const [alreadyConnected, setAlreadyConnected] = useState();
     const modalStage = useSelector((state) => state.spoto.updateDashboardModexStage);
     const walletAddress = useSelector((state) => state.spoto.userAdd);
 
@@ -34,30 +35,37 @@ const ConnectWallet = () => {
     const metaMaskConnectHandle = async () => {
         const metaMaskAccount = await requestAccount();
         console.log(metaMaskAccount);
+        localStorage.setItem("userAddresss", metaMaskAccount);
         let userAccBal = localStorage.getItem("userBal")
         console.log("userbal--->", userAccBal);
         dispatch(setUserAdd(metaMaskAccount))
         dispatch(setUserBal(userAccBal));
-        setUserAddress(true);
+        let userAccAdd = localStorage.getItem("userAddresss")
+        setUserAddress(userAccAdd);
         await requestBalance();
     };
 
     useEffect(() => {
         setIsModalVisible(modalStage);
-    }, [modalStage])
+        let userAccAdd = localStorage.getItem("userAddresss")
+        console.log("userbal--->", userAccAdd);
+        setAlreadyConnected(userAccAdd);
+        setUserAddress(userAccAdd)
+        console.log(alreadyConnected);
+    }, [modalStage, alreadyConnected])
 
 
     return (
         <>
             <div className='nav_modal_btn' >
-                {userAddress && (
+                {alreadyConnected && (
                     <>
                         <div className="nav_btn_container" type="primary" onClick={showModal}>
                             <p>Conneced</p>
                         </div>
                     </>
                 )}
-                {!userAddress && (
+                {!alreadyConnected && (
                     <>
                         <div className="nav_btn_container" type="primary" onClick={showModal}>
                             <p>Connect Wallet</p>
@@ -83,12 +91,14 @@ const ConnectWallet = () => {
                                     metaMaskConnectHandle();
                                 }}
                             >
-                                {userAddress && (
+
+
+                                {alreadyConnected && (
                                     <>
-                                        <div className='user_address'>{walletAddress}</div>
+                                        <div className='user_address'>{userAddress}</div>
                                     </>
                                 )}
-                                {!userAddress && (
+                                {!alreadyConnected && (
                                     <>
                                         <div className="img_container">
                                             <img src={metaMaskIcon} alt="Metamask" />

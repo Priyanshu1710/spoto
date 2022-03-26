@@ -10,6 +10,11 @@ const Dashboard = () => {
   const walletAddress = useSelector((state) => state.spoto.userAdd);
 
 
+  useEffect(() => {
+    let fetchWalletAdd = localStorage.getItem('userAddresss');
+    setAccountConnectedStatus(fetchWalletAdd)
+  }, [accountConnectedStatus])
+
 
   return (
     <>
@@ -32,7 +37,7 @@ const Dashboard = () => {
                           dispatch(setDashboardModalState(true))
 
                         })}
-                      > {walletAddress ? " Connected" : "Connect Wallet"}</div> <br />
+                      > {accountConnectedStatus ? " Connected" : "Connect Wallet"}</div> <br />
                       <div className="btn_container">Explore Now</div>
                     </div>
                   </div>

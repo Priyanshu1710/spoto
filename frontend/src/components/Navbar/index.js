@@ -11,7 +11,8 @@ const NavigationBar = () => {
     const addressbalance = useSelector((state) => state.spoto.userBal);
 
     useEffect(() => {
-        setUserBalance(addressbalance);
+        let getBal = localStorage.getItem('userBal')
+        setUserBalance(getBal);
     }, [addressbalance])
 
     return (
