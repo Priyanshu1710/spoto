@@ -6,6 +6,7 @@ import { Nav, NavLink } from 'react-bootstrap';
 import { ethers } from "ethers";
 import Web3Modal from 'web3modal';
 import {contracts, bigNumberToDecimal, accnt} from '../../utils/index'
+import { requestAccount } from '../../utils/index';
 
  const listTokenIds = async () => {
     const web3Modal = new Web3Modal();
@@ -18,7 +19,7 @@ import {contracts, bigNumberToDecimal, accnt} from '../../utils/index'
       contracts.NFT_PROFILE.abi,
       signer
     );
-    const tokenIds = await Nftprofile.walletOfOwner(accnt);
+    const tokenIds = await Nftprofile.walletOfOwner(requestAccount());
     console.log(tokenIds);
 
     for(var i=0; i < tokenIds.length; i++){
