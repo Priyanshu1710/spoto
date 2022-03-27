@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { SET_USER_ADDRESS, SET_USER_BALANCE, SET_USER_HEX, UPDATE_DASHBOARD_MODAL } from "../constants";
+import { SET_UPCOMING_MATCH_FIXTURE_ID, SET_USER_ADDRESS, SET_USER_BALANCE, SET_USER_HEX, UPDATE_DASHBOARD_MODAL } from "../constants";
 
 const updateDashboardModexStage = (state = false, action) => {
     if (action.type === UPDATE_DASHBOARD_MODAL) {
@@ -29,6 +29,13 @@ const selectedUserhex = (state = false, action) => {
 
     return state;
 };
+const currentFixtureIdUpcomingMatches = (state = false, action) => {
+    if (action.type === SET_UPCOMING_MATCH_FIXTURE_ID) {
+        return action.value;
+    }
+
+    return state;
+};
 
 
 export default combineReducers({
@@ -36,4 +43,5 @@ export default combineReducers({
     userAdd,
     userBal,
     selectedUserhex,
+    currentFixtureIdUpcomingMatches,
 })

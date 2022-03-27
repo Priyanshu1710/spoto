@@ -5,11 +5,14 @@ import './index.scss';
 import { Tabs } from 'antd';
 import { Table } from 'antd';
 import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setUpcomingMatchFixtureId } from '../../actions';
 
 
 const LiveMatches = () => {
     const { TabPane } = Tabs;
     const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch();
     const columns = [
         {
             title: 'Home Team',
@@ -54,7 +57,7 @@ const LiveMatches = () => {
         fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?last=20', options)
             .then(response => response.json())
             .then(response => {
-                console.log("Prev data--->", response);
+                // console.log("Prev data--->", response);
                 let data = response.response;
                 setPrevMatchesData(data)
 
@@ -116,6 +119,7 @@ const LiveMatches = () => {
             .then(response => response.json())
             .then(response => {
                 let data = response.response;
+                console.log("Upcoming data--->", response);
                 setUpcomingMatchesData(data);
             })
             .catch(err => console.error(err));
@@ -195,7 +199,7 @@ const LiveMatches = () => {
         upcomingMatches.push({
             key: i,
             name:
-                <div className='home_team_main_container'>
+                <div className='home_team_main_container' onClick={() => logCurrentMatchSelection(i)}>
                     <div className="icon_container">
                         <img src={upcomingMatchesData[i]?.teams?.home?.logo} alt={upcomingMatchesData[i]?.teams?.home?.name} />
                     </div>
@@ -203,13 +207,13 @@ const LiveMatches = () => {
                 </div>
             ,
             age:
-                <div className="vs_main_container">
+                <div className="vs_main_container" onClick={() => logCurrentMatchSelection(i)}>
                     <div className="leauge_container">{upcomingMatchesData[i]?.league?.name}</div>
                     <div className="vs_container">V/S</div>
                     <div className="time_container"><span></span> Match start at {convertUSTdateinIST(upcomingMatchesData[i]?.fixture?.date)}<span></span></div>
                 </div>,
             address:
-                <div className='home_team_main_container away_team_main_container'>
+                <div className='home_team_main_container away_team_main_container' onClick={() => logCurrentMatchSelection(i)}>
                     <div className="name_container">{upcomingMatchesData[i]?.teams?.away?.name}</div>
                     <div className="icon_container">
                         <img src={upcomingMatchesData[i]?.teams?.away?.logo} alt={upcomingMatchesData[i]?.teams?.away?.name} />
@@ -217,7 +221,17 @@ const LiveMatches = () => {
                 </div>,
         });
     }
-
+    function logCurrentMatchSelection(value) {
+        {
+            upcomingMatchesData && upcomingMatchesData.map((item, index) => {
+                if (value === index) {
+                    // return console.log(value);
+                    // return console.log(item.fixture.id);
+                    return dispatch(setUpcomingMatchFixtureId(item.fixture.id));
+                }
+            })
+        }
+    }
     return (
         <>
             <div className="">
@@ -230,7 +244,7 @@ const LiveMatches = () => {
                                     <div className="frame_bg">
                                         <div className="content_main_container">
                                             <div className="live_matches_main_container">
-                                                <Tabs defaultActiveKey="1" onChange={callback} className='live_matches_tabs'>
+                                                <Tabs defaultActiveKey="2" onChange={callback} className='live_matches_tabs'>
 
                                                     <TabPane tab="Previous Matches" key="3" style={{ color: "white" }}>
                                                         {!loading && (
@@ -264,15 +278,22 @@ const LiveMatches = () => {
                                                     <TabPane tab="Upcoming Matches" key="2" style={{ color: "white" }}>
                                                         {!loading && (
                                                             <>
-                                                            <Link to="/activeBet">
+                                                                {/* <Link to="/activeBet"> */}
+                                                                {/* <span onClick={(e) => {
+                                                                    console.log("hello", upcomingMatchesData && upcomingMatchesData)
+                                                                    console.log("select", e.currentTarget);
+                                                                    logCurrentMatchSelection(e.currentTarget)
+                                                                }}> */}
                                                                 <Table
                                                                     columns={columns}
                                                                     dataSource={upcomingMatches}
                                                                     pagination={{ pageSize: 30 }}
                                                                     scroll={{ y: 378 }}
                                                                     pagination={false}
+
                                                                 />
-                                                                </Link>
+                                                                {/* </span> */}
+                                                                {/* </Link> */}
                                                             </>
                                                         )}
                                                         {loading && (<h1 className='loading'>Loading...</h1>)}
