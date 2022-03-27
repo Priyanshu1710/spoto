@@ -15,7 +15,7 @@ const IPFS = require('ipfs-mini');
 
 const ProfilePage = () => {
     const createNFT = async () => {
-        ips(username,trait,selectedUser);
+        ips(username, trait, selectedUser);
 
         const web3Modal = new Web3Modal();
         const connection = await web3Modal.connect();
@@ -27,13 +27,16 @@ const ProfilePage = () => {
             contracts.NFT_PROFILE.address,
             contracts.NFT_PROFILE.abi,
             signer
-          );
+        );
         const transaction = await NFTContract.safeMint(ipfsUrl);
         console.log(transaction);
         let tx = await transaction.wait();
         let event = tx.events[0];
         let value = event.args[2];
         console.log(tx)
+        if (tx) {
+            window.location.href = '/selectProfile';
+        }
     };
 
     const [username, setUsername] = useState();
@@ -41,14 +44,14 @@ const ProfilePage = () => {
     const [ipfsUrl, setIpfsUrl] = useState();
 
     const ips = (Username, Trait, Profile) => {
-        const ipfs = new IPFS({host: 'ipfs.infura.io', port: 5001, protocol: 'https'});
+        const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
         const data = { "UserName": Username, "Trait": Trait, "Profile": Profile };
         ipfs.addJSON(data, (err, hash) => {
-            if(err){
+            if (err) {
                 return console.log(err);
             }
-            setIpfsUrl('https://ipfs.infura.io/ipfs/'+hash);
-            console.log('https://ipfs.infura.io/ipfs/'+hash);
+            setIpfsUrl('https://ipfs.infura.io/ipfs/' + hash);
+            console.log('https://ipfs.infura.io/ipfs/' + hash);
         })
     }
 
@@ -109,9 +112,9 @@ const ProfilePage = () => {
                                     <div className="detail_container">
                                         <div className="input_container">
                                             <label htmlFor="name">UserName :</label> <br />
-                                            <input type="text" name="name" id="name" onChange={event => setUsername(event.target.value)}/>
+                                            <input type="text" name="name" id="name" onChange={event => setUsername(event.target.value)} />
                                             <label htmlFor="trait">Trait :</label> <br />
-                                            <input type="text" name="trait" id="trait" onChange={event => setTrait(event.target.value)}/>
+                                            <input type="text" name="trait" id="trait" onChange={event => setTrait(event.target.value)} />
                                         </div>
                                     </div>
                                     <div className="button">
