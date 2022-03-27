@@ -252,7 +252,9 @@ const ActiveBet = () => {
     }
     //Active Matches Data 
     for (let i = 0; i < activebet?.length; i++) {
+        console.log(activebet[0]);
         console.log(activebet[0]['bettingPairId']['_hex']);
+        console.log(parseInt(activebet[0]['nftid_player1']));
 
         liveMatches.push({
             key: activebet[0]['bettingPairId']['_hex'],
@@ -261,7 +263,7 @@ const ActiveBet = () => {
                     <div className="icon_container">
                         <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} />
                     </div>
-                    <div className="name_container">{activebet[0]['nftid_player1']}</div>
+                    <div className="name_container">{parseInt(activebet[0]['nftid_player1'])}</div>
                     <div className="deposite">23</div>
                     <div className="predection"> { }</div>
                 </div>
