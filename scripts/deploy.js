@@ -22,6 +22,14 @@ async function main() {
   console.log("Deploying Spoto game");
   await game.deployed();
   console.log("Spoto Game deployed to:", game.address);
+
+  const Faucet = await hre.ethers.getContractFactory("faucet");
+  const faucet = await Faucet.deploy(
+    "0xf8c329E0880D7ca3E8c44Ee048E17cBc833d5139"
+  );
+  console.log("Deploying Faucet");
+  await faucet.deployed();
+  console.log("Faucet deployed to:", faucet.address);
 }
 
 main()

@@ -1,6 +1,7 @@
 import SpotoToken from "../artifacts/contracts/SpotoToken.sol/SpotoToken.json";
 import NFTProfile from "../artifacts/contracts/NFTProfile.sol/NFTProfile.json";
 import SpotoGame from "../artifacts/contracts/SpotoGame.sol/SpotoGame.json";
+import faucet from '../artifacts/contracts/Faucet.sol/faucet.json';
 import { BigNumber } from "ethers";
 import { ethers } from "ethers";
 import Web3Modal from 'web3modal';
@@ -17,6 +18,10 @@ export const contracts = {
   SPOTO_GAME: {
     abi: SpotoGame.abi,
     address: "0xd8F4015D6aA40a6d1abF0910B78c40FB9886160d",
+  },
+  FAUCET: {
+    abi: faucet.abi,
+    address: "0x039264549D03B8B13eb1cC8A2c437C53025252b5",
   },
 };
 
