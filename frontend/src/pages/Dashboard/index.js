@@ -3,27 +3,7 @@ import './index.scss'
 import NavigationBar from '../../components/Navbar'
 import { useDispatch, useSelector } from 'react-redux';
 import { setDashboardModalState } from '../../actions';
-import { ethers } from 'ethers';
-import Web3Modal from 'web3modal';
-import { contracts } from '../../utils';
 
-const setehe = async () => {
-  const web3Modal = new Web3Modal();
-  const connection = await web3Modal.connect();
-  const provider = new ethers.providers.Web3Provider(connection);
-  const signer = provider.getSigner();
-  console.log(signer)
-
-  const Spotogame = new ethers.Contract(
-      contracts.SPOTO_GAME.address,
-      contracts.SPOTO_GAME.abi,
-      signer
-    );
-
-  const query = await Spotogame.getLatestEthPrice();
-  console.log(query)
-  
-};
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -61,7 +41,6 @@ const Dashboard = () => {
                         })}
                       > {accountConnectedStatus ? " Connected" : "Connect Wallet"}</div> <br />
                       <div className="btn_container">Explore Now</div>
-                      <button onClick={setehe}>testing</button>
                     </div>
                   </div>
 
