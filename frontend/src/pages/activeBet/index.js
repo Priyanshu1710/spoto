@@ -37,7 +37,7 @@ const ActiveBet = () => {
             signer
         );
         console.log("matchid", matchID, "selectedTeam", selectedTeam, "nftId", nftId, "betAmt", betAmt);
-        const transaction = await Spotogame.createBet(741047, selectedTeam, "0x10", betAmt);
+        const transaction = await Spotogame.createBet(matchID, selectedTeam, nftId, betAmt);
         console.log(transaction);
         let tx = await transaction.wait();
         console.log(tx)
