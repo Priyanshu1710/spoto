@@ -4,6 +4,7 @@ import NavigationBar from '../../components/Navbar'
 import './index.scss';
 import { Tabs } from 'antd';
 import { Table } from 'antd';
+import { Link } from "react-router-dom";
 
 
 const LiveMatches = () => {
@@ -263,6 +264,7 @@ const LiveMatches = () => {
                                                     <TabPane tab="Upcoming Matches" key="2" style={{ color: "white" }}>
                                                         {!loading && (
                                                             <>
+                                                            <Link to="/activeBet">
                                                                 <Table
                                                                     columns={columns}
                                                                     dataSource={upcomingMatches}
@@ -270,6 +272,7 @@ const LiveMatches = () => {
                                                                     scroll={{ y: 378 }}
                                                                     pagination={false}
                                                                 />
+                                                                </Link>
                                                             </>
                                                         )}
                                                         {loading && (<h1 className='loading'>Loading...</h1>)}

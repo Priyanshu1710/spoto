@@ -6,12 +6,41 @@ import { Tabs } from 'antd';
 import { Table } from 'antd';
 import { Modal } from 'antd';
 import { Select } from 'antd';
+import { ethers } from 'ethers';
+import Web3Modal from 'web3modal';
+import { useSelector, useDispatch } from 'react-redux';
+import { contracts } from '../../utils';
 
 const ActiveBet = () => {
+    const nftId = useSelector((state) => state.spoto.selectedUserhex);
+    const [betAmt, setbetAmt] = useState();
+
+    const createbet = async () => {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+        console.log(signer)
+
+        const Spotogame = new ethers.Contract(
+            contracts.SPOTO_GAME.address,
+            contracts.SPOTO_GAME.abi,
+            signer
+          );
+        const transaction = await Spotogame.createBet(1,selectedTeam,nftId,betAmt);
+        console.log(transaction);
+        let tx = await transaction.wait();
+        let event = tx.events[0];
+        let value = event.args[2];
+        console.log(tx)
+    };
+
+
     const { TabPane } = Tabs;
     const [loading, setLoading] = useState(false);
     const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
     const [isPlaceBetModalVisible, setIsPlaceBetModalVisible] = useState(false);
+    const [selectedTeam,setSelectedTeam]=useState();
     const columns = [
         {
             title: 'Home Team',
@@ -52,6 +81,10 @@ const ActiveBet = () => {
 
     function handleChange(value) {
         console.log(`selected ${value}`);
+        setSelectedTeam(value);
+    }
+    function placeBetHandleChange(value) {
+        console.log(`selected ${value}`);
     }
 
     const showModal = () => {
@@ -62,6 +95,7 @@ const ActiveBet = () => {
     };
 
     const handleOk = () => {
+        createbet();
         setIsCreateModalVisible(false);
     };
     const placeBetHandleOk = () => {
@@ -121,7 +155,7 @@ const ActiveBet = () => {
             }
         };
         // 'https://api-football-v1.p.rapidapi.com/v3/fixtures?live=all'
-        fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?live=all', options)
+        fetch('', options)
             .then(response => response.json())
             .then(response => {
                 let data = response.response;
@@ -349,14 +383,14 @@ const ActiveBet = () => {
                                                     >
                                                         <div className="create_bet_modal_container_inside">
                                                             <Select defaultValue="team-1" style={{ width: 350, border: '2px solid #ce18c5', color: "white", borderRadius: "5px" }} onChange={handleChange}>
-                                                                <Option value="team-1">Team 1</Option>
-                                                                <Option value="team-2">Team 2</Option>
+                                                                <Option value="0" >Home Team</Option>
+                                                                <Option value="1">Away Team</Option>
                                                                 <Option value="disabled" disabled>
                                                                     For disable team
                                                                 </Option>
                                                             </Select>
                                                             <div className="input_box">
-                                                                <input type="number" placeholder='Please entre amount' />
+                                                                <input type="number" placeholder='Enter bet amount' onChange={event => setbetAmt(event.target.value)}/>
                                                             </div>
                                                             <div className="button" onClick={(() => handleOk())}>Create Bet</div>
 
@@ -378,7 +412,7 @@ const ActiveBet = () => {
                                                         className="create_bet_modal_container"
                                                     >
                                                         <div className="create_bet_modal_container_inside">
-                                                            <Select defaultValue="team-1" style={{ width: 350, border: '2px solid #ce18c5', color: "white", borderRadius: "5px" }} onChange={handleChange}>
+                                                            <Select defaultValue="team-1" style={{ width: 350, border: '2px solid #ce18c5', color: "white", borderRadius: "5px" }} onChange={placeBetHandleChange}>
                                                                 <Option value="team-1">Team 1</Option>
                                                                 <Option value="team-2">Team 2</Option>
                                                                 <Option value="disabled" disabled>
@@ -386,7 +420,7 @@ const ActiveBet = () => {
                                                                 </Option>
                                                             </Select>
                                                             <div className="input_box">
-                                                                <input type="number" placeholder='Please entre amount' />
+                                                                <input type="number" placeholder='Enter bet amount' />
                                                             </div>
                                                             <div className="button" onClick={(() => placeBetHandleOk())}>Place Bet</div>
 
