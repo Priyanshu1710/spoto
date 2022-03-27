@@ -16,6 +16,14 @@ const ActiveBet = () => {
     const matchID = useSelector((state) => state.spoto.currentFixtureIdUpcomingMatches);
     const [betAmt, setbetAmt] = useState();
 
+    const { TabPane } = Tabs;
+    const [loading, setLoading] = useState(false);
+    const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
+    const [isPlaceBetModalVisible, setIsPlaceBetModalVisible] = useState(false);
+    const [selectedTeam, setSelectedTeam] = useState();
+    const [activebet, setActiveBet] = useState();
+
+
     const createbet = async () => {
         const web3Modal = new Web3Modal();
         const connection = await web3Modal.connect();
@@ -27,24 +35,35 @@ const ActiveBet = () => {
             contracts.SPOTO_GAME.address,
             contracts.SPOTO_GAME.abi,
             signer
-          );
-          console.log("matchid",matchID,"selectedTeam",selectedTeam,"nftId",nftId,"betAmt",betAmt);
-        const transaction = await Spotogame.createBet(741047,selectedTeam,"0x10",betAmt);
+        );
+        console.log("matchid", matchID, "selectedTeam", selectedTeam, "nftId", nftId, "betAmt", betAmt);
+        const transaction = await Spotogame.createBet(741047, selectedTeam, "0x10", betAmt);
         console.log(transaction);
         let tx = await transaction.wait();
         console.log(tx)
 
-        const queryBets = await Spotogame.getActiveBets();
-        console.log(queryBets)
-        
     };
 
+    const showbet = async () => {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+        console.log(signer)
 
-    const { TabPane } = Tabs;
-    const [loading, setLoading] = useState(false);
-    const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
-    const [isPlaceBetModalVisible, setIsPlaceBetModalVisible] = useState(false);
-    const [selectedTeam,setSelectedTeam]=useState();
+        const Spotogame = new ethers.Contract(
+            contracts.SPOTO_GAME.address,
+            contracts.SPOTO_GAME.abi,
+            signer
+        );
+
+        const queryBets = await Spotogame.getActiveBets();
+        console.log(queryBets)
+        setActiveBet(queryBets)
+
+    };
+
+    console.log(activebet);
     const columns = [
         {
             title: 'Home Team',
@@ -123,6 +142,7 @@ const ActiveBet = () => {
         fetchPrevMatchData()
         fetchLiveMatchData()
         fetchUpcomingMatchesData()
+        showbet()
     }, [])
 
 
@@ -141,7 +161,6 @@ const ActiveBet = () => {
             .then(response => {
                 let data = response.response;
                 setPrevMatchesData(data)
-
             })
 
             .catch(err => console.error(err));
@@ -159,7 +178,7 @@ const ActiveBet = () => {
             }
         };
         // 'https://api-football-v1.p.rapidapi.com/v3/fixtures?live=all'
-        fetch('', options)
+        fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?live=all', options)
             .then(response => response.json())
             .then(response => {
                 let data = response.response;
@@ -168,22 +187,6 @@ const ActiveBet = () => {
             })
             .catch(err => console.error(err));
     }
-
-
-
-    //fixure id ***************
-    // const options = {
-    //     method: 'GET',
-    //     headers: {
-    //         'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
-    //         'X-RapidAPI-Key': 'c3b03416cfmshc81e3e32d4e66c4p1b6d9fjsnf9fbc9d9d530'
-    //     }
-    // };
-
-    // fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?id=157201', options)
-    //     .then(response => response.json())
-    //     .then(response => console.log(response))
-    //     .catch(err => console.error(err));
 
 
     //upcomming matches ***************
@@ -248,7 +251,7 @@ const ActiveBet = () => {
         });
     }
     //Active Matches Data 
-    for (let i = 0; i < liveMatchesData?.length; i++) {
+    for (let i = 0; i < activebet?.length; i++) {
         liveMatches.push({
             key: liveMatchesData[i]?.fixture?.id,
             home:
@@ -394,7 +397,7 @@ const ActiveBet = () => {
                                                                 </Option>
                                                             </Select>
                                                             <div className="input_box">
-                                                                <input type="number" placeholder='Enter bet amount' onChange={event => setbetAmt(event.target.value)}/>
+                                                                <input type="number" placeholder='Enter bet amount' onChange={event => setbetAmt(event.target.value)} />
                                                             </div>
                                                             <div className="button" onClick={(() => handleOk())}>Create Bet</div>
 

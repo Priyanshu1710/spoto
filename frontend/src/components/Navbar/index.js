@@ -25,6 +25,8 @@ const NavigationBar = () => {
                         <Nav className="me-auto">
                         </Nav>
                         <Nav>
+                            <Nav.Link href="" className='wallet_address_container'><div>SPT Token &nbsp; </div> <div> Faucet</div></Nav.Link>
+
                             {userBalance > 0 && (
                                 <>
                                     <Nav.Link href="" className='wallet_address_container'><div>Balance :&nbsp; </div> <div> {userBalance}</div></Nav.Link>
