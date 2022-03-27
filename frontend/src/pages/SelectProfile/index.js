@@ -172,7 +172,7 @@ const SelectProfile = () => {
                                                 return (
                                                     <React.Fragment key={index}>
                                                         {/* {item.UserName == "kk" && ( */}
-                                                        <Link to="/liveMatches" ><Card
+                                                        <Link to="/selectSport" ><Card
                                                             hoverable
                                                             style={{ width: 200, height: 200, border: "2px solid #ce18c5" }}
                                                             cover={<img alt="example" src={item.Profile} />}
@@ -180,7 +180,7 @@ const SelectProfile = () => {
                                                             onClick={() => returnUserHex(index)}
                                                         >
                                                             <Meta title={item.UserName} />
-                                                        </Card></Link> 
+                                                        </Card></Link>
 
                                                         {/* )} */}
 

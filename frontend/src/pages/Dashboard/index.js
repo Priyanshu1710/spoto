@@ -3,6 +3,7 @@ import './index.scss'
 import NavigationBar from '../../components/Navbar'
 import { useDispatch, useSelector } from 'react-redux';
 import { setDashboardModalState } from '../../actions';
+import { Link } from 'react-router-dom';
 
 
 const Dashboard = () => {
@@ -40,7 +41,7 @@ const Dashboard = () => {
 
                         })}
                       > {accountConnectedStatus ? " Connected" : "Connect Wallet"}</div> <br />
-                      <div className="btn_container">Explore Now</div>
+                      <Link to="/profile"><div className="btn_container">Create NTF</div></Link>
                     </div>
                   </div>
 
