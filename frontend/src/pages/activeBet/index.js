@@ -13,6 +13,7 @@ import { contracts } from '../../utils';
 
 const ActiveBet = () => {
     const nftId = useSelector((state) => state.spoto.selectedUserhex);
+    const matchID = useSelector((state) => state.spoto.currentFixtureIdUpcomingMatches);
     const [betAmt, setbetAmt] = useState();
 
     const createbet = async () => {
@@ -27,12 +28,15 @@ const ActiveBet = () => {
             contracts.SPOTO_GAME.abi,
             signer
           );
-        const transaction = await Spotogame.createBet(1,selectedTeam,nftId,betAmt);
+          console.log("matchid",matchID,"selectedTeam",selectedTeam,"nftId",nftId,"betAmt",betAmt);
+        const transaction = await Spotogame.createBet(741047,selectedTeam,"0x10",betAmt);
         console.log(transaction);
         let tx = await transaction.wait();
-        let event = tx.events[0];
-        let value = event.args[2];
         console.log(tx)
+
+        const queryBets = await Spotogame.getActiveBets();
+        console.log(queryBets)
+        
     };
 
 
@@ -192,7 +196,7 @@ const ActiveBet = () => {
             }
         };
         // https://api-football-v1.p.rapidapi.com/v3/fixtures?next=20
-        fetch('', options)
+        fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?next=20', options)
             .then(response => response.json())
             .then(response => {
                 let data = response.response;

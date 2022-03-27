@@ -9,6 +9,10 @@ import Web3Modal from 'web3modal';
 
 
 import { contracts } from '../../utils';
+// import { useHistory } from "react-router-dom";
+// import { BrowserRouter as Router, Route } from "react-router-dom"
+import { Route, Routes } from "react-router-dom";
+
 
 import './index.scss'
 const IPFS = require('ipfs-mini');
@@ -35,7 +39,12 @@ const ProfilePage = () => {
         let value = event.args[2];
         console.log(tx)
         if (tx) {
-            window.location.href = '/selectProfile';
+            // window.location.href = '/selectProfile';
+            // history.push("/selectProfile");
+            <Routes>
+            <Route path='/selectProfile'/>
+            </Routes>
+   
         }
     };
 
