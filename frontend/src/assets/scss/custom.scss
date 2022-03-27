@@ -17,3 +17,12 @@
   max-width: 1300px;
   margin: 0 auto;
 }
+.loading {
+  color: $tersiary-color;
+  font-size: 3rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  height: 80%;
+  align-items: center;
+}

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavigationBar from '../../components/Navbar'
 import { useDispatch } from 'react-redux';
 import { Avatar, Image } from 'antd';
@@ -11,13 +11,15 @@ import Web3Modal from 'web3modal';
 import { contracts } from '../../utils';
 // import { useHistory } from "react-router-dom";
 // import { BrowserRouter as Router, Route } from "react-router-dom"
-import { Route, Routes } from "react-router-dom";
-
+// import { Route, Routes } from "react-router-dom";
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import './index.scss'
 const IPFS = require('ipfs-mini');
 
 const ProfilePage = () => {
+    let navigate = useNavigate();
+    const [redirectPath, setRedirectPath] = useState(false)
     const createNFT = async () => {
         ips(username, trait, selectedUser);
 
@@ -33,18 +35,24 @@ const ProfilePage = () => {
             signer
         );
         const transaction = await NFTContract.safeMint(ipfsUrl);
+        setRedirectPath(true)
         console.log(transaction);
         let tx = await transaction.wait();
+        console.log(tx)
         let event = tx.events[0];
         let value = event.args[2];
         console.log(tx)
-        if (tx) {
+
+        if (tx['transactionIndex'] != null) {
             // window.location.href = '/selectProfile';
             // history.push("/selectProfile");
-            <Routes>
-            <Route path='/selectProfile'/>
-            </Routes>
-   
+            // <Routes>
+            //     <Route path='/selectProfile' />
+            // </Routes>
+            setRedirectPath(false)
+            navigate("/selectProfile", { replace: true })
+            // <Redirect push to="/selectProfile" />
+
         }
     };
 
@@ -95,6 +103,10 @@ const ProfilePage = () => {
         },
     ]
 
+    // useEffect(() => {
+    //     { redirectPath && <Navigate push to="/selectProfile" /> }
+    //     console.log(redirectPath)
+    // }, [redirectPath])
 
     return (
         <div className="profile_page_main_container">
@@ -105,30 +117,42 @@ const ProfilePage = () => {
                         <div className="dashboard_centre_frame max_width">
                             <div className="frame_bg">
                                 <div className="content_main_container">
-                                    <div className="avarat_container" >
-                                        {userImg.map((item, index) => {
-                                            return (
-                                                <React.Fragment key={index}>
-                                                    < Avatar src={item.src} size={55} className={selectedAvatar === index ? 'single_avatar selected_avatar' : 'single_avatar '} onClick={(() => {
-                                                        setSelectedUser(item.src)
-                                                        setSelectedAvatar(index)
-                                                        console.log(item.src)
-                                                    })} />
-                                                </React.Fragment>
-                                            )
-                                        })}
-                                    </div>
-                                    <div className="detail_container">
-                                        <div className="input_container">
-                                            <label htmlFor="name">UserName :</label> <br />
-                                            <input type="text" name="name" id="name" onChange={event => setUsername(event.target.value)} />
-                                            <label htmlFor="trait">Trait :</label> <br />
-                                            <input type="text" name="trait" id="trait" onChange={event => setTrait(event.target.value)} />
-                                        </div>
-                                    </div>
-                                    <div className="button">
-                                        <div className="btn_container" onClick={createNFT}><span>Create</span> </div>
-                                    </div>
+                                    {redirectPath && (
+                                        <>
+                                            <h1 className='loading'>NFT Minting...</h1>
+                                        </>
+                                    )}
+                                    {redirectPath === false && (
+                                        <>
+
+                                            <div className="avarat_container" >
+                                                {userImg.map((item, index) => {
+                                                    return (
+                                                        <React.Fragment key={index}>
+                                                            < Avatar src={item.src} size={55} className={selectedAvatar === index ? 'single_avatar selected_avatar' : 'single_avatar '} onClick={(() => {
+                                                                setSelectedUser(item.src)
+                                                                setSelectedAvatar(index)
+                                                                console.log(item.src)
+                                                            })} />
+                                                        </React.Fragment>
+                                                    )
+                                                })}
+                                            </div>
+                                            <div className="detail_container">
+                                                <div className="input_container">
+                                                    <label htmlFor="name">UserName :</label> <br />
+                                                    <input type="text" name="name" id="name" onChange={event => setUsername(event.target.value)} />
+                                                    <label htmlFor="trait">Trait :</label> <br />
+                                                    <input type="text" name="trait" id="trait" onChange={event => setTrait(event.target.value)} />
+                                                </div>
+                                            </div>
+                                            <div className="button">
+                                                <div className="btn_container" onClick={() => {
+                                                    createNFT()
+                                                }}><span>Create NFT</span> </div>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>

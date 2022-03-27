@@ -66,7 +66,7 @@ const ActiveBet = () => {
     console.log(activebet);
     const columns = [
         {
-            title: 'Home Team',
+            title: 'Player 1 Bet',
             dataIndex: 'home',
             width: 180,
 
@@ -79,7 +79,7 @@ const ActiveBet = () => {
 
         },
         {
-            title: 'Away Team',
+            title: 'Player 2 Bet',
             dataIndex: 'away',
             width: 250,
             style: {
@@ -252,16 +252,18 @@ const ActiveBet = () => {
     }
     //Active Matches Data 
     for (let i = 0; i < activebet?.length; i++) {
+        console.log(activebet[0]['bettingPairId']['_hex']);
+
         liveMatches.push({
-            key: liveMatchesData[i]?.fixture?.id,
+            key: activebet[0]['bettingPairId']['_hex'],
             home:
                 <div className='home_team_main_container'>
                     <div className="icon_container">
                         <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} />
                     </div>
-                    <div className="name_container">Player Name</div>
+                    <div className="name_container">{activebet[0]['nftid_player1']}</div>
                     <div className="deposite">23</div>
-                    <div className="predection"> Team Name</div>
+                    <div className="predection"> { }</div>
                 </div>
             ,
             vs: <div>v/s</div>,
