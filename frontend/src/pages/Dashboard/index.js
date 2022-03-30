@@ -41,7 +41,7 @@ const Dashboard = () => {
 
                         })}
                       > {accountConnectedStatus ? " Connected" : "Connect Wallet"}</div> <br />
-                      <Link to="/profile"><div className="btn_container">Create NTF</div></Link>
+                      <Link to="/selectProfile"><div className="btn_container">Create NTF</div></Link>
                     </div>
                   </div>
 

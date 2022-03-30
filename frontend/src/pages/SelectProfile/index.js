@@ -209,6 +209,7 @@ const SelectProfile = () => {
                                             <div className="btn_main_container">
                                                 <Link to='/profile'><div className="button_container">+</div></Link>
                                                 <div className="button_container" onClick={fetProfile}>Show Profile</div>
+                                                <button onClick={listTokenIds}>test</button>
                                             </div>
 
                                         </div>

@@ -57,14 +57,16 @@ contract NFTProfile is ERC721, ERC721Enumerable, ERC721URIStorage, ERC721Burnabl
     function walletOfOwner(address _owner)
     public
     view
-    returns (uint256[] memory)
+    returns (uint256[] memory, string[] memory)
   {
     uint256 ownerTokenCount = balanceOf(_owner);
-    uint256[] memory tokenIds = new uint256[](ownerTokenCount);
+    uint256[] memory tokenId = new uint256[](ownerTokenCount);
+    string[] memory tokenUris = new string[](ownerTokenCount);
     for (uint256 i; i < ownerTokenCount; i++) {
-      tokenIds[i] = tokenOfOwnerByIndex(_owner, i);
+      tokenId[i] = tokenOfOwnerByIndex(_owner, i);
+      tokenUris[i] = tokenURI(tokenId[i]);
     }
-    return tokenIds;
+    return (tokenId, tokenUris );
   }
 }
 

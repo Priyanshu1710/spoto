@@ -13,7 +13,7 @@ export const contracts = {
   },
   NFT_PROFILE: {
     abi: NFTProfile.abi,
-    address: "0xd748fbB76854CFC4Bbbc2BffC984581397c7fB5d",
+    address: "0x3247332e2d70047566c3ef7683bC278aF4D12773",
   },
   SPOTO_GAME: {
     abi: SpotoGame.abi,

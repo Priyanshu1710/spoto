@@ -13,7 +13,7 @@ const faucet = async () => {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    console.log(signer)
+    // console.log(signer)
 
     const faucet = new ethers.Contract(
         contracts.FAUCET.address,
@@ -22,7 +22,7 @@ const faucet = async () => {
     );
 
     const faucetSpt = await faucet.receive_test_token();
-    console.log(faucetSpt)
+    // console.log(faucetSpt)
 
 };
 const ethe = async () => {
@@ -30,7 +30,7 @@ const ethe = async () => {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    console.log(signer)
+    // console.log(signer)
 
     const spotogame = new ethers.Contract(
         contracts.SPOTO_GAME.address,
@@ -39,7 +39,7 @@ const ethe = async () => {
     );
 
     const price = await spotogame.getLatestEthPrice();
-    console.log(localStorage.getItem("userAddresss"))
+    // console.log(localStorage.getItem("userAddresss"))
     // const userbalance = Eth.getBalance(requestAccount);
     // console.log(userbalance)
     var pr = price.toString().substr(0, price.toString().length - 8)
