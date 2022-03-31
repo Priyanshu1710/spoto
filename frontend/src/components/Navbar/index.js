@@ -9,6 +9,7 @@ import { contracts, requestAccount, bigNumberToDecimal, truncateString } from '.
 import { Menu, Dropdown, Button, Space } from 'antd';
 import { BsArrowUpRight } from 'react-icons/bs'
 import { BiCopy } from 'react-icons/bi'
+import logo from '../../assets/images/logo.svg'
 // import Web3 from 'web3'
 
 const faucet = async () => {
@@ -113,7 +114,11 @@ const NavigationBar = () => {
         <div className='navbar_main_container'>
             <Navbar collapseOnSelect expand="lg" variant="dark" className='navbar_container'>
                 <Container>
-                    <Navbar.Brand href="/">SPOTO</Navbar.Brand>
+                    <Navbar.Brand href="/">
+                        <div className="logo">
+                            <img src={logo} alt="Spoto" />
+                        </div>
+                    </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
