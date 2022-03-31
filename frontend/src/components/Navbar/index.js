@@ -5,7 +5,10 @@ import ConnectWallet from '../connectWallet'
 import './index.scss'
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
-import { contracts, requestAccount, bigNumberToDecimal} from '../../utils';
+import { contracts, requestAccount, bigNumberToDecimal, truncateString } from '../../utils';
+import { Menu, Dropdown, Button, Space } from 'antd';
+import { BsArrowUpRight } from 'react-icons/bs'
+import { BiCopy } from 'react-icons/bi'
 // import Web3 from 'web3'
 
 const faucet = async () => {
@@ -49,16 +52,61 @@ const ethe = async () => {
 
 const NavigationBar = () => {
     const dispatch = useDispatch();
-    const [userBalance, setUserBalance] = useState();
+    const [userBalance, setUserBalance] = useState(0);
     const [ethPrice, setethPrice] = useState();
+    const [userAdd, setUserAdd] = useState();
     const addressbalance = useSelector((state) => state.spoto.userBal);
+
+    const userAddFromReducerStorage = useSelector((state) => state.spoto.userAdd)
 
     useEffect(() => {
         ethe()
+        let userAdds = localStorage.getItem('userAddresss');
+        // userAdds = userAdds.toString()
+        setUserAdd(userAdds)
         let getBal = localStorage.getItem('userBal')
         setUserBalance(getBal);
         setethPrice(localStorage.getItem('ethPrice'))
-    }, [addressbalance])
+    }, [addressbalance, userBalance, userAdd, userAddFromReducerStorage])
+
+
+    const connectedDropdown = <>
+        {userAdd && (
+            <div className="connected_main_container ant-dropdown-menu">
+                <div className="connected_container">
+                    <div className="dropdown_list_container">
+                        <div className="left_container">Balance : </div>
+                        <div className="right_container">{userBalance} SPT</div>
+                    </div>
+                    <div className="dropdown_list_container">
+                        <div className="left_container">ETH Price : </div>
+                        <div className="right_container">$ {ethPrice}</div>
+                    </div>
+                    <div className="dropdown_list_container faucet_link">
+                        <div className="left_container">SPT Token : </div>
+                        <div className="right_container" onClick={() => { faucet() }} >Faucet <BsArrowUpRight /></div>
+                    </div>
+                    <div className="user_address_container">
+                        <div className="address">{truncateString(userAdd, 9, 9)}</div>
+                        <div className="icon"><BiCopy /></div>
+                    </div>
+                    <div className="disconect_wallet_container">
+                        <ConnectWallet />
+                    </div>
+                </div>
+            </div>
+        )}
+    </>
+
+    // const connectWallet = <ConnectWallet />
+    const connectWallet = <>
+        <div className="connect_modal_main_container ant-dropdown-menu">
+            <div className="connect_wallet_container">
+                <div className='heading'>Connect Wallet</div>
+                <div className="connect_btn"><ConnectWallet /></div>
+            </div>
+        </div>
+    </>
 
     return (
         <div className='navbar_main_container'>
@@ -70,19 +118,22 @@ const NavigationBar = () => {
                         <Nav className="me-auto">
                         </Nav>
                         <Nav>
-                            <Nav.Link href="" className='wallet_address_container'><div>SPT Token &nbsp; </div> <div onClick={faucet}> Faucet</div></Nav.Link>
 
-                            {userBalance > 0 && (
-                                <>
-                                    <Nav.Link href="" className='wallet_address_container'><div>Balance </div> <div> {userBalance} SPT</div></Nav.Link>
-                                    <Nav.Link href="" className='wallet_address_container'><div>Eth Price &nbsp; </div><div> ${ethPrice}</div></Nav.Link>
-                                </>
-                            )}
-                            {/* <Nav.Link href="" className='wallet_address_container'>Balance : 0</Nav.Link> */}
                         </Nav>
-                        <Nav>
-                            <Nav.Link href=""><ConnectWallet /></Nav.Link>
-                        </Nav>
+                        {userAdd && <Nav className='dropdown_nav_main_container btn_container' >
+                            <Nav.Link href="" className='dropdown_nav_container'>
+                                <Dropdown overlay={connectedDropdown} placement="bottom" className='navbar_dropdown' trigger={['click']}>
+                                    <Button>User Name</Button>
+                                </Dropdown>
+                            </Nav.Link>
+                        </Nav>}
+                        {!userAdd && <Nav className='dropdown_nav_main_container btn_container' >
+                            <Nav.Link href="" className='dropdown_nav_container'>
+                                <Dropdown overlay={connectWallet} placement="bottom" className='navbar_dropdown' trigger={['click']}>
+                                    <Button>Connect Wallet</Button>
+                                </Dropdown>
+                            </Nav.Link>
+                        </Nav>}
                     </Navbar.Collapse>
                 </Container>
 

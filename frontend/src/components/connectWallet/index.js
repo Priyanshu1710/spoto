@@ -17,8 +17,6 @@ const ConnectWallet = () => {
 
 
 
-
-
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -48,24 +46,22 @@ const ConnectWallet = () => {
     useEffect(() => {
         setIsModalVisible(modalStage);
         let userAccAdd = localStorage.getItem("userAddresss")
-        // console.log("userbal--->", userAccAdd);
         setAlreadyConnected(userAccAdd);
         setUserAddress(userAccAdd)
-        // console.log(alreadyConnected);
-    }, [modalStage, alreadyConnected])
+    }, [modalStage, alreadyConnected, userAddress])
 
 
     return (
         <>
             <div className='nav_modal_btn' >
-                {alreadyConnected && (
+                {userAddress && (
                     <>
                         <div className="nav_btn_container" type="primary" onClick={showModal}>
-                            <p>Conneced</p>
+                            <p>Disconnect</p>
                         </div>
                     </>
                 )}
-                {!alreadyConnected && (
+                {!userAddress && (
                     <>
                         <div className="nav_btn_container" type="primary" onClick={showModal}>
                             <p>Connect Wallet</p>
@@ -88,22 +84,38 @@ const ConnectWallet = () => {
                             <div className="metamask_container"
                                 onClick={() => {
                                     console.log("Connect MetaMase")
-                                    metaMaskConnectHandle();
+                                    // metaMaskConnectHandle();
                                 }}
                             >
 
 
-                                {alreadyConnected && (
+                                {walletAddress && (
                                     <>
-                                        <div className='user_address'>{userAddress}</div>
+                                        {/* <div className='user_address'>{userAddress}</div> */}
+                                        <div className='user_address'>
+                                            <div className="left">No</div>
+
+                                            <div className="right" onClick={(() => {
+                                                localStorage.removeItem("userAddresss")
+                                                console.log("clicked yes");
+                                                setUserAddress(false)
+                                                dispatch(setUserAdd(0))
+                                            })
+                                            }>Yes</div>
+                                        </div>
                                     </>
                                 )}
-                                {!alreadyConnected && (
+                                {!walletAddress && (
                                     <>
-                                        <div className="img_container">
-                                            <img src={metaMaskIcon} alt="Metamask" />
+                                        <div className='d-flex align-items-center' onClick={() => {
+                                            console.log("Connect MetaMase")
+                                            metaMaskConnectHandle();
+                                        }}>
+                                            <div className="img_container">
+                                                <img src={metaMaskIcon} alt="Metamask" />
+                                            </div>
+                                            <h1>MetaMask</h1>
                                         </div>
-                                        <h1>MetaMask</h1>
                                     </>
                                 )}
 

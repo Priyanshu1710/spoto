@@ -14,14 +14,13 @@
     // }
   }
   .navbar-nav {
-    display: flex;
-    flex-direction: column;
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+    // display: flex;
+    // flex-direction: column;
+    // padding-left: 0;
+    // margin-bottom: 0;
+    // list-style: none;
+    // display: flex;
+    // justify-content: flex-end;
   }
   .wallet_address_container:nth-child(1) {
     margin-left: 28rem;
@@ -44,6 +43,102 @@
     }
     & > div:nth-child(2) {
       color: white;
+    }
+  }
+}
+.dropdown_nav_main_container {
+  width: 100%;
+  .dropdown_nav_container {
+    padding: 0 !important;
+    outline: none;
+    border: none;
+    border-radius: 10px !important;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    .navbar_dropdown {
+      outline: none;
+      border: none;
+      background-color: transparent;
+      color: white;
+      width: 100%;
+      &:hover {
+        color: $tersiary-color;
+      }
+    }
+  }
+}
+
+.ant-dropdown-menu {
+  // background-color: transparent !important;
+  background-color: $primary-bg !important;
+  backdrop-filter: saturate(0.5) blur(10px);
+  // box-shadow: 0px 0px 10px rgba(206, 24, 197, 0.4) !important;
+  box-shadow: 0px 0px 10px rgba(4, 219, 250, 0.3) !important;
+  border-radius: 10px !important;
+}
+.ant-dropdown-menu-item,
+.ant-dropdown-menu-submenu-title {
+  color: white !important;
+  line-height: 5px !important;
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+.ant-dropdown {
+  top: 90px !important;
+}
+
+.connect_modal_main_container {
+  .connect_wallet_container {
+    .heading {
+      color: #04dbfa;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .connect_btn {
+    }
+  }
+}
+.connected_main_container {
+  padding: 5px 10px !important;
+  .connected_container {
+    .dropdown_list_container {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.5rem 0;
+      align-items: center;
+      height: 100%;
+      .left_container {
+        color: $tersiary-color;
+      }
+      .right_container {
+        color: #fff;
+      }
+    }
+    // .dropdown_list_container :nth-child(3) {
+    //   .right_container {
+    //     color: #fff;
+    //   }
+    // }
+    .faucet_link {
+      .right_container {
+        color: #fff;
+        cursor: pointer;
+      }
+    }
+    .user_address_container {
+      color: #04dbfa;
+      display: flex;
+      justify-content: space-between;
+      .icon {
+        margin-left: 5px;
+        cursor: pointer;
+        &:active {
+          transform: scale(0.8);
+        }
+      }
     }
   }
 }

@@ -5,8 +5,10 @@
   height: 16rem;
   width: 100%;
   background-repeat: no-repeat;
+  cursor: pointer;
   .ant-modal-body {
     margin-top: -4rem;
+    cursor: pointer;
   }
   .ant-modal-content {
     background: transparent;
@@ -44,30 +46,55 @@
       }
       .user_address {
         color: #fff;
+        display: flex;
+        .left {
+          padding: 5px 30px;
+          border: 2px solid $tersiary-color;
+          background-color: $tersiary-color;
+          border-radius: 10px;
+          margin: 0 10px;
+          letter-spacing: 1.2px;
+          font-size: 1rem;
+          &:hover {
+            background-color: transparent;
+          }
+        }
+        .right {
+          padding: 5px 30px;
+          letter-spacing: 1.2px;
+          border: 2px solid $tersiary-color;
+          border-radius: 10px;
+          font-size: 1rem;
+          &:hover {
+            background-color: $tersiary-color;
+          }
+        }
       }
     }
   }
 }
 .nav_modal_btn {
-  height: 3.9rem;
+  height: 4.9rem;
   width: 12rem;
 
   .nav_btn_container {
     height: 100%;
     width: 100%;
     background: url("../../assets/images/btn_bg.svg");
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
     display: flex;
     justify-content: center;
+    align-items: center;
+    cursor: pointer;
 
     p {
       font-size: 0.9rem;
       font-weight: 500;
       color: #fff;
       margin-bottom: 0%;
-      padding-top: 0.4rem;
+      margin-top: -5px;
     }
   }
 }
