@@ -1,14 +1,16 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import { Card } from 'antd';
 import './index.scss';
 import NavigationBar from '../../components/Navbar';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import { contracts } from '../../utils';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const SelectSport = () => {
+    const [redirectPath, setRedirectPath] = useState(false)
+    let navigate = useNavigate();
 
     const approveTx = async () => {
 
@@ -23,11 +25,17 @@ const SelectSport = () => {
             signer
         );
         const transaction = await Spototoken.approve(contracts.SPOTO_GAME.address, 100000000);
+        setRedirectPath(true)
         console.log(transaction);
         let tx = await transaction.wait();
         let event = tx.events[0];
         let value = event.args[2];
         console.log(tx)
+        if (tx['transactionIndex'] != null) {
+            setRedirectPath(false)
+            navigate("/liveMatches", { replace: true })
+
+        }
     };
 
 
@@ -50,7 +58,13 @@ const SelectSport = () => {
                             <div className="frame_bg">
                                 <div className="content_main_container">
                                     <div className="select_sport_container">
-                                        <Link to="/liveMatches">  <Card
+                                    {redirectPath && (
+                                        <>
+                                            <h1 className='loading'>Loading Betting Arena...</h1>
+                                        </>
+                                    )}
+                                    {redirectPath === false && (
+                                     <Card onClick={approveTx}
                                             hoverable
                                             style={{ width: 200, height: 200, border: "2px solid #ce18c5" }}
                                             cover={<img alt="example" src="https://media.istockphoto.com/photos/football-in-the-sunset-picture-id533861572?b=1&k=20&m=533861572&s=170667a&w=0&h=BnEJndSSxMFdAczWGC_ICPEjYG3ce_hep6maCR8xIF8=" />}
@@ -58,18 +72,8 @@ const SelectSport = () => {
                                         >
                                             <Meta title="Football" />
                                         </Card>
-                                        </Link>
-                                        {/* <Card
-                                            hoverable
-                                            style={{ width: 200, height: 200, border: "2px solid #ce18c5" }}
-                                            cover={<img alt="example" src="https://wallpaperaccess.com/full/1088597.jpg" />}
-                                            className='sportPage_card'
-                                        >
-                                            <Meta title="Cricket" />
-                                        </Card> */}
+                                    )}
                                     </div>
-
-                                    <button onClick={approveTx}>Approve</button>
 
                                     <div className="coming_soon_cards">
                                         <Card title="Coming Soon">
