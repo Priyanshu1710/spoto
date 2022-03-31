@@ -124,7 +124,7 @@ const NavigationBar = () => {
                         {userAdd && <Nav className='dropdown_nav_main_container btn_container' >
                             <Nav.Link href="" className='dropdown_nav_container'>
                                 <Dropdown overlay={connectedDropdown} placement="bottom" className='navbar_dropdown' trigger={['click']}>
-                                    <Button>User Name</Button>
+                                    <Button>Connected</Button>
                                 </Dropdown>
                             </Nav.Link>
                         </Nav>}
