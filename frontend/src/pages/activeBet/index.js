@@ -36,8 +36,8 @@ const ActiveBet = () => {
             contracts.SPOTO_GAME.abi,
             signer
         );
-        console.log("matchid", matchID, "selectedTeam", selectedTeam, "nftId", nftId, "betAmt", betAmt*10**18);
-        const transaction = await Spotogame.createBet(matchID, selectedTeam, nftId, betAmt*10**18);
+        console.log("matchid", matchID, "selectedTeam", selectedTeam, "nftId", nftId, "betAmt", betAmt * 10 ** 18);
+        const transaction = await Spotogame.createBet(matchID, selectedTeam, nftId, betAmt * 10 ** 18);
         console.log(transaction);
         let tx = await transaction.wait();
         console.log(tx)
@@ -139,32 +139,12 @@ const ActiveBet = () => {
     }
 
     useEffect(() => {
-        fetchPrevMatchData()
         fetchLiveMatchData()
-        fetchUpcomingMatchesData()
         showbet()
     }, [])
 
 
-    // prev matches ********************
-    function fetchPrevMatchData() {
-        const options = {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
-                'X-RapidAPI-Key': 'c3b03416cfmshc81e3e32d4e66c4p1b6d9fjsnf9fbc9d9d530'
-            }
-        };
-        // "https://api-football-v1.p.rapidapi.com/v3/fixtures?last=20"
-        fetch('', options)
-            .then(response => response.json())
-            .then(response => {
-                let data = response.response;
-                setPrevMatchesData(data)
-            })
 
-            .catch(err => console.error(err));
-    }
 
 
 
@@ -189,24 +169,6 @@ const ActiveBet = () => {
     }
 
 
-    //upcomming matches ***************
-    function fetchUpcomingMatchesData() {
-        const options = {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
-                'X-RapidAPI-Key': 'c3b03416cfmshc81e3e32d4e66c4p1b6d9fjsnf9fbc9d9d530'
-            }
-        };
-        // https://api-football-v1.p.rapidapi.com/v3/fixtures?next=20
-        fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?next=20', options)
-            .then(response => response.json())
-            .then(response => {
-                let data = response.response;
-                setUpcomingMatchesData(data);
-            })
-            .catch(err => console.error(err));
-    }
 
     function convertUSTdateinIST(input) {
         let newInput = input;
@@ -222,34 +184,7 @@ const ActiveBet = () => {
     const [upcomingMatchesData, setUpcomingMatchesData] = useState([]);
     const upcomingMatches = [];
 
-    // Prev Matches Data
-    for (let i = 0; i < prevMatchesData?.length; i++) {
-        prevMatches.push({
-            key: i,
-            name:
-                <div className='home_team_main_container'>
-                    <div className="icon_container">
-                        <img src={prevMatchesData[i]?.teams?.home?.logo} alt={prevMatchesData[i]?.teams?.home?.name} />
-                    </div>
-                    <div className="name_container">{prevMatchesData[i]?.teams?.home?.name}</div>
-                </div>
-            ,
-            age:
-                <div className="vs_main_container">
-                    <div className="leauge_container">{prevMatchesData[i]?.league?.name}</div>
-                    <div className="vs_container">V/S</div>
-                    {/* <div className="time_container"><span className='winnner'>{(prevMatchesData[i]?.fixture?.status?.long === "Not Started") ? "0" : prevMatchesData[i]?.goals?.home}</span> - <span className='looser'>{prevMatchesData[i]?.goals?.away}</span></div> */}
-                    <div className="time_container"><span className={(prevMatchesData[i]?.teams?.home?.winner) ? ((prevMatchesData[i]?.teams?.home?.winner === prevMatchesData[i]?.teams?.away?.winner) ? "draw" : "winner") : "looser"}>{(prevMatchesData[i]?.goals?.home === null) ? <span className='matche_cancle'>Match </span> : prevMatchesData[i]?.goals?.home}</span>{(prevMatchesData[i]?.goals?.home === null) ? "" : "-"}  <span className={(prevMatchesData[i]?.teams?.away?.winner) ? ((prevMatchesData[i]?.teams?.home?.winner === prevMatchesData[i]?.teams?.away?.winner) ? "draw" : "winner") : "looser"}>{(prevMatchesData[i]?.goals?.home === null) ? <span className='matche_cancle'>Abatement</span> : prevMatchesData[i]?.goals?.away}</span></div>
-                </div >,
-            address:
-                <div className='home_team_main_container away_team_main_container'>
-                    <div className="name_container">{prevMatchesData[i]?.teams?.away?.name}</div>
-                    <div className="icon_container">
-                        <img src={prevMatchesData[i]?.teams?.away?.logo} alt={prevMatchesData[i]?.teams?.away?.name} />
-                    </div>
-                </div>,
-        });
-    }
+
     //Active Matches Data 
     for (let i = 0; i < activebet?.length; i++) {
         console.log(activebet[0]);
@@ -257,7 +192,7 @@ const ActiveBet = () => {
         console.log(parseInt(activebet[0]['nftid_player1']));
 
         liveMatches.push({
-            key: activebet[0]['bettingPairId']['_hex'],
+            key: activebet[i]['bettingPairId']['_hex'],
             home:
                 <div className='home_team_main_container'>
                     <div className="icon_container">
@@ -287,33 +222,7 @@ const ActiveBet = () => {
                 </div>,
         });
     }
-    // Upcoming Matches Data
-    for (let i = 0; i < upcomingMatchesData?.length; i++) {
-        upcomingMatches.push({
-            key: i,
-            name:
-                <div className='home_team_main_container'>
-                    <div className="icon_container">
-                        < img src={upcomingMatchesData[i]?.teams?.home?.logo} alt={upcomingMatchesData[i]?.teams?.home?.name} />
-                    </div >
-                    <div className="name_container">{upcomingMatchesData[i]?.teams?.home?.name}</div>
-                </div >
-            ,
-            age:
-                <div className="vs_main_container">
-                    <div className="leauge_container">{upcomingMatchesData[i]?.league?.name}</div>
-                    <div className="vs_container">V/S</div>
-                    <div className="time_container"><span></span> Match start at {convertUSTdateinIST(upcomingMatchesData[i]?.fixture?.date)}<span></span></div>
-                </div>,
-            address:
-                <div className='home_team_main_container away_team_main_container'>
-                    <div className="name_container">{upcomingMatchesData[i]?.teams?.away?.name}</div>
-                    <div className="icon_container">
-                        <img src={upcomingMatchesData[i]?.teams?.away?.logo} alt={upcomingMatchesData[i]?.teams?.away?.name} />
-                    </div>
-                </div>,
-        });
-    }
+
 
     return (
         <>
@@ -328,21 +237,6 @@ const ActiveBet = () => {
                                         <div className="content_main_container">
                                             <div className="live_matches_main_container active_bet_main_container">
                                                 <Tabs defaultActiveKey="1" onChange={callback} className='live_matches_tabs'>
-
-                                                    {/* <TabPane tab="Previous Matches" key="3" style={{ color: "white" }}>
-                                                        {!loading && (
-                                                            <>
-                                                                <Table
-                                                                    columns={columns}
-                                                                    dataSource={prevMatches}
-                                                                    pagination={{ pageSize: 30 }}
-                                                                    scroll={{ y: 378 }}
-                                                                    pagination={false}
-                                                                />
-                                                            </>
-                                                        )}
-                                                        {loading && (<h1 className='loading'>Loading...</h1>)}
-                                                    </TabPane> */}
 
                                                     <TabPane tab="Active Bets" key="1" style={{ color: "white", textAlign: "left" }}>
 
@@ -359,20 +253,6 @@ const ActiveBet = () => {
                                                         )}
                                                         {loading && (<h1 className='loading'>Loading...</h1>)}
                                                     </TabPane>
-                                                    {/* <TabPane tab="Upcoming Matches" key="2" style={{ color: "white" }}>
-                                                        {!loading && (
-                                                            <>
-                                                                <Table
-                                                                    columns={columns}
-                                                                    dataSource={upcomingMatches}
-                                                                    pagination={{ pageSize: 30 }}
-                                                                    scroll={{ y: 378 }}
-                                                                    pagination={false}
-                                                                />
-                                                            </>
-                                                        )}
-                                                        {loading && (<h1 className='loading'>Loading...</h1>)}
-                                                    </TabPane> */}
 
 
                                                 </Tabs>
@@ -393,7 +273,7 @@ const ActiveBet = () => {
                                                         className="create_bet_modal_container"
                                                     >
                                                         <div className="create_bet_modal_container_inside">
-                                                            <Select defaultValue="team-1" style={{ width: 350, border: '2px solid #ce18c5', color: "white", borderRadius: "5px" }} onChange={handleChange}>
+                                                            <Select defaultValue="Select Team" style={{ width: 350, border: '2px solid #ce18c5', color: "white", borderRadius: "5px" }} onChange={handleChange}>
                                                                 <Option value="0" >Home Team</Option>
                                                                 <Option value="1">Away Team</Option>
                                                                 <Option value="disabled" disabled>
