@@ -24,10 +24,9 @@ const faucet = async () => {
         signer
     );
 
-    const faucetSpt = await faucet.receive_test_token();
-    // console.log(faucetSpt)
-
+    await faucet.receive_test_token();
 };
+
 const ethe = async () => {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -42,15 +41,15 @@ const ethe = async () => {
     );
 
     const price = await spotogame.getLatestEthPrice();
-    // console.log(localStorage.getItem("userAddresss"))
-    // const userbalance = Eth.getBalance(requestAccount);
-    // console.log(userbalance)
     var pr = price.toString().substr(0, price.toString().length - 8)
     localStorage.setItem('ethPrice', pr)
+    console.log(pr)
 
 };
 
+
 const NavigationBar = () => {
+
     const dispatch = useDispatch();
     const [userBalance, setUserBalance] = useState(0);
     const [ethPrice, setethPrice] = useState();
@@ -67,7 +66,9 @@ const NavigationBar = () => {
         let getBal = localStorage.getItem('userBal')
         setUserBalance(getBal);
         setethPrice(localStorage.getItem('ethPrice'))
-    }, [addressbalance, userBalance, userAdd, userAddFromReducerStorage])
+        let prbal = localStorage.getItem('ethPrice')
+        setethPrice(prbal);
+    }, [addressbalance, userBalance, userAdd, ethPrice, userAddFromReducerStorage])
 
 
     const connectedDropdown = <>
