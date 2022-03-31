@@ -64,7 +64,7 @@ const ConnectWallet = () => {
                 {!userAddress && (
                     <>
                         <div className="nav_btn_container" type="primary" onClick={showModal}>
-                            <p>Connect Wallet</p>
+                            <p>Metamask</p>
                         </div>
                     </>
                 )}
