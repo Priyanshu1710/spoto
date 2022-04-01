@@ -9,14 +9,19 @@ import Web3Modal from 'web3modal';
 import { contracts, bigNumberToDecimal, accnt } from '../../utils/index'
 import { requestAccount } from '../../utils/index';
 import Item from 'antd/lib/list/Item';
-import { useDispatch } from 'react-redux';
 import { setUserHexValue } from '../../actions';
+import { useSelector, useDispatch } from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
 
 
 const SelectProfile = () => {
+    const nftId = useSelector((state) => state.spoto.selectedUserhex);
+    let navigate = useNavigate();
+    const [redirectPath, setRedirectPath] = useState(false)
+
     const dispatch = useDispatch();
     const [ipfsLink, setIpfsLink] = useState([])
     const [profileLink, setprofileLink] = useState([]);
@@ -72,11 +77,29 @@ const SelectProfile = () => {
         })
         // console.log(item);
         // })
+
     }
 
-    // console.log("ipfs data---->", ipfsLink);
-    // console.log("Profile", profileLink);
-    // console.log("ProfileArray", profileArray);
+    const NftProfile = async () => {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const Nftprof = new ethers.Contract(
+            contracts.SPOTO_GAME.address,
+            contracts.SPOTO_GAME.abi,
+            signer
+        );
+        setRedirectPath(true)
+        const profDetails = await Nftprof.getNftDetails(nftId).then(
+            setRedirectPath(false),
+            navigate("/selectSport", { replace: true })
+        );
+        console.log(profDetails);
+    }
+
+
     console.log("UserData", userData);
 
 
@@ -105,6 +128,7 @@ const SelectProfile = () => {
             }
             console.log("selected value", value);
         })
+        NftProfile();
     }
 
     useEffect(() => {
@@ -142,7 +166,7 @@ const SelectProfile = () => {
                                                 return (
                                                     <React.Fragment key={index}>
 
-                                                        <Link to="/selectSport" ><Card
+                                                        <Card
                                                             hoverable
                                                             style={{ width: 200, height: 200, border: "2px solid #ce18c5" }}
                                                             cover={<img alt="example" src={item.Profile} />}
@@ -150,7 +174,7 @@ const SelectProfile = () => {
                                                             onClick={() => returnUserHex(index)}
                                                         >
                                                             <Meta title={item.UserName} />
-                                                        </Card></Link>
+                                                        </Card>
 
                                                     </React.Fragment>
                                                 )
