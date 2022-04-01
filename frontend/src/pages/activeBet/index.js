@@ -21,7 +21,7 @@ const ActiveBet = () => {
     const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
     const [isPlaceBetModalVisible, setIsPlaceBetModalVisible] = useState(false);
     const [selectedTeam, setSelectedTeam] = useState();
-    const [activebet, setActiveBet] = useState();
+    const [activebet, setActiveBet] = useState([]);
 
 
     const createbet = async () => {
@@ -63,7 +63,6 @@ const ActiveBet = () => {
 
     };
 
-    console.log(activebet);
     const columns = [
         {
             title: 'Player 1 Bet',
@@ -184,12 +183,12 @@ const ActiveBet = () => {
     const [upcomingMatchesData, setUpcomingMatchesData] = useState([]);
     const upcomingMatches = [];
 
-
+    console.log(activebet["0"]);
     //Active Matches Data 
     for (let i = 0; i < activebet?.length; i++) {
-        console.log(activebet[0]);
-        console.log(activebet[0]['bettingPairId']['_hex']);
-        console.log(parseInt(activebet[0]['nftid_player1']));
+        // console.log(activebet[0]);
+        // console.log(activebet[i]['bettingPairId']['_hex']);
+        // console.log(parseInt(activebet[i]['player1GamePrediction']._hex));
 
         liveMatches.push({
             key: activebet[i]['bettingPairId']['_hex'],
@@ -198,16 +197,16 @@ const ActiveBet = () => {
                     <div className="icon_container">
                         <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} />
                     </div>
-                    <div className="name_container">{parseInt(activebet[0]['nftid_player1'])}</div>
-                    <div className="deposite">23</div>
-                    <div className="predection"> { }</div>
+                    <div className="name_container">{activebet[i]['nftid_player1']}</div>
+                    <div className="deposite">{parseInt(activebet[i]['player1Deposit']?._hex)}</div>
+                    <div className="predection"> {parseInt(activebet[i]['player1GamePrediction']._hex) === 0 ? "Home Team" : "Away Team"}</div>
                 </div>
             ,
             vs: <div>v/s</div>,
             away: <div className='home_team_main_container away_team_main_container'>
-                <div className="name_container">Player Name</div>
-                <div className="deposite">23</div>
-                <div className="predection"> Team Name</div>
+                <div className="name_container">{activebet[i]['nftid_player2'] || "Place Bet"}</div>
+                <div className="deposite">{parseInt(activebet[i]['player2Deposit']?._hex)}</div>
+                <div className="predection"> {parseInt(activebet[i]['player2GamePrediction']._hex) === 0 ? "Home Team" : "Away Team"}</div>
                 <div className="icon_container">
                     <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} />
                 </div>
