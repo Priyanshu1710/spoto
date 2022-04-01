@@ -8,34 +8,16 @@
       height: 100%;
     }
   }
-  // background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: brightness(0.7);
-  // border-bottom: 2px solid #61547a;
   .navbar_container {
-    // background: #010203;
     padding: 0 !important;
-    // .navbar-nav {
-    //   button {
-    //     clip-path: polygon(15% 0%, 100% 0, 100% 65%, 83% 100%, 0 100%, 0% 50%);
-    //     background: #2da0e2;
-    //     font-weight: 600;
-    //   }
-    // }
   }
   .navbar-nav {
-    // display: flex;
-    // flex-direction: column;
-    // padding-left: 0;
-    // margin-bottom: 0;
-    // list-style: none;
-    // display: flex;
-    // justify-content: flex-end;
   }
   .wallet_address_container:nth-child(1) {
     margin-left: 28rem;
   }
   .wallet_address_container {
-    // background: darkred;
     margin-left: 1rem;
     border: 2px solid $tersiary-color;
     border-radius: 10px;
@@ -79,10 +61,8 @@
 }
 
 .ant-dropdown-menu {
-  // background-color: transparent !important;
   background-color: $primary-bg !important;
   backdrop-filter: saturate(0.5) blur(10px);
-  // box-shadow: 0px 0px 10px rgba(206, 24, 197, 0.4) !important;
   box-shadow: 0px 0px 10px rgba(4, 219, 250, 0.3) !important;
   border-radius: 10px !important;
 }
@@ -126,11 +106,7 @@
         color: #fff;
       }
     }
-    // .dropdown_list_container :nth-child(3) {
-    //   .right_container {
-    //     color: #fff;
-    //   }
-    // }
+
     .faucet_link {
       .right_container {
         color: #fff;
@@ -150,4 +126,31 @@
       }
     }
   }
+}
+.user_details {
+  border: none !important;
+  outline: none !important;
+  background-color: transparent !important;
+  border: 2px solid $tersiary-color !important;
+  border-radius: 50% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  height: 3.5rem !important;
+  width: 3.5rem !important;
+  margin-top: -13px;
+  margin-left: 5px !important;
+  background-image: url("../../assets/images/demo_image.webp") !important;
+  background-size: contain !important;
+  background-position: center !important;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.9s;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+.user_detais_dropdown_main_container {
+  margin-right: 10px !important;
+  width: 13rem !important;
 }

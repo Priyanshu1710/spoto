@@ -9,7 +9,7 @@ import Web3Modal from 'web3modal';
 import { contracts, bigNumberToDecimal, accnt } from '../../utils/index'
 import { requestAccount } from '../../utils/index';
 import Item from 'antd/lib/list/Item';
-import { setUserHexValue } from '../../actions';
+import { setUserDetails, setUserHexValue } from '../../actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 
@@ -26,11 +26,18 @@ const SelectProfile = () => {
     const [ipfsLink, setIpfsLink] = useState([])
     const [profileLink, setprofileLink] = useState([]);
     const [profileArray, setProfileArray] = useState([])
+    const [loading, setLoading] = useState(false)
     const [filteredProfileArray, setFilteredProfileArray] = useState([]);
-    const [userHex, setUserHex] = useState();
+    const [userNftId, setUserNftid] = useState(0);
     const [userData, setUserData] = useState({
         _hex: [],
         profile: []
+    })
+    const [userDetail, setuserDetail] = useState({
+        NFTId: "",
+        gameWon: "",
+        gameLost: "",
+        gameLevel: "",
     })
 
     const listTokenIds = async () => {
@@ -45,38 +52,13 @@ const SelectProfile = () => {
             signer
         );
         const tokenIds = await Nftprofile.walletOfOwner(requestAccount());
-        console.log(tokenIds);
-        // tokenIds.map(async (item, index) => {
-        //     item.map((singleItem) => {
-        //         console.log("Inside map-->", singleItem);
-        //         let _hex = singleItem._hex;
-        //         console.log(_hex);
-        //     })
-        //     const ipfs = Nftprofile.tokenURI(tokenIds[index]);
-
-        //     // console.log(_hex);
-        //     // const newDs = { _hex: _hex }
-        //     console.log(index);
-        //     console.log("tikenId Map-->", item);
-        //     // setIpfsLink((data) => [...data, newDs])
-
-        //     return (
-        //         // setIpfsLink((data) => [...data, newDs]),
-        //         // setprofileLink((data) => [...data, newDs.profile])
-        //         item
-        //     )
-        // })
-        // tokenIds.forEach((item, index) => {
+        // console.log(tokenIds);
         tokenIds[0].forEach((singleItem) => {
-            console.log("InSide forEach-=>", singleItem._hex);
             setUserData({ ...userData }, userData._hex.push(singleItem._hex))
         })
         tokenIds[1].forEach((singleItem) => {
-            console.log("InSide forEach-=>", singleItem);
             setUserData({ ...userData }, userData.profile.push(singleItem))
         })
-        // console.log(item);
-        // })
 
     }
 
@@ -93,16 +75,36 @@ const SelectProfile = () => {
         );
         setRedirectPath(true)
         const profDetails = await Nftprof.getNftDetails(nftId).then(
+            setLoading(true),
             setRedirectPath(false),
-            navigate("/selectSport", { replace: true })
+            setTimeout(() => {
+                setLoading(false)
+                navigate("/selectSport", { replace: true })
+
+            }, 3000)
         );
         console.log(profDetails);
+
+
+        console.log("NFT Id ", profDetails.nft_token_id._hex);
+        console.log("bets Lost ", profDetails.bets_lost._hex);
+        console.log("bets Won ", profDetails.bets_won._hex);
+        console.log("Profile Level ", profDetails.profile_level._hex);
+        return (
+            setuserDetail((prevStage) => ({
+                ...prevStage,
+                NFTId: "",
+                gameWon: profDetails.bets_won._hex,
+                gameLost: profDetails.bets_lost._hex,
+                gameLevel: profDetails.profile_level._hex
+            }))
+
+        );
     }
 
-
-    console.log("UserData", userData);
-
-
+    console.log(userDetail);
+    console.log(userNftId);
+    // setuserDetail({ ...userDetail, NFTId: userNftId })
 
     const fetProfile = () => {
         let profile;
@@ -111,19 +113,18 @@ const SelectProfile = () => {
         userData.profile.map(async (item) => {
             response = await fetch(item)
             profileData = await response.json()
-            console.log("user Profile------>", profileData)
             setProfileArray((profileArray) => [...profileArray, profileData])
-            // setProfileArray([...profileData, profileData])
         })
     }
 
     function returnUserHex(value) {
         userData._hex.map(async (item, index) => {
-            // console.log(item);
             if (index === value) {
                 console.log(item, index);
                 return (
-                    dispatch(setUserHexValue(item))
+                    dispatch(setUserHexValue(item)),
+                    setUserNftid(item),
+                    localStorage.setItem("userhex", item)
                 )
             }
             console.log("selected value", value);
@@ -136,7 +137,10 @@ const SelectProfile = () => {
             console.log(res);
             fetProfile()
         })
-    }, [])
+        dispatch(setUserDetails({ userDetail }))
+
+        localStorage.setItem("userDetail", JSON.stringify({ userDetail }))
+    }, [userDetail])
 
 
     const { Meta } = Card;
@@ -150,6 +154,7 @@ const SelectProfile = () => {
         fontSize: "2rem",
     };
 
+
     return (
         <>
             <div className=" select_profile">
@@ -161,26 +166,33 @@ const SelectProfile = () => {
                             <div className="dashboard_centre_frame max_width">
                                 <div className="frame_bg">
                                     <div className="content_main_container">
-                                        <div className="select_sport_container">
-                                            {profileArray.map((item, index) => {
-                                                return (
-                                                    <React.Fragment key={index}>
+                                        {loading && (
+                                            <>
+                                                <div className="loading">Please Wait...</div>
+                                            </>
+                                        )}
+                                        {!loading && (
+                                            <div className="select_sport_container">
+                                                {profileArray.map((item, index) => {
+                                                    return (
+                                                        <React.Fragment key={index}>
 
-                                                        <Card
-                                                            hoverable
-                                                            style={{ width: 200, height: 200, border: "2px solid #ce18c5" }}
-                                                            cover={<img alt="example" src={item.Profile} />}
-                                                            className='sportPage_card'
-                                                            onClick={() => returnUserHex(index)}
-                                                        >
-                                                            <Meta title={item.UserName} />
-                                                        </Card>
+                                                            <Card
+                                                                hoverable
+                                                                style={{ width: 200, height: 200, border: "2px solid #ce18c5" }}
+                                                                cover={<img alt="example" src={item.Profile} />}
+                                                                className='sportPage_card'
+                                                                onClick={() => returnUserHex(index)}
+                                                            >
+                                                                <Meta title={item.UserName} />
+                                                            </Card>
 
-                                                    </React.Fragment>
-                                                )
-                                            })}
+                                                        </React.Fragment>
+                                                    )
+                                                })}
 
-                                        </div>
+                                            </div>
+                                        )}
                                         <div className="coming_soon_cards " >
                                             <div className="title">{userData.profile <= 0 && "Please Create Profile"}</div>
                                             <div className="btn_main_container">

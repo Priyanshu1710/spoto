@@ -55,6 +55,15 @@ const NavigationBar = () => {
     const [userBalance, setUserBalance] = useState(0);
     const [ethPrice, setethPrice] = useState();
     const [userAdd, setUserAdd] = useState();
+    const [nftId, setNftId] = useState();
+    const [userDetails, setUserDetails] = useState({
+        userDetail: {
+            NFTId: '',
+            gameLevel: "",
+            gameLost: "",
+            gameWon: ""
+        }
+    });
     const addressbalance = useSelector((state) => state.spoto.userBal);
 
     const userAddFromReducerStorage = useSelector((state) => state.spoto.userAdd)
@@ -62,13 +71,16 @@ const NavigationBar = () => {
     useEffect(() => {
         ethe()
         let userAdds = localStorage.getItem('userAddresss');
-        // userAdds = userAdds.toString()
         setUserAdd(userAdds)
         let getBal = localStorage.getItem('userBal')
         setUserBalance(getBal);
         setethPrice(localStorage.getItem('ethPrice'))
         let prbal = localStorage.getItem('ethPrice')
         setethPrice(prbal);
+        let userData = JSON.parse(localStorage.getItem("userDetail"))
+        setUserDetails(userData)
+        let nftId = localStorage.getItem("userhex");
+        setNftId(nftId);
     }, [addressbalance, userBalance, userAdd, ethPrice, userAddFromReducerStorage])
 
 
@@ -94,6 +106,30 @@ const NavigationBar = () => {
                     </div>
                     <div className="disconect_wallet_container">
                         <ConnectWallet />
+                    </div>
+                </div>
+            </div>
+        )}
+    </>
+    const userProfileDetails = <>
+        {userAdd && (
+            <div className=" connected_main_container user_detais_dropdown_main_container ant-dropdown-menu">
+                <div className="connected_container">
+                    <div className="dropdown_list_container">
+                        <div className="left_container">NFT ID : </div>
+                        <div className="right_container">{nftId}</div>
+                    </div>
+                    <div className="dropdown_list_container">
+                        <div className="left_container">Bet Won : </div>
+                        <div className="right_container">{userDetails?.userDetail?.gameWon}</div>
+                    </div>
+                    <div className="dropdown_list_container ">
+                        <div className="left_container">Bet Lost : </div>
+                        <div className="right_container"  >{userDetails?.userDetail?.gameLost}</div>
+                    </div>
+                    <div className="dropdown_list_container">
+                        <div className="left_container">Level</div>
+                        <div className="right_container">{userDetails?.userDetail?.gameLevel}</div>
                     </div>
                 </div>
             </div>
@@ -140,6 +176,11 @@ const NavigationBar = () => {
                                 </Dropdown>
                             </Nav.Link>
                         </Nav>}
+                        {/* <span className='user_icon_main_container'> */}
+                        <Dropdown overlay={userProfileDetails} placement="bottom" className='user_details' trigger={['click']}>
+                            <Button>&nbsp;</Button>
+                        </Dropdown>
+                        {/* </span> */}
                     </Navbar.Collapse>
                 </Container>
 
