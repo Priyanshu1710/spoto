@@ -206,7 +206,7 @@ const ActiveBet = () => {
     //Active Matches Data 
     for (let i = 0; i < activebet?.length; i++) {
         // console.log(activebet[0]);
-        // console.log(activebet[i]['bettingPairId']['_hex']);
+        console.log(activebet[i]['bettingPairId']['_hex']);
         // console.log(parseInt(activebet[i]['player1GamePrediction']._hex));
 
         liveMatches.push({
@@ -232,7 +232,10 @@ const ActiveBet = () => {
             </div>,
             age:
                 <div className="bet_btn_container">
-                    <div className="btn_primary" onClick={(() => placeBetShowModal())} >Bet</div>
+                    <div className="btn_primary" onClick={(() => {
+                        placeBetShowModal()
+                        setBetId(activebet[i]['bettingPairId']['_hex'])
+                    })} >Bet</div>
                 </div>,
             address:
                 <div className='withdraw_btn_container'>
@@ -241,6 +244,7 @@ const ActiveBet = () => {
         });
     }
 
+    console.log(BetId);
 
     return (
         <>
