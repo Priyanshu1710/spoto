@@ -90,7 +90,25 @@ const FinishedActiveBet = () => {
         let tx = await transaction.wait();
         console.log(tx)
 
-    }
+    };
+
+    const withdraw = async () => {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const Spotogame = new ethers.Contract(
+            contracts.SPOTO_GAME.address,
+            contracts.SPOTO_GAME.abi,
+            signer
+        );
+        const transaction = await Spotogame.withdraw(BetId);
+        console.log(transaction);
+        let tx = await transaction.wait();
+        console.log(tx)
+
+    };
 
     const OurBetcolumns = [
         {
@@ -267,7 +285,7 @@ const FinishedActiveBet = () => {
             </div>,
             address:
                 <div className='withdraw_btn_container'>
-                    <div className="btn_primary">Withdraw</div>
+                    <div className="btn_primary" onClick={withdraw}>Withdraw</div>
                 </div>,
         });
     }
