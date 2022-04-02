@@ -18,7 +18,7 @@ export const contracts = {
   },
   SPOTO_GAME: {
     abi: SpotoGame.abi,
-    address: "0xB13C232e138C93f3457d763C54D360ace4F86388",
+    address: "0x74eC44626578b2810d12477B8C3660e55733dD98",
   },
   FAUCET: {
     abi: faucet.abi,
