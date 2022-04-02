@@ -10,12 +10,16 @@ import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { contracts } from '../../utils';
+import betLogo from '../../assets/images/football-team.jpeg'
 
 const ActiveBet = () => {
     const nftId = useSelector((state) => state.spoto.selectedUserhex);
     const matchID = useSelector((state) => state.spoto.currentFixtureIdUpcomingMatches);
+    const nftIdFLocal = localStorage.getItem("userhex")
     const [betAmt, setbetAmt] = useState();
     const [joinAmt, setjoinAmt] = useState();
+    const [userBetAmnt, setUserBetAmnt] = useState();
+    const [userTeam, setUserTeam] = useState();
 
     const { TabPane } = Tabs;
     const [loading, setLoading] = useState(false);
@@ -24,6 +28,7 @@ const ActiveBet = () => {
     const [selectedTeam, setSelectedTeam] = useState();
     const [BetId, setBetId] = useState();
     const [activebet, setActiveBet] = useState([]);
+    const [ourBetData, setOurBetData] = useState([]);
 
 
     const createbet = async () => {
@@ -60,6 +65,10 @@ const ActiveBet = () => {
         const queryBets = await Spotogame.getActiveBets();
         console.log(queryBets)
         setActiveBet(queryBets)
+        let ourBetFilterData = queryBets.filter(data => data['nftid_player1'] == nftIdFLocal || data['nftid_player2'] == nftIdFLocal);
+
+        console.log(ourBetFilterData)
+        setOurBetData(ourBetFilterData)
 
     };
 
@@ -75,13 +84,39 @@ const ActiveBet = () => {
             signer
         );
 
-        const transaction = await Spotogame.joinBet(BetId, selectedTeam, localStorage.getItem("userhex"), joinAmt);
+        const transaction = await Spotogame.joinBet(BetId, selectedTeam, localStorage.getItem("userhex"), userBetAmnt);
         console.log(transaction);
         let tx = await transaction.wait();
         console.log(tx)
 
     }
 
+    const OurBetcolumns = [
+        {
+            title: 'Player 1 Bet',
+            dataIndex: 'home',
+            width: 180,
+
+        },
+        {
+            title: '',
+            dataIndex: 'vs',
+            width: 100,
+
+
+        },
+        {
+            title: 'Player 2 Bet',
+            dataIndex: 'away',
+            width: 250,
+
+        },
+        {
+            title: '',
+            dataIndex: 'address',
+            width: 150,
+        },
+    ];
     const columns = [
         {
             title: 'Player 1 Bet',
@@ -188,44 +223,104 @@ const ActiveBet = () => {
             .catch(err => console.error(err));
     }
 
-
-
+    function setOpentTeam(data) {
+        if (data == 0) {
+            setUserTeam("Away Team")
+            return
+        }
+        if (data == 1) {
+            setUserTeam("Home Team")
+            return
+        }
+    }
 
 
 
     const prevMatches = [];
     const liveMatches = [];
+    const ourBet = [];
     const [prevMatchesData, setPrevMatchesData] = useState([]);
     const [liveMatchesData, setLiveMatchesData] = useState([]);
+
     const [upcomingMatchesData, setUpcomingMatchesData] = useState([]);
     const upcomingMatches = [];
 
-    console.log(activebet["0"]);
+    console.log(activebet["1"]);
+    console.log(nftIdFLocal);
+    console.log(ourBetData);
+    // let ourBetFilterData = ourBetData.filter(data => data['nftid_player1'] == nftIdFLocal);
+    // console.log(ourBetFilterData)
+
+    // let ourBetFilterData = ourBetData.filter(data => data['nftid_player1'] == nftIdFLocal || data['nftid_player2'] == nftIdFLocal);
+
+    // console.log(ourBetFilterData)
+    // setOurBetData([ourBetFilterData])
+
+    //Our Bet Data 
+    for (let i = ourBetData?.length - 1; i >= 0; i--) {
+        // console.log(activebet[0]);
+        // console.log(parseInt(activebet[i]['player1Deposit']?._hex).toString().slice(0, -18));
+        // console.log(parseInt(activebet[3]['player1GamePrediction']._hex));
+        // let ourBetFilterData = ourBetData.filter(data => data['nftid_player1'] == nftIdFLocal || data['nftid_player2'] == nftIdFLocal);
+
+        // console.log(ourBetFilterData)
+        // setOurBetData([ourBetFilterData])
+        // console.log(ourBetFilterData[0] && ourBetFilterData[0]["nftid_player1"])
+
+        ourBet.push({
+            key: ourBetData[i]['bettingPairId']['_hex'],
+            home:
+                <div className='home_team_main_container'>
+                    <div className="icon_container">
+                        {/* <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} /> */}
+                        <img src={betLogo} alt="@error" />
+                    </div>
+                    <div className="name_container">{ourBetData[i] && ourBetData[i]['nftid_player1']}</div>
+                    <div className="deposite">{parseInt(ourBetData[i] && ourBetData[i]['player1Deposit']?._hex).toString().slice(0, -18)} SPT</div>
+                    <div className="predection"> {parseInt(ourBetData[i]['player1GamePrediction']._hex) === 0 ? "Home Team" : "Away Team"}</div>
+                </div>
+            ,
+            vs: <div>v/s</div>,
+            away: <div className='home_team_main_container away_team_main_container our_bet_main_container'>
+                <div className="name_container">{ourBetData[i]['nftid_player2'] || "-"}</div>
+                <div className="deposite">{parseInt(ourBetData[i]['player2Deposit']?._hex).toString().slice(0, -18) || "-"} SPT</div>
+                <div className="predection"> {parseInt(ourBetData[i]['player2GamePrediction']?._hex) === 0 ? ourBetData[i]['nftid_player2'] ? "Home team" : "-----" : "Away Team"}</div>
+                <div className="icon_container">
+                    <img src={betLogo} alt="@error" />
+                </div>
+            </div>,
+            address:
+                <div className='withdraw_btn_container'>
+                    <div className="btn_primary">Withdraw</div>
+                </div>,
+        });
+    }
     //Active Matches Data 
     for (let i = activebet?.length - 1; i >= 0; i--) {
         // console.log(activebet[0]);
         // console.log(parseInt(activebet[i]['player1Deposit']?._hex).toString().slice(0, -18));
-        // console.log(parseInt(activebet[i]['player1GamePrediction']._hex));
+        // console.log(parseInt(activebet[3]['player1GamePrediction']._hex));
 
         liveMatches.push({
             key: activebet[i]['bettingPairId']['_hex'],
             home:
                 <div className='home_team_main_container'>
                     <div className="icon_container">
-                        <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} />
+                        {/* <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} /> */}
+                        <img src={betLogo} alt="@error" />
                     </div>
                     <div className="name_container">{activebet[i]['nftid_player1']}</div>
-                    <div className="deposite">{parseInt(activebet[i]['player1Deposit']?._hex).toString().slice(0, -18)}</div>
+                    <div className="deposite">{parseInt(activebet[i]['player1Deposit']?._hex).toString().slice(0, -18)} SPT</div>
                     <div className="predection"> {parseInt(activebet[i]['player1GamePrediction']._hex) === 0 ? "Home Team" : "Away Team"}</div>
                 </div>
             ,
             vs: <div>v/s</div>,
             away: <div className='home_team_main_container away_team_main_container'>
-                <div className="name_container">{activebet[i]['nftid_player2'] || "Place Bet"}</div>
-                <div className="deposite">{parseInt(activebet[i]['player2Deposit']?._hex).toString().slice(0, -18) || 0}</div>
-                <div className="predection"> {parseInt(activebet[i]['player2GamePrediction']._hex) === 0 ? "Home Team" : "Away Team"}</div>
+                <div className="name_container">{activebet[i]['nftid_player2'] || "-"}</div>
+                <div className="deposite">{parseInt(activebet[i]['player2Deposit']?._hex).toString().slice(0, -18) || "-"} SPT</div>
+                <div className="predection"> {parseInt(activebet[i]['player2GamePrediction']?._hex) === 0 ? activebet[i]['nftid_player2'] ? "Home team" : "-----" : "Away Team"}</div>
                 <div className="icon_container">
-                    <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} />
+                    <img src={betLogo} alt="@error" />
                 </div>
             </div>,
             age:
@@ -233,6 +328,8 @@ const ActiveBet = () => {
                     <div className="btn_primary" onClick={(() => {
                         placeBetShowModal()
                         setBetId(activebet[i]['bettingPairId']['_hex'])
+                        setUserBetAmnt(parseInt(activebet[i]['player1Deposit']?._hex).toString().slice(0, -18))
+                        setOpentTeam(parseInt(activebet[i]['player1GamePrediction']._hex))
                     })} >Bet</div>
                 </div>,
             address:
@@ -257,7 +354,7 @@ const ActiveBet = () => {
                                             <div className="live_matches_main_container active_bet_main_container">
                                                 <Tabs defaultActiveKey="1" onChange={callback} className='live_matches_tabs'>
 
-                                                    <TabPane tab="Active Bets" key="1" style={{ color: "white", textAlign: "left" }}>
+                                                    <TabPane tab="Active Bets" key="1" style={{ color: "white", textAlign: "left" }} className='our_bet_table'>
 
                                                         {!loading && (
                                                             <>
@@ -272,6 +369,23 @@ const ActiveBet = () => {
                                                         )}
                                                         {loading && (<h1 className='loading'>Loading...</h1>)}
                                                     </TabPane>
+
+                                                    <TabPane tab="My Bets" key="0" style={{ color: "white", textAlign: "left" }}>
+
+                                                        {!loading && (
+                                                            <>
+                                                                <Table
+                                                                    columns={OurBetcolumns}
+                                                                    dataSource={ourBet}
+                                                                    pagination={{ pageSize: 30 }}
+                                                                    scroll={{ y: 378 }}
+                                                                    pagination={false}
+                                                                />
+                                                            </>
+                                                        )}
+                                                        {loading && (<h1 className='loading'>Loading...</h1>)}
+                                                    </TabPane>
+
 
 
                                                 </Tabs>
@@ -324,15 +438,13 @@ const ActiveBet = () => {
                                                         className="create_bet_modal_container"
                                                     >
                                                         <div className="create_bet_modal_container_inside">
-                                                            <Select defaultValue="team-1" style={{ width: 350, border: '2px solid #ce18c5', color: "white", borderRadius: "5px" }} onChange={placeBetHandleChange}>
-                                                                <Option value="0">Home Team</Option>
-                                                                <Option value="1">Away Team</Option>
-                                                                <Option value="disabled" disabled>
-                                                                    For disable team
-                                                                </Option>
+                                                            <Select defaultValue="Select Team" style={{ width: 350, border: '2px solid #ce18c5', color: "white", borderRadius: "5px" }} onChange={placeBetHandleChange}>
+                                                                <Option value="0" disabled={userTeam === "Home Team" ? false : true}>Home Team</Option>
+                                                                <Option value="1" disabled={userTeam === "Away Team" ? false : true}>Away Team</Option>
+                                                                <Option value="2">Draw</Option>
                                                             </Select>
                                                             <div className="input_box">
-                                                                <input type="number" placeholder='Enter bet amount' onChange={event => setjoinAmt(event.target.value)} />
+                                                                <input type="number" placeholder='Enter bet amount' value={userBetAmnt} disabled />
                                                             </div>
                                                             <div className="button" onClick={(() => placeBetHandleOk())}>Place Bet</div>
 
@@ -349,7 +461,7 @@ const ActiveBet = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 

@@ -82,6 +82,9 @@
         margin-right: 0rem;
       }
     }
+    .our_bet_main_container {
+      justify-content: center;
+    }
   }
   .live_matches_main_container
     .live_matches_tabs
@@ -180,4 +183,12 @@
       }
     }
   }
+}
+.bet_cards_conntainer
+  .active_bet_main_container
+  .live_matches_tabs
+  .ant-table-header
+  table
+  th:nth-child(3) {
+  text-align: center !important;
 }
