@@ -15,6 +15,7 @@ const ActiveBet = () => {
     const nftId = useSelector((state) => state.spoto.selectedUserhex);
     const matchID = useSelector((state) => state.spoto.currentFixtureIdUpcomingMatches);
     const [betAmt, setbetAmt] = useState();
+    const [joinAmt, setjoinAmt] = useState();
 
     const { TabPane } = Tabs;
     const [loading, setLoading] = useState(false);
@@ -74,7 +75,7 @@ const ActiveBet = () => {
             signer
         );
 
-        const transaction = await Spotogame.joinBet(BetId, selectedTeam, localStorage.getItem("userhex"), betAmt);
+        const transaction = await Spotogame.joinBet(BetId, selectedTeam, localStorage.getItem("userhex"), joinAmt);
         console.log(transaction);
         let tx = await transaction.wait();
         console.log(tx)
@@ -330,7 +331,7 @@ const ActiveBet = () => {
                                                                 </Option>
                                                             </Select>
                                                             <div className="input_box">
-                                                                <input type="number" placeholder='Enter bet amount' />
+                                                                <input type="number" placeholder='Enter bet amount' onChange={event => setjoinAmt(event.target.value)} />
                                                             </div>
                                                             <div className="button" onClick={(() => placeBetHandleOk())}>Place Bet</div>
 
