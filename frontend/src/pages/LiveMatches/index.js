@@ -264,13 +264,15 @@ const LiveMatches = () => {
 
                                                         {!loading && (
                                                             <>
-                                                                <Table
-                                                                    columns={columns}
-                                                                    dataSource={liveMatches}
-                                                                    pagination={{ pageSize: 30 }}
-                                                                    scroll={{ y: 378 }}
-                                                                    pagination={false}
-                                                                />
+                                                                <Link to="/liveActiveBet">
+                                                                    <Table
+                                                                        columns={columns}
+                                                                        dataSource={liveMatches}
+                                                                        pagination={{ pageSize: 30 }}
+                                                                        scroll={{ y: 378 }}
+                                                                        pagination={false}
+                                                                    />
+                                                                </Link >
                                                             </>
                                                         )}
                                                         {loading && (<h1 className='loading'>Loading...</h1>)}
@@ -278,22 +280,22 @@ const LiveMatches = () => {
                                                     <TabPane tab="Upcoming Matches" key="2" style={{ color: "white" }}>
                                                         {!loading && (
                                                             <>
-                                                                 <Link to="/activeBet"> 
-                                                                {/* <span onClick={(e) => {
+                                                                <Link to="/activeBet">
+                                                                    {/* <span onClick={(e) => {
                                                                     console.log("hello", upcomingMatchesData && upcomingMatchesData)
                                                                     console.log("select", e.currentTarget);
                                                                     logCurrentMatchSelection(e.currentTarget)
                                                                 }}> */}
-                                                                <Table
-                                                                    columns={columns}
-                                                                    dataSource={upcomingMatches}
-                                                                    pagination={{ pageSize: 30 }}
-                                                                    scroll={{ y: 378 }}
-                                                                    pagination={false}
+                                                                    <Table
+                                                                        columns={columns}
+                                                                        dataSource={upcomingMatches}
+                                                                        pagination={{ pageSize: 30 }}
+                                                                        scroll={{ y: 378 }}
+                                                                        pagination={false}
 
-                                                                />
-                                                                {/* </span> */}
-                                                               </Link> 
+                                                                    />
+                                                                    {/* </span> */}
+                                                                </Link>
                                                             </>
                                                         )}
                                                         {loading && (<h1 className='loading'>Loading...</h1>)}

@@ -315,7 +315,7 @@ const LiveActiveBet = () => {
     return (
         <>
             <div className="">
-                <div className="match_cards_conntainer  bet_cards_conntainer">
+                <div className="match_cards_conntainer  bet_cards_conntainer live_match_active_bet_cards">
                     <div className="bg_container">
                         <NavigationBar />
                         <div className="dashboard_container">
