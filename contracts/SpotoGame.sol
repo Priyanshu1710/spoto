@@ -114,6 +114,7 @@ contract SpotoGame {
         bettingEventMap[betCount].player1GamePrediction=winner_prediction;
         bettingEventMap[betCount].nftid_player1=nft_id;
         bettingEventMap[betCount].isResolved=false;
+        bettingEventMap[betCount].matchid=match_id;
         bet_to_Matchid[betCount]=match_id;
         betsinmatch[match_id].push(betCount);
         emit BetCreated(msg.sender, betCount,bettingEventMap[betCount].player1Deposit,bettingEventMap[betCount].nftid_player1);

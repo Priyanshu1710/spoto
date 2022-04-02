@@ -25,11 +25,23 @@ async function main() {
 
   const Faucet = await hre.ethers.getContractFactory("faucet");
   const faucet = await Faucet.deploy(
-    "0xf8c329E0880D7ca3E8c44Ee048E17cBc833d5139"
+    spotoCoin.address
   );
   console.log("Deploying Faucet");
   await faucet.deployed();
   console.log("Faucet deployed to:", faucet.address);
+
+  const LiqPool = await hre.ethers.getContractFactory("LiquidityPool");
+  const liqPool = await LiqPool.deploy(
+    "SPT LPT token",
+    "LPT",
+    "0xf8c329E0880D7ca3E8c44Ee048E17cBc833d5139",
+    3478,
+    1
+  )
+  console.log("Deploying Liq pool");
+  await liqPool.deployed();
+  console.log("Liq Pool deployed to:", liqPool.address);
 }
 
 main()

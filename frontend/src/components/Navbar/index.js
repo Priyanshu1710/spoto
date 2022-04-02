@@ -28,6 +28,23 @@ const faucet = async () => {
     await faucet.receive_test_token();
 };
 
+const nftDetail = async (nftId) => {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+    // console.log(signer)
+
+    const NftProf = new ethers.Contract(
+        contracts.NFT_PROFILE.address,
+        contracts.NFT_PROFILE.abi,
+        signer
+    );
+
+    const qrw = await NftProf.tokenURI(nftId);
+    console.log(qrw)
+};
+
 const ethe = async () => {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -81,6 +98,7 @@ const NavigationBar = () => {
         setUserDetails(userData)
         let nftId = localStorage.getItem("userhex");
         setNftId(nftId);
+        nftDetail(nftId);
     }, [addressbalance, userBalance, userAdd, ethPrice, userAddFromReducerStorage])
 
 

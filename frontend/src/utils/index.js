@@ -2,6 +2,7 @@ import SpotoToken from "../artifacts/contracts/SpotoToken.sol/SpotoToken.json";
 import NFTProfile from "../artifacts/contracts/NFTProfile.sol/NFTProfile.json";
 import SpotoGame from "../artifacts/contracts/SpotoGame.sol/SpotoGame.json";
 import faucet from '../artifacts/contracts/Faucet.sol/faucet.json';
+import LiquidityPool from '../artifacts/contracts/liquidity.sol/LiquidityPool.json'
 import { BigNumber } from "ethers";
 import { ethers } from "ethers";
 import Web3Modal from 'web3modal';
@@ -17,12 +18,16 @@ export const contracts = {
   },
   SPOTO_GAME: {
     abi: SpotoGame.abi,
-    address: "0x703Bac3a0796c8d326659e5063Da94D2C63F0CAf",
+    address: "0xB13C232e138C93f3457d763C54D360ace4F86388",
   },
   FAUCET: {
     abi: faucet.abi,
     address: "0x039264549D03B8B13eb1cC8A2c437C53025252b5",
   },
+  LPT: {
+    abi: LiquidityPool.abi,
+    address: "0x3e5df8AFD2D1EA62D8c5Cc4f471A086031381534",
+  }
 };
 
 export const bigNumberToDecimal = (number) => {
