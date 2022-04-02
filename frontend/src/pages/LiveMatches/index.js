@@ -249,13 +249,15 @@ const LiveMatches = () => {
                                                     <TabPane tab="Finished Matches" key="3" style={{ color: "white" }}>
                                                         {!loading && (
                                                             <>
-                                                                <Table
-                                                                    columns={columns}
-                                                                    dataSource={prevMatches}
-                                                                    pagination={{ pageSize: 30 }}
-                                                                    scroll={{ y: 378 }}
-                                                                    pagination={false}
-                                                                />
+                                                                <Link to="/finishedActiveBet">
+                                                                    <Table
+                                                                        columns={columns}
+                                                                        dataSource={prevMatches}
+                                                                        pagination={{ pageSize: 30 }}
+                                                                        scroll={{ y: 378 }}
+                                                                        pagination={false}
+                                                                    />
+                                                                </Link>
                                                             </>
                                                         )}
                                                         {loading && (<h1 className='loading'>Loading...</h1>)}
