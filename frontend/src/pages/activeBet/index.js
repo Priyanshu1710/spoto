@@ -201,7 +201,7 @@ const ActiveBet = () => {
 
     console.log(activebet["0"]);
     //Active Matches Data 
-    for (let i = 0; i < activebet?.length; i++) {
+    for (let i = activebet?.length - 1; i >= 0; i--) {
         // console.log(activebet[0]);
         // console.log(parseInt(activebet[i]['player1Deposit']?._hex).toString().slice(0, -18));
         // console.log(parseInt(activebet[i]['player1GamePrediction']._hex));
