@@ -45,7 +45,7 @@ contract SpotoGame {
         uint256 player1GamePrediction;
         uint256 player2GamePrediction;
 
-
+        bool isResolved;
         bool gameFinished;
         bool withdrawCompleted;
         address  theWinner;
@@ -113,6 +113,7 @@ contract SpotoGame {
         bettingEventMap[betCount].player1Deposit = amount*10**18;
         bettingEventMap[betCount].player1GamePrediction=winner_prediction;
         bettingEventMap[betCount].nftid_player1=nft_id;
+        bettingEventMap[betCount].isResolved=false;
         bet_to_Matchid[betCount]=match_id;
         betsinmatch[match_id].push(betCount);
         emit BetCreated(msg.sender, betCount,bettingEventMap[betCount].player1Deposit,bettingEventMap[betCount].nftid_player1);
@@ -137,6 +138,7 @@ contract SpotoGame {
         bettingEventMap[interestedBet].player2Deposit = amount*10**18;
         bettingEventMap[interestedBet].player2GamePrediction = winner_prediction; 
         bettingEventMap[interestedBet].nftid_player2=nft_id;
+
     	emit Betjoined(msg.sender, betCount,bettingEventMap[betCount].player2Deposit,bettingEventMap[betCount].nftid_player2);
 
     }
@@ -148,14 +150,20 @@ contract SpotoGame {
         require(msg.sender==_owner ,"unauthorized");
         require(completed,"match_not_completed");
         uint256[] memory available_bets=betsinmatch[match_id];
+        
         for (uint256 i=0;i<available_bets.length;i++)
-        {
+        {   
             uint256  current_bet=available_bets[i];
             BettingEvent memory bet_details=bettingEventMap[current_bet];
+            if(bet_details.isResolved==true)
+            {
+                continue;
+            }
             if(bet_details.player2==address(0))
             {   bet_details.gameFinished = true;
                 bet_details.gains=bet_details.player1Deposit;
                 bet_details.theWinner = bet_details.player1;
+                bet_details.isResolved=true;
             }
 
             else{
@@ -186,7 +194,7 @@ contract SpotoGame {
                      }
 
                     bettingEventMap[current_bet]=bet_details;
-
+                    bet_details.isResolved==true;
             }
         }
     }
