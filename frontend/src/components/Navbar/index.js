@@ -111,7 +111,7 @@ const NavigationBar = () => {
         console.log(response.Profile);
         setUserProfile(response.Profile)
     };
-    console.log(userProfile);
+    // console.log(userProfile);
     const connectedDropdown = <>
         {userAdd && (
             <div className="connected_main_container ant-dropdown-menu">
@@ -149,15 +149,15 @@ const NavigationBar = () => {
                     </div>
                     <div className="dropdown_list_container">
                         <div className="left_container">Bet Won : </div>
-                        <div className="right_container">{userDetails?.userDetail?.gameWon}</div>
+                        <div className="right_container">{parseInt(userDetails?.userDetail?.gameWon)}</div>
                     </div>
                     <div className="dropdown_list_container ">
                         <div className="left_container">Bet Lost : </div>
-                        <div className="right_container"  >{userDetails?.userDetail?.gameLost}</div>
+                        <div className="right_container"  >{parseInt(userDetails?.userDetail?.gameLost)}</div>
                     </div>
                     <div className="dropdown_list_container">
                         <div className="left_container">Level</div>
-                        <div className="right_container">{userDetails?.userDetail?.gameLevel}</div>
+                        <div className="right_container">{parseInt(userDetails?.userDetail?.gameLevel)}</div>
                     </div>
                 </div>
             </div>

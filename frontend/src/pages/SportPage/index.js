@@ -1,4 +1,4 @@
-import React ,{useState} from 'react'
+import React, { useState } from 'react'
 import { Card } from 'antd';
 import './index.scss';
 import NavigationBar from '../../components/Navbar';
@@ -58,21 +58,29 @@ const SelectSport = () => {
                             <div className="frame_bg">
                                 <div className="content_main_container">
                                     <div className="select_sport_container">
-                                    {redirectPath && (
-                                        <>
-                                            <h1 className='loading'>Loading Betting Arena...</h1>
-                                        </>
-                                    )}
-                                    {redirectPath === false && (
-                                     <Card onClick={approveTx}
-                                            hoverable
-                                            style={{ width: 200, height: 200, border: "2px solid #ce18c5" }}
-                                            cover={<img alt="example" src="https://media.istockphoto.com/photos/football-in-the-sunset-picture-id533861572?b=1&k=20&m=533861572&s=170667a&w=0&h=BnEJndSSxMFdAczWGC_ICPEjYG3ce_hep6maCR8xIF8=" />}
-                                            className='sportPage_card'
-                                        >
-                                            <Meta title="Football" />
-                                        </Card>
-                                    )}
+                                        {!redirectPath && (
+
+                                            <div className="cards_up_main_heading">
+                                                <div className="text">Select Sport</div>
+                                            </div>
+                                        )}
+                                        {redirectPath && (
+                                            <>
+                                                <h1 className='loading'>Loading Betting Arena...</h1>
+                                            </>
+                                        )}
+                                        {redirectPath === false && (
+                                            <>
+                                                <Card onClick={approveTx}
+                                                    hoverable
+                                                    style={{ width: 200, height: 200, border: "2px solid #ce18c5" }}
+                                                    cover={<img alt="example" src="https://media.istockphoto.com/photos/football-in-the-sunset-picture-id533861572?b=1&k=20&m=533861572&s=170667a&w=0&h=BnEJndSSxMFdAczWGC_ICPEjYG3ce_hep6maCR8xIF8=" />}
+                                                    className='sportPage_card'
+                                                >
+                                                    <Meta title="Football" />
+                                                </Card>
+                                            </>
+                                        )}
                                     </div>
 
                                     <div className="coming_soon_cards">

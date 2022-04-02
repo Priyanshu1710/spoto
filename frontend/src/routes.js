@@ -7,6 +7,7 @@ import SelectProfile from "./pages/SelectProfile";
 import ActiveBet from "./pages/activeBet";
 import LiveActiveBet from "./pages/activeBetForCurrent";
 import FinishedActiveBet from "./pages/activeBetForFinished";
+import LiquidityPage from "./pages/liquidityPool";
 
 
 const routes = [
@@ -45,6 +46,10 @@ const routes = [
     {
         path: "/arena",
         element: <Arena />,
+    },
+    {
+        path: "/pool",
+        element: <LiquidityPage />,
     },
 
 

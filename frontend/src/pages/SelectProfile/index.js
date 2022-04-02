@@ -166,6 +166,11 @@ const SelectProfile = () => {
                             <div className="dashboard_centre_frame max_width">
                                 <div className="frame_bg">
                                     <div className="content_main_container">
+                                        {!loading && (
+                                        <div className="cards_up_main_heading">
+                                            <div className="text">Select Profile</div>
+                                        </div>
+                                        )}
                                         {loading && (
                                             <>
                                                 <div className="loading">Please Wait...</div>
