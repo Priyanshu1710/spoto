@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Card } from 'antd';
+import '../activeBet/index.scss';
+import './index.scss'
 import NavigationBar from '../../components/Navbar'
-import './index.scss';
 import { Tabs } from 'antd';
 import { Table } from 'antd';
 import { Modal } from 'antd';
@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { contracts } from '../../utils';
 import betLogo from '../../assets/images/football-team.jpeg'
 
-const ActiveBet = () => {
+const LiveActiveBet = () => {
     const nftId = useSelector((state) => state.spoto.selectedUserhex);
     const matchID = useSelector((state) => state.spoto.currentFixtureIdUpcomingMatches);
     const nftIdFLocal = localStorage.getItem("userhex")
@@ -141,11 +141,11 @@ const ActiveBet = () => {
             }
 
         },
-        {
-            title: '',
-            dataIndex: 'age',
-            width: 120,
-        },
+        // {
+        //     title: '',
+        //     dataIndex: 'age',
+        //     width: 120,
+        // },
         // {
         //     title: '',
         //     dataIndex: 'address',
@@ -248,13 +248,6 @@ const ActiveBet = () => {
     console.log(activebet["1"]);
     console.log(nftIdFLocal);
     console.log(ourBetData);
-    // let ourBetFilterData = ourBetData.filter(data => data['nftid_player1'] == nftIdFLocal);
-    // console.log(ourBetFilterData)
-
-    // let ourBetFilterData = ourBetData.filter(data => data['nftid_player1'] == nftIdFLocal || data['nftid_player2'] == nftIdFLocal);
-
-    // console.log(ourBetFilterData)
-    // setOurBetData([ourBetFilterData])
 
     //Our Bet Data 
     for (let i = ourBetData?.length - 1; i >= 0; i--) {
@@ -280,24 +273,17 @@ const ActiveBet = () => {
                     <img src={betLogo} alt="@error" />
                 </div>
             </div>,
-            // address:
-            //     <div className='withdraw_btn_container'>
-            //         <div className="btn_primary">Withdraw</div>
-            //     </div>,
+   
         });
     }
     //Active Matches Data 
     for (let i = activebet?.length - 1; i >= 0; i--) {
-        // console.log(activebet[0]);
-        // console.log(parseInt(activebet[i]['player1Deposit']?._hex).toString().slice(0, -18));
-        // console.log(parseInt(activebet[3]['player1GamePrediction']._hex));
 
         liveMatches.push({
             key: activebet[i]['bettingPairId']['_hex'],
             home:
                 <div className='home_team_main_container'>
                     <div className="icon_container">
-                        {/* <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} /> */}
                         <img src={betLogo} alt="@error" />
                     </div>
                     <div className="name_container">{activebet[i]['nftid_player1']}</div>
@@ -314,23 +300,17 @@ const ActiveBet = () => {
                     <img src={betLogo} alt="@error" />
                 </div>
             </div>,
-            age:
-                <div className="bet_btn_container">
-                    <div className="btn_primary" onClick={(() => {
-                        placeBetShowModal()
-                        setBetId(activebet[i]['bettingPairId']['_hex'])
-                        setUserBetAmnt(parseInt(activebet[i]['player1Deposit']?._hex).toString().slice(0, -18))
-                        setOpentTeam(parseInt(activebet[i]['player1GamePrediction']._hex))
-                    })} >Bet</div>
-                </div>,
-            // address:
-            // <div className='withdraw_btn_container'>
-            //     <div className="btn_primary">Withdraw</div>
-            // </div>,
-
+            // age:
+            //     <div className="bet_btn_container">
+            //         <div className="btn_primary" onClick={(() => {
+            //             placeBetShowModal()
+            //             setBetId(activebet[i]['bettingPairId']['_hex'])
+            //             setUserBetAmnt(parseInt(activebet[i]['player1Deposit']?._hex).toString().slice(0, -18))
+            //             setOpentTeam(parseInt(activebet[i]['player1GamePrediction']._hex))
+            //         })} >Bet</div>
+            //     </div>,
         });
     }
-
 
     return (
         <>
@@ -383,36 +363,7 @@ const ActiveBet = () => {
                                                 </Tabs>
                                             </div>
                                             <div className="create_bet_main_container">
-                                                <div className="button" type="primary" onClick={showModal}>Create Bet</div>
-                                                <div className="create_bet_modal_main_container">
-                                                    <Modal
-                                                        title="Create Bet"
-                                                        visible={isCreateModalVisible}
-                                                        onOk={handleOk}
-                                                        centered={true}
-                                                        footer={false}
-                                                        onCancel={handleCancel}
-                                                        style={{
-                                                            height: 295,
-                                                        }}
-                                                        className="create_bet_modal_container"
-                                                    >
-                                                        <div className="create_bet_modal_container_inside">
-                                                            <Select defaultValue="Select Team" style={{ width: 350, border: '2px solid #ce18c5', color: "white", borderRadius: "5px" }} onChange={handleChange}>
-                                                                <Option value="0" >Home Team</Option>
-                                                                <Option value="1">Away Team</Option>
-                                                            </Select>
-                                                            <div className="input_box">
-                                                                <input type="number" placeholder='Enter bet amount' onChange={event => setbetAmt(event.target.value)} />
-                                                            </div>
-                                                            <div className="button" onClick={(() => {
-                                                                handleOk()
-                                                            })}>Create Bet</div>
-
-                                                        </div>
-                                                    </Modal>
-                                                </div>
-
+                                              
                                                 <div className="make_bet_main_container" type="primary">
                                                     <Modal
                                                         title="Place Bet"
@@ -443,6 +394,9 @@ const ActiveBet = () => {
 
                                             </div>
 
+
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -450,10 +404,8 @@ const ActiveBet = () => {
                         </div>
                     </div>
                 </div>
-            </div >
-        </>
+            </div></>
     )
-
 }
 
-export default ActiveBet;
+export default LiveActiveBet;
