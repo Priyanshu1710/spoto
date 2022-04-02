@@ -246,7 +246,7 @@ const LiveMatches = () => {
                                             <div className="live_matches_main_container">
                                                 <Tabs defaultActiveKey="2" onChange={callback} className='live_matches_tabs'>
 
-                                                    <TabPane tab="Previous Matches" key="3" style={{ color: "white" }}>
+                                                    <TabPane tab="Finished Matches" key="3" style={{ color: "white" }}>
                                                         {!loading && (
                                                             <>
                                                                 <Table
