@@ -345,7 +345,6 @@ const ActiveBet = () => {
                                         <div className="content_main_container">
                                             <div className="live_matches_main_container active_bet_main_container">
                                                 <Tabs defaultActiveKey="1" onChange={callback} className='live_matches_tabs bet_matches_tabs'>
-
                                                     <TabPane tab="Active Bets" key="1" style={{ color: "white", textAlign: "left" }} className='our_bet_table'>
 
                                                         {!loading && (

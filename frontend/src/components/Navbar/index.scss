@@ -92,6 +92,7 @@
 }
 .connected_main_container {
   padding: 5px 10px !important;
+  margin-top: 15px !important;
   .connected_container {
     .dropdown_list_container {
       display: flex;
@@ -139,18 +140,26 @@
   width: 3.5rem !important;
   margin-top: -13px;
   margin-left: 5px !important;
-  background-image: url("../../assets/images/demo_image.webp") !important;
+  // background-image: url("../../assets/images/demo_image.webp") !important;
   background-size: contain !important;
   background-position: center !important;
   height: 100%;
   width: 100%;
   cursor: pointer;
   transition: 0.9s;
-  &:hover {
-    transform: scale(1.1);
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    transition: 0.6s;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }
 .user_detais_dropdown_main_container {
   margin-right: 10px !important;
   width: 13rem !important;
+  margin-top: 15px !important;
 }
