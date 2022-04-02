@@ -37,7 +37,7 @@ const ActiveBet = () => {
             signer
         );
         console.log("matchid", matchID, "selectedTeam", selectedTeam, "nftId", nftId, "betAmt", betAmt);
-        const transaction = await Spotogame.createBet(matchID, selectedTeam, nftId, betAmt);
+        const transaction = await Spotogame.createBet(matchID, selectedTeam, localStorage.getItem("userhex"), betAmt);
         console.log(transaction);
         let tx = await transaction.wait();
         console.log(tx)
@@ -74,7 +74,7 @@ const ActiveBet = () => {
             signer
         );
 
-        const transaction = await Spotogame.joinBet(BetId, selectedTeam, nftId, betAmt);
+        const transaction = await Spotogame.joinBet(BetId, selectedTeam, localStorage.getItem("userhex"), betAmt);
         console.log(transaction);
         let tx = await transaction.wait();
         console.log(tx)
@@ -188,12 +188,8 @@ const ActiveBet = () => {
 
 
 
-    function convertUSTdateinIST(input) {
-        let newInput = input;
-        newInput = newInput.toString();
-        let newDate = new Date(newInput).toLocaleString("en-US", { timeZone: 'Asia/Kolkata' }) + " IST";
-        return newDate;
-    }
+
+
 
     const prevMatches = [];
     const liveMatches = [];
@@ -206,7 +202,7 @@ const ActiveBet = () => {
     //Active Matches Data 
     for (let i = 0; i < activebet?.length; i++) {
         // console.log(activebet[0]);
-        console.log(activebet[i]['bettingPairId']['_hex']);
+        // console.log(parseInt(activebet[i]['player1Deposit']?._hex).toString().slice(0, -18));
         // console.log(parseInt(activebet[i]['player1GamePrediction']._hex));
 
         liveMatches.push({
@@ -217,14 +213,14 @@ const ActiveBet = () => {
                         <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} />
                     </div>
                     <div className="name_container">{activebet[i]['nftid_player1']}</div>
-                    <div className="deposite">{parseInt(activebet[i]['player1Deposit']?._hex)}</div>
+                    <div className="deposite">{parseInt(activebet[i]['player1Deposit']?._hex).toString().slice(0, -18)}</div>
                     <div className="predection"> {parseInt(activebet[i]['player1GamePrediction']._hex) === 0 ? "Home Team" : "Away Team"}</div>
                 </div>
             ,
             vs: <div>v/s</div>,
             away: <div className='home_team_main_container away_team_main_container'>
                 <div className="name_container">{activebet[i]['nftid_player2'] || "Place Bet"}</div>
-                <div className="deposite">{parseInt(activebet[i]['player2Deposit']?._hex)}</div>
+                <div className="deposite">{parseInt(activebet[i]['player2Deposit']?._hex).toString().slice(0, -18) || 0}</div>
                 <div className="predection"> {parseInt(activebet[i]['player2GamePrediction']._hex) === 0 ? "Home Team" : "Away Team"}</div>
                 <div className="icon_container">
                     <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} />
@@ -244,7 +240,6 @@ const ActiveBet = () => {
         });
     }
 
-    console.log(BetId);
 
     return (
         <>
@@ -305,7 +300,9 @@ const ActiveBet = () => {
                                                             <div className="input_box">
                                                                 <input type="number" placeholder='Enter bet amount' onChange={event => setbetAmt(event.target.value)} />
                                                             </div>
-                                                            <div className="button" onClick={(() => handleOk())}>Create Bet</div>
+                                                            <div className="button" onClick={(() => {
+                                                                handleOk()
+                                                            })}>Create Bet</div>
 
                                                         </div>
                                                     </Modal>
