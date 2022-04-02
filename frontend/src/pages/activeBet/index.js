@@ -126,6 +126,7 @@ const ActiveBet = () => {
     }
     function placeBetHandleChange(value) {
         console.log(`selected ${value}`);
+        setSelectedTeam(value);
     }
 
     const showModal = () => {
@@ -324,8 +325,8 @@ const ActiveBet = () => {
                                                     >
                                                         <div className="create_bet_modal_container_inside">
                                                             <Select defaultValue="team-1" style={{ width: 350, border: '2px solid #ce18c5', color: "white", borderRadius: "5px" }} onChange={placeBetHandleChange}>
-                                                                <Option value="team-1">Team 1</Option>
-                                                                <Option value="team-2">Team 2</Option>
+                                                                <Option value="0">Home Team</Option>
+                                                                <Option value="1">Away Team</Option>
                                                                 <Option value="disabled" disabled>
                                                                     For disable team
                                                                 </Option>
