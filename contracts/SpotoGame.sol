@@ -106,11 +106,11 @@ contract SpotoGame {
     function createBet(uint256 match_id,uint256 winner_prediction,string memory nft_id ,uint256 amount) public  {
         require(amount!=0,"Cannot have zero bet amount");
         betCount++;
-        IERC20(address(coin_addr)).approve(msg.sender,amount);
-        IERC20(address(coin_addr)).transferFrom(msg.sender, address(this), amount);
+        IERC20(address(coin_addr)).approve(msg.sender,amount*10**18);
+        IERC20(address(coin_addr)).transferFrom(msg.sender, address(this), amount*10**18);
         bettingEventMap[betCount].bettingPairId = betCount;
         bettingEventMap[betCount].player1 = msg.sender;
-        bettingEventMap[betCount].player1Deposit = amount;
+        bettingEventMap[betCount].player1Deposit = amount*10**18;
         bettingEventMap[betCount].player1GamePrediction=winner_prediction;
         bettingEventMap[betCount].nftid_player1=nft_id;
         bet_to_Matchid[betCount]=match_id;
@@ -127,14 +127,14 @@ contract SpotoGame {
         require(bettingEventMap[interestedBet].player2 == address(0),"Bet slot already booked");  
         require(msg.sender != bettingEventMap[interestedBet].player1,"Cannot join with same ID");  
         require(bettingEventMap[interestedBet].player1GamePrediction!=winner_prediction,"cannot bet on same outcome");  
-        require(amount==bettingEventMap[interestedBet].player1Deposit,"Amount should be the matching bet only");  
+        require(amount*10**18==bettingEventMap[interestedBet].player1Deposit,"Amount should be the matching bet only");  
 
-        IERC20(address(coin_addr)).approve(msg.sender,amount);
+        IERC20(address(coin_addr)).approve(msg.sender,amount*10**18);
 
-        IERC20(address(coin_addr)).transferFrom(msg.sender, address(this), amount);
+        IERC20(address(coin_addr)).transferFrom(msg.sender, address(this), amount*10**18);
 
         bettingEventMap[interestedBet].player2 = msg.sender;        
-        bettingEventMap[interestedBet].player2Deposit = amount;
+        bettingEventMap[interestedBet].player2Deposit = amount*10**18;
         bettingEventMap[interestedBet].player2GamePrediction = winner_prediction; 
         bettingEventMap[interestedBet].nftid_player2=nft_id;
     	emit Betjoined(msg.sender, betCount,bettingEventMap[betCount].player2Deposit,bettingEventMap[betCount].nftid_player2);
@@ -207,8 +207,8 @@ function withdraw(uint256 interestedBet) public {
         // Clean out the current state
         bettingEventMap[interestedBet].gains = 0;
         bettingEventMap[interestedBet].withdrawCompleted = true;
-        IERC20(address(coin_addr)).transfer(msg.sender,amount);
-        emit Withdraw(interestedBet,msg.sender,amount);
+        IERC20(address(coin_addr)).transfer(msg.sender,amount*10**18);
+        emit Withdraw(interestedBet,msg.sender,amount*10**18);
     }
 
  

@@ -21,6 +21,7 @@ const ActiveBet = () => {
     const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
     const [isPlaceBetModalVisible, setIsPlaceBetModalVisible] = useState(false);
     const [selectedTeam, setSelectedTeam] = useState();
+    const [BetId, setBetId] = useState();
     const [activebet, setActiveBet] = useState([]);
 
 
@@ -29,7 +30,6 @@ const ActiveBet = () => {
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
-        console.log(signer)
 
         const Spotogame = new ethers.Contract(
             contracts.SPOTO_GAME.address,
@@ -49,7 +49,6 @@ const ActiveBet = () => {
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
-        console.log(signer)
 
         const Spotogame = new ethers.Contract(
             contracts.SPOTO_GAME.address,
@@ -62,6 +61,25 @@ const ActiveBet = () => {
         setActiveBet(queryBets)
 
     };
+
+    const placebet = async () => {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const Spotogame = new ethers.Contract(
+            contracts.SPOTO_GAME.address,
+            contracts.SPOTO_GAME.abi,
+            signer
+        );
+
+        const transaction = await Spotogame.joinBet(BetId, selectedTeam, nftId, betAmt);
+        console.log(transaction);
+        let tx = await transaction.wait();
+        console.log(tx)
+
+    }
 
     const columns = [
         {
@@ -121,6 +139,7 @@ const ActiveBet = () => {
         setIsCreateModalVisible(false);
     };
     const placeBetHandleOk = () => {
+        placebet();
         setIsPlaceBetModalVisible(false);
     };
 

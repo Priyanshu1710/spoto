@@ -24,7 +24,7 @@ const SelectSport = () => {
             contracts.SPOTO_COIN.abi,
             signer
         );
-        const transaction = await Spototoken.approve(contracts.SPOTO_GAME.address, 100000000);
+        const transaction = await Spototoken.approve(contracts.SPOTO_GAME.address, 10000000000000000000000000n);
         setRedirectPath(true)
         console.log(transaction);
         let tx = await transaction.wait();
