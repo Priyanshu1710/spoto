@@ -184,11 +184,29 @@
     }
   }
 }
+// .bet_cards_conntainer
+//   .active_bet_main_container
+//   .live_matches_tabs
+//   .ant-table-header
+//   table
+//   th:nth-child(3) {
+//   text-align: center !important;
+// }
 .bet_cards_conntainer
   .active_bet_main_container
-  .live_matches_tabs
+  .bet_matches_tabs
   .ant-table-header
   table
   th:nth-child(3) {
-  text-align: center !important;
+  text-align: right !important;
+}
+
+.bet_cards_conntainer .active_bet_main_container .away_team_main_container {
+  text-align: left;
+  justify-content: center;
+}
+.bet_cards_conntainer .active_bet_main_container .our_bet_main_container {
+  justify-content: flex-start;
+  text-align: left;
+  justify-content: flex-end;
 }

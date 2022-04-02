@@ -111,11 +111,11 @@ const ActiveBet = () => {
             width: 250,
 
         },
-        {
-            title: '',
-            dataIndex: 'address',
-            width: 150,
-        },
+        // {
+        //     title: '',
+        //     dataIndex: 'address',
+        //     width: 150,
+        // },
     ];
     const columns = [
         {
@@ -127,14 +127,14 @@ const ActiveBet = () => {
         {
             title: '',
             dataIndex: 'vs',
-            width: 60,
+            width: 100,
 
 
         },
         {
             title: 'Player 2 Bet',
             dataIndex: 'away',
-            width: 250,
+            width: 150,
             style: {
                 textAlign: "left",
 
@@ -144,13 +144,13 @@ const ActiveBet = () => {
         {
             title: '',
             dataIndex: 'age',
-            width: 100,
+            width: 120,
         },
-        {
-            title: '',
-            dataIndex: 'address',
-            width: 150,
-        },
+        // {
+        //     title: '',
+        //     dataIndex: 'address',
+        //     width: 150,
+        // },
     ];
 
     const { Option } = Select;
@@ -258,21 +258,12 @@ const ActiveBet = () => {
 
     //Our Bet Data 
     for (let i = ourBetData?.length - 1; i >= 0; i--) {
-        // console.log(activebet[0]);
-        // console.log(parseInt(activebet[i]['player1Deposit']?._hex).toString().slice(0, -18));
-        // console.log(parseInt(activebet[3]['player1GamePrediction']._hex));
-        // let ourBetFilterData = ourBetData.filter(data => data['nftid_player1'] == nftIdFLocal || data['nftid_player2'] == nftIdFLocal);
-
-        // console.log(ourBetFilterData)
-        // setOurBetData([ourBetFilterData])
-        // console.log(ourBetFilterData[0] && ourBetFilterData[0]["nftid_player1"])
 
         ourBet.push({
             key: ourBetData[i]['bettingPairId']['_hex'],
             home:
                 <div className='home_team_main_container'>
                     <div className="icon_container">
-                        {/* <img src={liveMatchesData[i]?.teams?.home?.logo} alt={liveMatchesData[i]?.teams?.home?.name} /> */}
                         <img src={betLogo} alt="@error" />
                     </div>
                     <div className="name_container">{ourBetData[i] && ourBetData[i]['nftid_player1']}</div>
@@ -289,10 +280,10 @@ const ActiveBet = () => {
                     <img src={betLogo} alt="@error" />
                 </div>
             </div>,
-            address:
-                <div className='withdraw_btn_container'>
-                    <div className="btn_primary">Withdraw</div>
-                </div>,
+            // address:
+            //     <div className='withdraw_btn_container'>
+            //         <div className="btn_primary">Withdraw</div>
+            //     </div>,
         });
     }
     //Active Matches Data 
@@ -332,10 +323,11 @@ const ActiveBet = () => {
                         setOpentTeam(parseInt(activebet[i]['player1GamePrediction']._hex))
                     })} >Bet</div>
                 </div>,
-            address:
-                <div className='withdraw_btn_container'>
-                    <div className="btn_primary">Withdraw</div>
-                </div>,
+            // address:
+            // <div className='withdraw_btn_container'>
+            //     <div className="btn_primary">Withdraw</div>
+            // </div>,
+
         });
     }
 
@@ -352,7 +344,7 @@ const ActiveBet = () => {
                                     <div className="frame_bg">
                                         <div className="content_main_container">
                                             <div className="live_matches_main_container active_bet_main_container">
-                                                <Tabs defaultActiveKey="1" onChange={callback} className='live_matches_tabs'>
+                                                <Tabs defaultActiveKey="1" onChange={callback} className='live_matches_tabs bet_matches_tabs'>
 
                                                     <TabPane tab="Active Bets" key="1" style={{ color: "white", textAlign: "left" }} className='our_bet_table'>
 
