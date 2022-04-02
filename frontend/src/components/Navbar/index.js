@@ -10,9 +10,11 @@ import { Menu, Dropdown, Button, Space } from 'antd';
 import { BsArrowUpRight } from 'react-icons/bs'
 import { BiCopy } from 'react-icons/bi'
 import logo from '../../assets/images/logo.svg'
+import { useLocation } from 'react-router';
 // import Web3 from 'web3'
 
 const faucet = async () => {
+
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
@@ -28,22 +30,6 @@ const faucet = async () => {
     await faucet.receive_test_token();
 };
 
-const nftDetail = async (nftId) => {
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
-    // console.log(signer)
-
-    const NftProf = new ethers.Contract(
-        contracts.NFT_PROFILE.address,
-        contracts.NFT_PROFILE.abi,
-        signer
-    );
-
-    const qrw = await NftProf.tokenURI(nftId);
-    console.log(qrw)
-};
 
 const ethe = async () => {
     const web3Modal = new Web3Modal();
@@ -67,12 +53,13 @@ const ethe = async () => {
 
 
 const NavigationBar = () => {
-
+    const location = useLocation();
     const dispatch = useDispatch();
     const [userBalance, setUserBalance] = useState(0);
     const [ethPrice, setethPrice] = useState();
     const [userAdd, setUserAdd] = useState();
     const [nftId, setNftId] = useState();
+    const [userProfile, setUserProfile] = useState()
     const [userDetails, setUserDetails] = useState({
         userDetail: {
             NFTId: '',
@@ -101,7 +88,30 @@ const NavigationBar = () => {
         nftDetail(nftId);
     }, [addressbalance, userBalance, userAdd, ethPrice, userAddFromReducerStorage])
 
+    const nftDetail = async (nftId) => {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+        // console.log(signer)
 
+        const NftProf = new ethers.Contract(
+            contracts.NFT_PROFILE.address,
+            contracts.NFT_PROFILE.abi,
+            signer
+        );
+
+        const qrw = await NftProf.tokenURI(nftId);
+        // qrw = await fetch(qrw);
+        let url = qrw.toString();
+        let response = await fetch(url);
+        response = await response.json()
+        console.log(qrw)
+        console.log(response);
+        console.log(response.Profile);
+        setUserProfile(response.Profile)
+    };
+    console.log(userProfile);
     const connectedDropdown = <>
         {userAdd && (
             <div className="connected_main_container ant-dropdown-menu">
@@ -195,9 +205,11 @@ const NavigationBar = () => {
                             </Nav.Link>
                         </Nav>}
                         {/* <span className='user_icon_main_container'> */}
-                        <Dropdown overlay={userProfileDetails} placement="bottom" className='user_details' trigger={['click']}>
-                            <Button>&nbsp;</Button>
-                        </Dropdown>
+                        {location.pathname !== '/' && location.pathname !== '/selectProfile' && (
+                            <Dropdown overlay={userProfileDetails} placement="bottom" className='user_details' trigger={['click']}>
+                                <Button> <img src={userProfile} alt="" /></Button>
+                            </Dropdown>
+                        )}
                         {/* </span> */}
                     </Navbar.Collapse>
                 </Container>
