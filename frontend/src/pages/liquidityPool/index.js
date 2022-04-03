@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavigationBar from '../../components/Navbar'
 import { useDispatch } from 'react-redux';
 import { setDashboardModalState } from '../../actions';
@@ -7,13 +7,15 @@ import '../ProfilePage/index.scss'
 import './index.scss';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
-import { contracts } from '../../utils';
+import { contracts, requestAccount } from '../../utils';
 
 
 const LiquidityPage = () => {
     const dispatch = useDispatch();
     const [eth, setEth] = useState("");
     const [matic, setMatic] = useState("");
+    const [lp, setLP] = useState(0);
+
 
     function onEthChange(e) {
         setEth(e);
@@ -62,7 +64,36 @@ const LiquidityPage = () => {
 
     };
 
+    const getlpBalance = async () => {
+        console.log("run get bal func ");
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+    
+        const LPbalance = new ethers.Contract(
+            contracts.SPT_LP.address,
+            contracts.SPT_LP.abi,
+            signer
+        );
+        const getbal = await LPbalance.balanceOf(requestAccount());
+        console.log(getbal);
+        let value=parseInt( getbal._hex);
+        value=value/1000000000000000000
+        setLP(value)
+    
+    };
 
+    useEffect(() => {
+        // return ()=>{
+        //  getlpBalance();
+        // }
+        return(
+            getlpBalance()
+        )
+    }, [lp])
+    console.log(lp);
+    
     return (
         <div className="liquidity_pool">
 
@@ -98,7 +129,7 @@ const LiquidityPage = () => {
                                         <div className="pool_cards_container">
                                             <div className="pool_cards">
                                                 <div className="head">My LP Shares</div>
-                                                <div className="value">231</div>
+                                                <div className="value">{lp} SLPT</div>
                                             </div>
                                         </div>
                                     </div>
