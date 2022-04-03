@@ -9,6 +9,7 @@ import { Select } from 'antd';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { contracts } from '../../utils';
 import betLogo from '../../assets/images/football-team.jpeg'
 
@@ -382,6 +383,12 @@ const ActiveBet = () => {
                                                 </Tabs>
                                             </div>
                                             <div className="create_bet_main_container">
+                                                <Link to="/liveMatches">
+                                                    <div className="button arrow_button" type="primary" >
+                                                        <span className='arrow'> &#x2190;</span>
+                                                        <span className='text'> Live Matches</span>
+                                                    </div>
+                                                </Link>
                                                 <div className="button" type="primary" onClick={showModal}>Create Bet</div>
                                                 <div className="create_bet_modal_main_container">
                                                     <Modal
