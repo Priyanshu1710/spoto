@@ -35,12 +35,7 @@ const Dashboard = () => {
                   </div>
                   <div className="bottom_container">
                     <div className="btn__main_container">
-                      <div className="btn_container"
-                        onClick={(() => {
-                          dispatch(setDashboardModalState(true))
-
-                        })}
-                      > {accountConnectedStatus ? " Connected" : "Connect Wallet"}</div> <br />
+                      <Link to="/pool"><div className="btn_container"> Add Liquidity</div> </Link> <br />
                       <Link to="/selectProfile"><div className="btn_container">Create NTF</div></Link>
                     </div>
                   </div>
