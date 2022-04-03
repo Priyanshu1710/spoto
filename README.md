@@ -1,9 +1,7 @@
 # Liquidity pool
 
-- Accepts depositing/withdrawing liquidity.
-- Mints LP tokens on deposit and burning them on withdrawal.
-- Allows swapping ETH/SPT.
-- 1% tax for every trade
+- Accepts depositing liquidity.
+- Mints LP tokens on deposit.
 
 ## Running it
 
@@ -29,26 +27,33 @@ By default the frontend is connected to the deployed version of all the contract
 ```
 export const contracts = {
   SPOTO_COIN: {
-    abi: SpotoCoin.abi,
-    address: "0x48eB0799f8F266c2D05586098382f57fCF132015",
+    abi: SpotoToken.abi,
+    address: "0x164c8D70f19f74b260C16f4701F3A95849E7CafA",
   },
-  LIQUIDITY_POOL: {
-    abi: LiquidityPool.abi,
-    address: "0x0511010C236F4372cA6e6201b0855C372B0708b1",
+  NFT_PROFILE: {
+    abi: NFTProfile.abi,
+    address: "0x2E6b7423d003B2749bf80A66E73Dc44dE9D32Ef4",
+  },
+  SPOTO_GAME: {
+    abi: SpotoGame.abi,
+    address: "0x02ABE5f8c645e11cA272b891a3B244a00C9e58bB",
+  },
+  FAUCET: {
+    abi: faucet.abi,
+    address: "0x73C1A3FA9e721a8214c0747CD301987e0370677e",
   },
   LPT: {
-    abi: LPT.abi,
-    address: "0x906697209543137DA9e95CB22618Ac829a2Bce4d",
+    abi: LiquidityPool.abi,
+    address: "0x3ca341DCe9C4F10Fe9CB790890aE817eb1d514ac",
   },
-  SPOTO_ROUTER: {
-    abi: SpotoRouter.abi,
-    address: "0x37834371D0b7055077ffb5510219C9Ed1Df63D70",
-  },
+  SPT_LP: {
+    abi: SPT_LP.abi,
+    address: "0xB2297132DA3188Cd3CA85dB7aeA9FC8d82Ea5069",
+  }
 };
 ```
 
 If you'd like to change that:
 
-- In your env, set `TREASURY_WALLET` to the account that will receive the 2% tax
 - Run `npx hardhat run scripts/deploy.js --network matic`
 - You'll get the new addresses in your console, change them at `frontend/src/utils/index.js`
