@@ -13,6 +13,12 @@ import { contracts } from '../../utils';
 // import { BrowserRouter as Router, Route } from "react-router-dom"
 // import { Route, Routes } from "react-router-dom";
 import { Navigate, useNavigate } from 'react-router-dom';
+import { Select } from 'antd';
+import socialIcon from '../../assets/images/social_icon.png'
+import beachIcon from '../../assets/images/beach.png'
+import narrativeIcon from '../../assets/images/narrative.png'
+import challengeIcon from '../../assets/images/challenge.png'
+import goalIcon from '../../assets/images/goal.png'
 
 import './index.scss'
 const IPFS = require('ipfs-mini');
@@ -76,6 +82,11 @@ const ProfilePage = () => {
     const [selectedUser, setSelectedUser] = useState(0)
     const [selectedAvatar, setSelectedAvatar] = useState(0)
 
+    const { Option } = Select;
+    function handleChange(value) {
+        console.log(value);
+        setTrait(value);
+    }
     const userImg = [
         {
             id: 1,
@@ -143,7 +154,73 @@ const ProfilePage = () => {
                                                     <label htmlFor="name">UserName :</label> <br />
                                                     <input type="text" name="name" id="name" onChange={event => setUsername(event.target.value)} />
                                                     <label htmlFor="trait">Trait :</label> <br />
-                                                    <input type="text" name="trait" id="trait" onChange={event => setTrait(event.target.value)} />
+                                                    {/* <input type="text" name="trait" id="trait" onChange={event => setTrait(event.target.value)} /> */}
+                                                    <Select
+                                                        labelInValue
+                                                        defaultValue={{ value: 'Select Trait' }}
+                                                        style={{ width: "100% " }}
+                                                        onChange={(e) => {
+                                                            handleChange(e.value);
+                                                        }}
+                                                        className='input_select'
+                                                    >
+                                                        <Option value="social">
+                                                            <div className="option_main_container">
+                                                                <div className="option_container">
+                                                                    <span className="icon">
+                                                                        <img src={socialIcon} alt="" />
+                                                                    </span>
+                                                                    <span className="name">&nbsp; Social</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </Option>
+                                                        <Option value="aesthetic">
+                                                            <div className="option_main_container">
+                                                                <div className="option_container">
+                                                                    <span className="icon">
+                                                                        <img src={beachIcon} alt="" />
+                                                                    </span>
+                                                                    <span className="name">&nbsp; Aesthetic</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </Option>
+                                                        <Option value="narrative">
+                                                            <div className="option_main_container">
+                                                                <div className="option_container">
+                                                                    <span className="icon">
+                                                                        <img src={narrativeIcon} alt="" />
+                                                                    </span>
+                                                                    <span className="name">&nbsp; Narrative</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </Option>
+                                                        <Option value="challenge">
+                                                            <div className="option_main_container">
+                                                                <div className="option_container">
+                                                                    <span className="icon">
+                                                                        <img src={challengeIcon} alt="" />
+                                                                    </span>
+                                                                    <span className="name">&nbsp; Challenge</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </Option>
+                                                        <Option value="goal">
+                                                            <div className="option_main_container">
+                                                                <div className="option_container">
+                                                                    <span className="icon">
+                                                                        <img src={goalIcon} alt="" />
+                                                                    </span>
+                                                                    <span className="name">&nbsp; Goal</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </Option>
+
+                                                    </Select>
                                                 </div>
                                             </div>
                                             <div className="button">
