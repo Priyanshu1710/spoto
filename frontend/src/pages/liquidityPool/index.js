@@ -12,17 +12,17 @@ import { contracts, requestAccount } from '../../utils';
 
 const LiquidityPage = () => {
     const dispatch = useDispatch();
-    const [eth, setEth] = useState("");
-    const [matic, setMatic] = useState("");
+    const [matic, setMat] = useState("");
+    const [spt, setSpt] = useState("");
     const [lp, setLP] = useState(0);
 
 
     function onEthChange(e) {
-        setEth(e);
+        setMat(e);
 
     }
     function onMaticChange(e) {
-        setMatic(e);
+        setSpt(matic*10);
     }
 
     const approveTx = async () => {
@@ -56,7 +56,7 @@ const LiquidityPage = () => {
             contracts.LPT.abi,
             signer
         );
-        const transaction = await LiqPool.addLiquidity({ value: ethers.utils.parseEther(eth) });
+        const transaction = await LiqPool.addLiquidity({ value: ethers.utils.parseEther(matic) });
         console.log(transaction);
         let tx = await transaction.wait();
         console.log(tx)
@@ -107,10 +107,10 @@ const LiquidityPage = () => {
                                         <div className="detail_container">
                                             <div className="input_container">
                                                 <label htmlFor="ETHtoken">Matic Token :</label> <br />
-                                                <input type="number" name="ETHtoken" id="ETHtoken" value={eth} onChange={event => onEthChange(event.target.value)} />  <span className='token_name'>Matic</span>
+                                                <input type="number" name="ETHtoken" id="ETHtoken" value={matic} onChange={event => onEthChange(event.target.value)} /> <span className='token_name'>Matic</span>
                                                 <div className='plus_symbol'>+</div>
                                                 <label htmlFor="Matictoken">SPT Token :</label> <br />
-                                                <input type="number" name="Matictoken" id="Matictoken" value={matic} onChange={event => onMaticChange(event.target.value)} /><span className='token_name'>SPT</span>
+                                                <input type="number" name="Matictoken" id="Matictoken" value={spt} onChange={event => onMaticChange(event.target.value)} /><span className='token_name'>SPT</span>
                                             </div>
                                         </div>
                                         <div className="button">
