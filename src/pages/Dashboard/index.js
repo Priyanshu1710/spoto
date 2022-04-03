@@ -31,12 +31,12 @@ const Dashboard = () => {
                 <div className="content_main_container">
                   <div className="upper_container">
                     <div className="heading">Invest, Bet and Earn Rewards</div>
-                    <div className="paira">A marketplace for all the popular games across the Globe.Come let’s explore this universe. </div>
+                    <div className="paira">A Betting Hub for all the popular games across the Globe. Come let’s explore this universe. </div>
                   </div>
                   <div className="bottom_container">
                     <div className="btn__main_container">
                       <Link to="/pool"><div className="btn_container"> Add Liquidity</div> </Link> <br />
-                      <Link to="/selectProfile"><div className="btn_container">Create NTF</div></Link>
+                      <Link to="/selectProfile"><div className="btn_container">Select Profile NTF</div></Link>
                     </div>
                   </div>
 

@@ -316,7 +316,7 @@ const ActiveBet = () => {
                         setBetId(activebet[i]['bettingPairId']['_hex'])
                         setUserBetAmnt(parseInt(activebet[i]['player1Deposit']?._hex).toString().slice(0, -18))
                         setOpentTeam(parseInt(activebet[i]['player1GamePrediction']._hex))
-                    })} >Bet</div>
+                    })} >Join Bet</div>
                 </div>,
             // address:
             // <div className='withdraw_btn_container'>

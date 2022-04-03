@@ -1,4 +1,5 @@
 # Spoto
+Bin and win : https://spoto-devnet.herokuapp.com/
 
 ## Available Scripts
 

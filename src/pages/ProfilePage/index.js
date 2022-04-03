@@ -147,7 +147,7 @@ const ProfilePage = () => {
                                             </div>
                                             <div className="detail_container">
                                                 <div className="input_container">
-                                                    <label htmlFor="name">UserName :</label> <br />
+                                                    <label htmlFor="name">User Name :</label> <br />
                                                     <input type="text" name="name" id="name" onChange={event => setUsername(event.target.value)} />
                                                     <label htmlFor="trait">Trait :</label> <br />
                                                     {/* <input type="text" name="trait" id="trait" onChange={event => setTrait(event.target.value)} /> */}
