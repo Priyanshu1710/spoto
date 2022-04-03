@@ -28,11 +28,11 @@ export const contracts = {
   },
   LPT: {
     abi: LiquidityPool.abi,
-    address: "0x72945D11e35bdfC65A8F24B060AC9BB881481947",
+    address: "0x3ca341DCe9C4F10Fe9CB790890aE817eb1d514ac",
   },
   SPT_LP: {
     abi: SPT_LP.abi,
-    address: "0x68C47662AA0820585dcDA0283f22764dA9C184b9",
+    address: "0xB2297132DA3188Cd3CA85dB7aeA9FC8d82Ea5069",
   }
 };
 

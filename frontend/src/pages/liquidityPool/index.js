@@ -23,6 +23,26 @@ const LiquidityPage = () => {
         setMatic(e);
     }
 
+    const approveTx = async () => {
+
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const Spototoken = new ethers.Contract(
+            contracts.SPOTO_COIN.address,
+            contracts.SPOTO_COIN.abi,
+            signer
+        );
+        const transaction = await Spototoken.approve(contracts.LPT.address, 10000000000000000000000000n);
+        console.log(transaction);
+        let tx = await transaction.wait();
+        let event = tx.events[0];
+        let value = event.args[2];
+        console.log(tx)
+    };
+
     const provideLiq = async () => {
         const web3Modal = new Web3Modal();
         const connection = await web3Modal.connect();
@@ -71,6 +91,7 @@ const LiquidityPage = () => {
                                                 provideLiq()
                                             }}><span>Add Liquidity</span> </div>
                                         </div>
+                                        <button onClick={approveTx}>test new</button>
                                         <div className="pool_cards_container">
                                             <div className="pool_cards">
                                                 <div className="head">My LP Shares</div>
