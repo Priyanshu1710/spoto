@@ -4,12 +4,14 @@ pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 //import "@openzeppelin/contracts/access/Ownable.sol";
 import "hardhat/console.sol";
 
 
-contract SpotoGame {
+contract SpotoGame is ChainlinkClient{
 
+    using Chainlink for Chainlink.Request;
     AggregatorV3Interface internal priceFeed;
     address private _owner;
     address private coin_addr;
@@ -20,6 +22,13 @@ contract SpotoGame {
         uint256 bets_lost;
         uint256 profile_level;
     }
+    address private oracle;
+    bytes32 private jobId;
+    uint256 private fee;
+    mapping(string => uint8) public results;
+    mapping(string => bool) public gamesEnded;
+    string public d1;
+    uint8 public winner1;
 
     int eth_price;
 
@@ -80,6 +89,10 @@ contract SpotoGame {
         betCount = 0;
         coin_addr=_coin_addr;
         priceFeed = AggregatorV3Interface(AggregatorAddress);
+        setChainlinkToken(0x326C977E6efc84E512bB9C30f76E30c160eD06FB);
+        oracle = 0xc8D925525CA8759812d0c299B90247917d4d4b7C;
+        jobId = "7ecb74753e414b54b26ed1b911b88d67";
+        fee = 10**16;
 
 
     }
@@ -303,6 +316,50 @@ function getPlayer1Details(uint256 interestedBet) public view returns (address p
                                                                    ) {
         available_bet_id = betsinmatch[matchId];
         
+    }
+
+    function requestResult(string memory _objectId) public onlyOwner() returns(bytes32 requestId) 
+    {
+        Chainlink.Request memory req = buildChainlinkRequest(jobId, address(this), this.fulfill.selector);
+        req.add("fixtureId", _objectId);
+        // Sends the request
+        return sendChainlinkRequestTo(oracle, req, fee);
+    }
+
+    /*
+      Sample answers:
+      Match Id -> 710580 (supplied through requestData) -> Manchester City vs Arsenal
+      Bytes32 reply from Chainlink Node -> 0x3731303538303100000000000000000000000000000000000000000000000000
+      Conversion to string / uint256 (by calling bytes32ToString)-> 7105801
+      Match Id is appended with  0 - pending, 1 - Home win, 2 - Away win, 3 - Draw
+      City won this match, hence match id is appended with 1.
+    */
+    function fulfill(bytes32 _requestId, bytes32 _data) public recordChainlinkFulfillment(_requestId)
+    {
+        (string memory resultString, uint8 winner) = bytes32ToString(_data);
+        winner1=winner;
+        d1=resultString;
+    }
+
+     function bytes32ToString(bytes32 _bytes32) public pure returns(string memory, uint8)
+    {
+        uint8 i = 0;
+        uint8 c = 0;
+        uint256 k = 0;
+        while (i < 32 && _bytes32[i] != 0) {
+            i++;
+        }
+        uint8 ii = i - 1; // remove last digit from result
+        bytes memory bytesArray = new bytes(ii);
+        for (i = 0; i < 32 && _bytes32[i] != 0; i++) {
+            if (i < ii) {
+                bytesArray[i] = _bytes32[i];
+            }
+            c = (uint8(_bytes32[i]) - 48);
+            k = k * 10 + c;
+        }
+        // last digit inidicates the result of the match with this matchId.
+        return (string(bytesArray), uint8(k % 10));
     }
 
 }
