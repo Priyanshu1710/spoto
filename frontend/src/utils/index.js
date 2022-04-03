@@ -10,23 +10,23 @@ import Web3Modal from 'web3modal';
 export const contracts = {
   SPOTO_COIN: {
     abi: SpotoToken.abi,
-    address: "0xf8c329E0880D7ca3E8c44Ee048E17cBc833d5139",
+    address: "0x164c8D70f19f74b260C16f4701F3A95849E7CafA",
   },
   NFT_PROFILE: {
     abi: NFTProfile.abi,
-    address: "0x3247332e2d70047566c3ef7683bC278aF4D12773",
+    address: "0x2E6b7423d003B2749bf80A66E73Dc44dE9D32Ef4",
   },
   SPOTO_GAME: {
     abi: SpotoGame.abi,
-    address: "0x74eC44626578b2810d12477B8C3660e55733dD98",
+    address: "0x02ABE5f8c645e11cA272b891a3B244a00C9e58bB",
   },
   FAUCET: {
     abi: faucet.abi,
-    address: "0x039264549D03B8B13eb1cC8A2c437C53025252b5",
+    address: "0x73C1A3FA9e721a8214c0747CD301987e0370677e",
   },
   LPT: {
     abi: LiquidityPool.abi,
-    address: "0x3e5df8AFD2D1EA62D8c5Cc4f471A086031381534",
+    address: "0x34Ee66A1293607f7645C896DCdb8c11b8B48d420",
   }
 };
 
@@ -66,7 +66,7 @@ export const requestBalance = async () => {
     localStorage.setItem("userBal", bal);
   } catch (error) {
     console.log(error);
-    window.alert("Please connect Rinkeby Test Network");
+    window.alert("Please connect Matic Mumbai Testnet");
   }
 
 

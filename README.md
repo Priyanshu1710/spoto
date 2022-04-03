@@ -24,7 +24,7 @@ npm start
 
 ## Re-deploying
 
-By default the frontend is connected to the deployed version of all the contracts on Rinkeby:
+By default the frontend is connected to the deployed version of all the contracts on Matic Mumbai Testnet:
 
 ```
 export const contracts = {
@@ -50,5 +50,5 @@ export const contracts = {
 If you'd like to change that:
 
 - In your env, set `TREASURY_WALLET` to the account that will receive the 2% tax
-- Run `npx hardhat run scripts/deploy.js --network rinkeby`
+- Run `npx hardhat run scripts/deploy.js --network matic`
 - You'll get the new addresses in your console, change them at `frontend/src/utils/index.js`

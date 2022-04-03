@@ -5,7 +5,7 @@ import "hardhat/console.sol"; //For debugging only
 
 import './SafeMath.sol';
 import "./ERC20Token.sol";
-
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract LiquidityPool is ERC20Token {
 
@@ -37,7 +37,8 @@ contract LiquidityPool is ERC20Token {
         owner = msg.sender;
         priceTokenEth=_priceTokenEth;
         priceTokenB= _priceTokenB;
-        ERC20Token(addressTokenB).approve(address(this),10000000000*10*22);
+        IERC20.permit
+        ERC20Token(addressTokenB).approve(address(this),10000000000*10**22);
     }
 
     function addLiquidity(
@@ -45,7 +46,7 @@ contract LiquidityPool is ERC20Token {
         
         uint256 _amountTokenEth=msg.value;
         uint256 _amountTokenB=(_amountTokenEth*priceTokenEth)/priceTokenB;
-        ERC20Token(addressTokenB).approve(address(this),10000000000*10*22);
+        ERC20Token(addressTokenB).approve(address(this),10000000000*10**22);
 
         ERC20Token tokenB = ERC20Token(addressTokenB);
         require(
@@ -96,7 +97,7 @@ contract LiquidityPool is ERC20Token {
          uint reserveIn=reserveTokenB;
          uint reserveout=reserveTokenEth;
          uint amountout=getAmountOut( amountIn, reserveIn, reserveout);
-         ERC20Token(addressTokenB).approve(address(this),10000000000*10*22);
+         ERC20Token(addressTokenB).approve(address(this),10000000000*10**22);
 
          payable(msg.sender).transfer(amountout);
          reserveTokenB=reserveTokenB+amountIn;
@@ -112,7 +113,7 @@ contract LiquidityPool is ERC20Token {
          uint reserveIn=reserveTokenEth;
          uint reserveout=reserveTokenB;
          uint amountout=getAmountOut( amountIn, reserveIn, reserveout);
-         ERC20Token(addressTokenB).approve(address(this),10000000000*10*22);
+         ERC20Token(addressTokenB).approve(address(this),10000000000*10**22);
         ERC20Token(addressTokenB).transferFrom(address(this),msg.sender,amountout);
         reserveTokenB=reserveTokenB-amountout;
          reserveTokenEth=reserveTokenEth+msg.value;

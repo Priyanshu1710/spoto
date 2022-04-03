@@ -5,6 +5,9 @@ import { useDispatch } from 'react-redux';
 import { setDashboardModalState } from '../../actions';
 import '../ProfilePage/index.scss'
 import './index.scss';
+import { ethers } from 'ethers';
+import Web3Modal from 'web3modal';
+import { contracts } from '../../utils';
 
 
 const LiquidityPage = () => {
@@ -19,6 +22,25 @@ const LiquidityPage = () => {
     function onMaticChange(e) {
         setMatic(e);
     }
+
+    const provideLiq = async () => {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+    
+        const LiqPool = new ethers.Contract(
+            contracts.LPT.address,
+            contracts.LPT.abi,
+            signer
+        );
+        console.log(ethers.utils.parseEther(eth))
+        const transaction = await LiqPool.addLiquidity({ value: ethers.utils.parseEther(eth) });
+        console.log(transaction);
+        let tx = await transaction.wait();
+        console.log(tx)
+    
+    };
 
 
     return (
@@ -46,7 +68,7 @@ const LiquidityPage = () => {
                                         </div>
                                         <div className="button">
                                             <div className="btn_container" onClick={() => {
-
+                                                provideLiq()
                                             }}><span>Add Liquidity</span> </div>
                                         </div>
                                         <div className="pool_cards_container">
