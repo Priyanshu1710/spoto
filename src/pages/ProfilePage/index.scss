@@ -1,0 +1,82 @@
+@import "../../assets/scss/style.scss";
+
+.profile_page_main_container {
+  .avarat_container {
+    .single_avatar {
+      border: 2px solid $primary-color;
+      margin: 0 8px;
+      cursor: pointer;
+    }
+    .selected_avatar {
+      border: 2px solid green;
+    }
+  }
+  .detail_container {
+    .input_container {
+      label {
+        font-size: 1rem;
+        color: #fff;
+        margin-bottom: 5px;
+      }
+      input,
+      .input_select {
+        width: 100%;
+        padding: 6px 2px;
+        outline: none;
+        border: none;
+        border: 3px solid $tersiary-color;
+        border-radius: 5px;
+        background: $primary-bg;
+        color: #fff;
+        &:focus {
+          box-shadow: 0px 0px 15px $tersiary-color;
+        }
+        .ant-select-selector {
+          position: relative;
+          background-color: transparent;
+          border: none;
+          transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+          &:focus {
+            border: none;
+            border-color: red;
+          }
+        }
+      }
+    }
+  }
+  .button {
+    display: flex;
+    justify-content: center;
+    .btn_container {
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+    }
+  }
+  .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input)
+    .ant-select-selector {
+    border: none !important;
+    box-shadow: none;
+  }
+  .ant-select-arrow {
+    color: $tersiary-color;
+  }
+  .option_main_container {
+    .option_container {
+      display: flex;
+      // align-items: center;
+      .icon {
+        height: 100%;
+        // width: 100%;
+        img {
+          height: 100%;
+        }
+      }
+      .name {
+        margin-left: 5px;
+        color: $tersiary-color;
+      }
+    }
+  }
+}

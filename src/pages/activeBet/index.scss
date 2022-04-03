@@ -1,0 +1,230 @@
+@import "../../assets/scss/style.scss";
+.bet_cards_conntainer {
+  .content_main_container {
+    position: relative;
+  }
+  .active_bet_main_container {
+    thead,
+    tbody,
+    tfoot,
+    tr,
+    td {
+      color: #fff;
+      background: $primary-bg;
+      border-color: $tersiary-color;
+      padding: 0.8rem;
+      border: none;
+    }
+    .ant-table-tbody > tr.ant-table-row:hover > td,
+    .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+      background: transparent;
+      cursor: pointer;
+    }
+    .bet_btn_container {
+      border: 2px solid $tersiary-color;
+      border-radius: 10px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      text-align: center;
+      &:hover {
+        box-shadow: 0px 0px 10px $tersiary-color;
+      }
+    }
+    .withdraw_btn_container {
+      border: 2px solid $tersiary-color;
+      text-align: center;
+      border-radius: 10px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+
+      &:hover {
+        box-shadow: 0px 0px 10px $tersiary-color;
+      }
+    }
+
+    .home_team_main_container {
+      display: grid;
+      // align-items: center;
+      grid-template-columns: 3rem 1fr;
+      column-gap: 1rem;
+      .icon_container {
+        height: 3.5rem;
+        width: 3rem;
+        border-radius: 10%;
+        overflow: hidden;
+        border: 2px solid $tersiary-color;
+        grid-row: 1 / span 3;
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+      .name_container {
+        margin-left: 0rem;
+      }
+      .deposite {
+      }
+      .predection {
+      }
+    }
+    .away_team_main_container {
+      grid-template-columns: 6rem 3rem;
+      justify-content: flex-start;
+      text-align: left;
+      .icon_container {
+        // grid-column: 2 span/3;
+        // grid-row: 1 / span 3;
+        grid-row: 1 / span 3;
+        grid-column: 2 / span 1;
+      }
+      .name_container {
+        margin-right: 0rem;
+      }
+    }
+    .our_bet_main_container {
+      justify-content: center;
+    }
+  }
+  .live_matches_main_container
+    .live_matches_tabs
+    .ant-table-header
+    table
+    th:nth-child(3) {
+    text-align: left;
+  }
+
+  .create_bet_main_container {
+    position: absolute;
+    top: -17px;
+    right: 0;
+    .button {
+      border: 2px solid $tersiary-color;
+      color: #fff;
+      padding: 0.6rem 1.3rem;
+      display: inline-block;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      &:hover {
+        box-shadow: 0px 0px 10px $tersiary-color;
+      }
+    }
+    .arrow_button {
+      border: none;
+      color: $tersiary-color;
+      transition: 0.5s;
+      .arrow {
+      }
+      .text {
+       
+        transition: 0.5s;
+      }
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: none;
+      }
+      &:hover .text {
+        margin-left: 5px;
+      }
+    }
+  }
+}
+.create_bet_modal_container {
+  .ant-modal-content {
+    background: indianred;
+    background: url("../../assets/images/home_centre_frame.svg");
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+    .ant-modal-header {
+      background: transparent;
+      border: none;
+      color: #fff;
+      text-align: center;
+      font-weight: 500;
+      .ant-modal-title {
+        color: #fff;
+        font-weight: 500;
+        font-size: 1rem;
+        letter-spacing: 1.2px;
+      }
+    }
+    .ant-modal-footer {
+      border: none;
+      text-align: center;
+      & > button:nth-child(1) {
+        display: none;
+      }
+    }
+  }
+  .create_bet_modal_container_inside {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      background: $primary-bg;
+      border: none;
+    }
+    .ant-select-arrow {
+      color: $tersiary-color;
+    }
+    .input_box {
+      input {
+        width: 350px;
+        background: $primary-bg;
+        outline: none;
+        border: none;
+        border: 2px solid $tersiary-color;
+        border-radius: 5px;
+        padding: 5px 13px;
+        margin: 1.5rem 0;
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          display: none;
+        }
+      }
+    }
+    .button {
+      border: 2px solid $tersiary-color;
+      color: #fff;
+      padding: 0.6rem 1.3rem;
+      display: inline-block;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      &:hover {
+        box-shadow: 0px 0px 10px $tersiary-color;
+      }
+    }
+  }
+}
+// .bet_cards_conntainer
+//   .active_bet_main_container
+//   .live_matches_tabs
+//   .ant-table-header
+//   table
+//   th:nth-child(3) {
+//   text-align: center !important;
+// }
+.bet_cards_conntainer
+  .active_bet_main_container
+  .bet_matches_tabs
+  .ant-table-header
+  table
+  th:nth-child(3) {
+  text-align: right !important;
+}
+
+.bet_cards_conntainer .active_bet_main_container .away_team_main_container {
+  text-align: left;
+  justify-content: center;
+}
+.bet_cards_conntainer .active_bet_main_container .our_bet_main_container {
+  justify-content: flex-start;
+  text-align: left;
+  justify-content: flex-end;
+}

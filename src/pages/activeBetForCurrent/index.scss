@@ -1,0 +1,12 @@
+@import "../../assets/scss/style.scss";
+.live_match_active_bet_cards {
+  .ant-table-tbody > tr.ant-table-row:hover > td,
+  .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    background: $tersiary-color !important;
+    cursor: pointer !important;
+  }
+}
+.bet_cards_conntainer .active_bet_main_container .away_team_main_container {
+  text-align: left;
+  justify-content: flex-end !important;
+}

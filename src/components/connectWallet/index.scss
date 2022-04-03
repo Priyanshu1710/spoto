@@ -1,0 +1,100 @@
+@import "../../assets/scss/style.scss";
+.connect_wallet_main_container {
+  background: url("../../assets/images/btn_bg.svg");
+  background-size: contain;
+  height: 16rem;
+  width: 100%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  .ant-modal-body {
+    margin-top: -4rem;
+    cursor: pointer;
+  }
+  .ant-modal-content {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 110%;
+  }
+  .metamask_main_container {
+    width: 100%;
+    height: 100%;
+    .metamask_container {
+      width: 100%;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // flex-direction: column;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      cursor: pointer;
+      .img_container {
+        height: 5rem;
+        width: 5rem;
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+      h1 {
+        color: white;
+        font-weight: 500;
+        font-size: 2.2rem;
+        margin-bottom: 0%;
+      }
+      .user_address {
+        color: #fff;
+        display: flex;
+        .left {
+          padding: 5px 30px;
+          border: 2px solid $tersiary-color;
+          background-color: $tersiary-color;
+          border-radius: 10px;
+          margin: 0 10px;
+          letter-spacing: 1.2px;
+          font-size: 1rem;
+          &:hover {
+            background-color: transparent;
+          }
+        }
+        .right {
+          padding: 5px 30px;
+          letter-spacing: 1.2px;
+          border: 2px solid $tersiary-color;
+          border-radius: 10px;
+          font-size: 1rem;
+          &:hover {
+            background-color: $tersiary-color;
+          }
+        }
+      }
+    }
+  }
+}
+.nav_modal_btn {
+  height: 4.9rem;
+  width: 12rem;
+
+  .nav_btn_container {
+    height: 100%;
+    width: 100%;
+    background: url("../../assets/images/btn_bg.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    p {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 0%;
+      margin-top: -5px;
+    }
+  }
+}

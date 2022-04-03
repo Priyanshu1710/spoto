@@ -1,0 +1,90 @@
+@import "../../assets/scss/style.scss";
+
+.arena_page {
+  .content_main_container {
+    width: 50% !important;
+  }
+}
+
+.arena_main_container {
+  .heading_container {
+    text-align: center;
+    // margin-top: 2rem;
+    .arena_name {
+      font-size: 1.2rem;
+      color: #fff;
+      font-weight: 500;
+    }
+    .arena {
+      font-size: 1.2rem;
+      color: #fff;
+      font-weight: 500;
+    }
+  }
+  .cards_container {
+    display: flex;
+    // column-gap: 1rem;
+    justify-content: space-between;
+    margin-top: 2rem;
+    .single_cards {
+      height: 13rem;
+      width: 11rem;
+      background-color: $tersiary-color;
+      border: 1px solid $tersiary-color;
+      border-radius: 10px;
+      overflow: hidden;
+      .contenet_container {
+        background: $primary-bg;
+        height: 80%;
+        text-align: center;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .head {
+          display: flex;
+          justify-content: center;
+          .heading {
+          }
+          .value {
+          }
+        }
+        .mid {
+          .heading {
+            font-size: 0.7rem;
+            font-weight: 400;
+          }
+          .value {
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 1rem;
+          }
+        }
+        .bottom {
+          .heading {
+            font-size: 0.7rem;
+            font-weight: 400;
+          }
+          .value {
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 1rem;
+          }
+        }
+      }
+      .bottom_container {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 20%;
+        cursor: pointer;
+        .text {
+          color: #fff;
+          font-size: 1rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

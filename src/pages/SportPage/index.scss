@@ -1,0 +1,163 @@
+@import "../../assets/scss/style.scss";
+.select_sport_container {
+  display: flex;
+  column-gap: 1rem;
+  justify-content: center;
+  max-height: 20rem;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  overflow: scroll;
+  width: 26rem;
+}
+.sportPage_card {
+  .ant-card-cover {
+    height: 160px;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  .ant-card-body {
+    padding: 0;
+    text-align: center;
+    padding-top: 0.5rem;
+    background: $tersiary-color;
+    height: 2.5rem;
+    .ant-card-meta {
+      margin: 0%;
+      height: 100%;
+    }
+  }
+}
+.coming_soon_cards {
+  .ant-card-body {
+    // display: flex !important;
+    // width: 100% !important;
+    // justify-content: center !important;
+  }
+  .cards {
+    .ant-card-grid {
+      float: left;
+      width: 33.33%;
+      padding: 24px;
+      border: 0;
+      color: white;
+      border-radius: 0;
+      //   box-shadow: 1px 0 0 0 #ce18c5, 0 1px 0 0 #ce18c5, 1px 1px 0 0 #ce18c5,
+      //     1px 0 0 0 #ce18c5 inset, 0 1px 0 0 #ce18c5 inset;
+      border: 2px solid #ce18c5;
+      transition: all 0.3s;
+      box-shadow: none;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 1rem;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      &:hover {
+        box-shadow: 2px 2px 10px #ce18c5;
+      }
+    }
+    display: flex;
+    justify-content: center;
+    .single_cards {
+      color: $tersiary-color;
+      font-size: 1rem;
+      border: 2px solid #ce18c5;
+      transition: all 0.3s;
+      box-shadow: none;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 1rem;
+      margin: 0 0.5rem;
+
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 2px 2px 10px #ce18c5;
+      }
+      .overlay {
+        opacity: 0;
+        transition: all 0.3s;
+        padding: 24px;
+        border-radius: 5px;
+      }
+      &:hover .overlay {
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.6);
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .single_cards:nth-child(1) {
+    background-image: url("../../assets/images/cricket.jpeg");
+    background-size: cover;
+    &:hover {
+      // filter: blur(2px);
+    }
+  }
+  .single_cards:nth-child(2) {
+    background-image: url("../../assets/images/basketball.jpeg");
+    background-size: cover;
+    background-position: center;
+    &:hover {
+      // filter: blur(2px);
+    }
+  }
+  .ant-card {
+    background: transparent;
+    border: none;
+  }
+  .ant-card-head {
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    border: none;
+  }
+  .ant-card-contain-grid:not(.ant-card-loading) .ant-card-body {
+    display: flex;
+    // justify-content: space-between;
+    justify-content: center;
+    &::before,
+    &::after {
+      content: "";
+      display: none;
+    }
+
+    .ant-card-grid {
+      float: left;
+      width: 33.33%;
+      padding: 24px;
+      border: 0;
+      color: white;
+      border-radius: 0;
+      //   box-shadow: 1px 0 0 0 #ce18c5, 0 1px 0 0 #ce18c5, 1px 1px 0 0 #ce18c5,
+      //     1px 0 0 0 #ce18c5 inset, 0 1px 0 0 #ce18c5 inset;
+      border: 2px solid #ce18c5;
+      transition: all 0.3s;
+      box-shadow: none;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 1rem;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      &:hover {
+        box-shadow: 2px 2px 10px #ce18c5;
+      }
+    }
+  }
+}
+
+.content_main_container {
+  position: relative;
+  .cards_up_main_heading {
+    position: absolute;
+    width: 100%;
+    top: -10%;
+    left: 23%;
+    color: $tersiary-color;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+}

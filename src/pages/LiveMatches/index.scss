@@ -1,0 +1,139 @@
+@import "../../assets/scss/style.scss";
+.match_cards_conntainer {
+  .bg_container
+    .dashboard_container
+    .dashboard_centre_frame_container
+    .dashboard_centre_frame
+    .frame_bg
+    .content_main_container {
+    justify-content: unset;
+    margin-top: -6rem;
+    width: 70%;
+  }
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: $tersiary-color;
+  }
+  .ant-tabs-ink-bar {
+    background: $tersiary-color;
+  }
+  .ant-tabs > .ant-tabs-nav .ant-tabs-nav-more,
+  .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-more {
+    background: $tersiary-color;
+  }
+  .ant-card-body {
+    .ant-card-grid {
+      margin: 1rem;
+    }
+  }
+}
+.live_matches_main_container {
+  .ant-tabs-tab-btn {
+    color: #fff;
+  }
+  .live_matches_tabs {
+    .ant-table-container {
+      border: 1px solid $tersiary-color;
+      border-radius: 2px;
+    }
+    .ant-table-header {
+      table {
+        th {
+          background: $tersiary-color;
+          border-radius: unset !important;
+          color: #fff;
+          font-weight: 500;
+          // text-align: center;
+          border-bottom: none;
+          &:nth-child(2) {
+            text-align: center;
+          }
+          &:nth-child(3) {
+            text-align: right;
+          }
+        }
+      }
+    }
+    thead,
+    tbody,
+    tfoot,
+    tr,
+    td {
+      color: #fff;
+      background: $primary-bg;
+      border-color: $tersiary-color;
+      padding: 0.8rem;
+      &:nth-child(1) {
+        text-align: left;
+      }
+      &:nth-child(2) {
+        text-align: center;
+      }
+      &:nth-child(3) {
+        text-align: right;
+      }
+    }
+    .ant-table-tbody > tr.ant-table-row:hover > td,
+    .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+      background: $tersiary-color;
+      cursor: pointer;
+    }
+  }
+  .home_team_main_container {
+    display: flex;
+    align-items: center;
+    .icon_container {
+      height: 3rem;
+      width: 3rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid $tersiary-color;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    .name_container {
+      margin-left: 1rem;
+    }
+  }
+  .vs_main_container {
+    .leauge_container {
+      font-size: 0.6rem;
+    }
+    .vs_container {
+      padding: 5px 0;
+    }
+    .time_container {
+      font-size: 0.6rem;
+      span {
+        font-size: 1rem;
+      }
+      .winner {
+        color: green;
+      }
+      .looser {
+        color: red;
+      }
+      .matche_cancle {
+        color: red;
+        font-size: 0.8rem;
+      }
+      .draw {
+        color: yellow;
+      }
+    }
+  }
+  .away_team_main_container {
+    justify-content: flex-end;
+    .name_container {
+      margin-left: 0rem;
+      margin-right: 1rem;
+    }
+  }
+  .loading {
+    color: #fff;
+    text-align: center;
+    margin-top: 4rem;
+  }
+}
