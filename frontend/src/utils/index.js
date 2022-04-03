@@ -2,7 +2,8 @@ import SpotoToken from "../artifacts/contracts/SpotoToken.sol/SpotoToken.json";
 import NFTProfile from "../artifacts/contracts/NFTProfile.sol/NFTProfile.json";
 import SpotoGame from "../artifacts/contracts/SpotoGame.sol/SpotoGame.json";
 import faucet from '../artifacts/contracts/Faucet.sol/faucet.json';
-import LiquidityPool from '../artifacts/contracts/liquidity.sol/LiquidityPool.json'
+import LiquidityPool from '../artifacts/contracts/liquidity.sol/LiquidityPool.json';
+import SPT_LP from '../artifacts/contracts/SPT_LP.sol/SPT_LP.json';
 import { BigNumber } from "ethers";
 import { ethers } from "ethers";
 import Web3Modal from 'web3modal';
@@ -26,7 +27,11 @@ export const contracts = {
   },
   LPT: {
     abi: LiquidityPool.abi,
-    address: "0x34Ee66A1293607f7645C896DCdb8c11b8B48d420",
+    address: "0x72945D11e35bdfC65A8F24B060AC9BB881481947",
+  },
+  SPT_LP: {
+    abi: SPT_LP.abi,
+    address: "0x68C47662AA0820585dcDA0283f22764dA9C184b9",
   }
 };
 

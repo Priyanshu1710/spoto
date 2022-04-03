@@ -6,10 +6,12 @@ import "hardhat/console.sol"; //For debugging only
 import './SafeMath.sol';
 import "./ERC20Token.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import './SPT_LP.sol';
 
-contract LiquidityPool is ERC20Token {
+contract LiquidityPool is SPT_LP {
 
     using SafeMath for uint;
+    address public lp_token;
     address public addressTokenB; 
     address public owner; 
     uint256 public reserveTokenEth;
@@ -26,19 +28,19 @@ contract LiquidityPool is ERC20Token {
     event SellSPTToken(uint amountin , uint amountout );
 
     constructor(
-        string memory _name,
-        string memory _symbol,
         address _addressTokenB,
         uint256 _priceTokenEth,
-        uint256 _priceTokenB
+        uint256 _priceTokenB,
+        address _lptoken
 
-    ) ERC20Token(0, _name, _symbol) {
+    ) {
+        lp_token = _lptoken;
         addressTokenB = _addressTokenB;
         owner = msg.sender;
         priceTokenEth=_priceTokenEth;
         priceTokenB= _priceTokenB;
-        IERC20.permit
-        ERC20Token(addressTokenB).approve(address(this),10000000000*10**22);
+        IERC20(addressTokenB).approve(address(this),10000000000*10**22);
+        IERC20(lp_token).approve(address(this),10000000000*10**22);
     }
 
     function addLiquidity(
@@ -46,14 +48,13 @@ contract LiquidityPool is ERC20Token {
         
         uint256 _amountTokenEth=msg.value;
         uint256 _amountTokenB=(_amountTokenEth*priceTokenEth)/priceTokenB;
-        ERC20Token(addressTokenB).approve(address(this),10000000000*10**22);
+        IERC20(addressTokenB).approve(address(this),10000000000*10**22);
 
-        ERC20Token tokenB = ERC20Token(addressTokenB);
         require(
-            tokenB.transferFrom(msg.sender, address(this), _amountTokenB),
+            IERC20(addressTokenB).transferFrom(msg.sender, address(this), _amountTokenB),
             "Tranfer of token failed"
         );
-
+        SPT_LP lp = SPT_LP(lp_token);
         mint(msg.sender); // mint new LP tokens
 
         return true;
@@ -69,15 +70,18 @@ contract LiquidityPool is ERC20Token {
 
         uint256 _amountTokenEth = _balanceTokenEth - _reserveTokenEth;
         uint256 _amountTokenB = _balanceTokenB - _reserveTokenB;
+
+        SPT_LP lp = SPT_LP(lp_token);
         
-        uint256 _totalSupply = totalSupply; 
+        uint256 _totalSupply = lp.totalSupply(); 
         if (_totalSupply == 0) { 
             liquidity = _amountTokenEth * _amountTokenB / _amountTokenB; 
         } else {
             liquidity = _amountTokenEth * _amountTokenB / _amountTokenB;
         }
         require(liquidity > 0, 'Liquidity added invalid');
-        _mint(to, liquidity);
+        IERC20(lp_token).approve(address(this),10000000000*10**22);
+        lp.mint(to, liquidity);
         _update(_balanceTokenEth, _balanceTokenB, _reserveTokenEth, _reserveTokenB); 
         emit MintLPToken(msg.sender, _amountTokenEth, _amountTokenB);
     }
