@@ -7,6 +7,7 @@ import { BigNumber } from "ethers";
 import { ethers } from "ethers";
 import Web3Modal from 'web3modal';
 
+
 export const contracts = {
   SPOTO_COIN: {
     abi: SpotoToken.abi,
@@ -44,8 +45,8 @@ export const requestAccount = async () => {
   return account;
 };
 
-export const requestBalance = async () => {
 
+export const requestBalance = async () => {
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();
   const provider = new ethers.providers.Web3Provider(connection);

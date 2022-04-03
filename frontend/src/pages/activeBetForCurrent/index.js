@@ -7,6 +7,7 @@ import { Table } from 'antd';
 import { Modal } from 'antd';
 import { Select } from 'antd';
 import { ethers } from 'ethers';
+import { Link } from 'react-router-dom';
 import Web3Modal from 'web3modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { contracts } from '../../utils';
@@ -273,7 +274,7 @@ const LiveActiveBet = () => {
                     <img src={betLogo} alt="@error" />
                 </div>
             </div>,
-   
+
         });
     }
     //Active Matches Data 
@@ -363,7 +364,13 @@ const LiveActiveBet = () => {
                                                 </Tabs>
                                             </div>
                                             <div className="create_bet_main_container">
-                                              
+                                                <Link to="/liveMatches">
+                                                    <div className="button arrow_button" type="primary" >
+                                                        <span className='arrow'> &#x2190;</span>
+                                                        <span className='text'> Live Matches</span>
+                                                    </div>
+                                                </Link>
+
                                                 <div className="make_bet_main_container" type="primary">
                                                     <Modal
                                                         title="Place Bet"

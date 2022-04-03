@@ -7,11 +7,13 @@ import { Tabs } from 'antd';
 import { Table } from 'antd';
 import { Modal } from 'antd';
 import { Select } from 'antd';
+import { Link } from 'react-router-dom';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { contracts } from '../../utils';
 import betLogo from '../../assets/images/football-team.jpeg'
+
 
 const FinishedActiveBet = () => {
     const nftId = useSelector((state) => state.spoto.selectedUserhex);
@@ -259,9 +261,10 @@ const FinishedActiveBet = () => {
     console.log(ourBetData);
 
 
+
     //Our Bet Data 
     for (let i = ourBetData?.length - 1; i >= 0; i--) {
-
+        console.log(ourBetData[i]["bettingPairId"]._hex);
         ourBet.push({
             key: ourBetData[i]['bettingPairId']['_hex'],
             home:
@@ -285,7 +288,10 @@ const FinishedActiveBet = () => {
             </div>,
             address:
                 <div className='withdraw_btn_container'>
-                    <div className="btn_primary" onClick={withdraw}>Withdraw</div>
+                    <div className="btn_primary" onClick={() => {
+                        setBetId(ourBetData[i]["bettingPairId"]._hex)
+                        withdraw()
+                    }}>Withdraw</div>
                 </div>,
         });
     }
@@ -383,7 +389,12 @@ const FinishedActiveBet = () => {
                                                 </Tabs>
                                             </div>
                                             <div className="create_bet_main_container">
-
+                                                <Link to="/liveMatches">
+                                                    <div className="button arrow_button" type="primary" >
+                                                        <span className='arrow'> &#x2190;</span>
+                                                        <span className='text'> Live Matches</span>
+                                                    </div>
+                                                </Link>
 
                                                 <div className="make_bet_main_container" type="primary">
                                                     <Modal

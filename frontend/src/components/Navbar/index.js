@@ -71,6 +71,8 @@ const NavigationBar = () => {
     const addressbalance = useSelector((state) => state.spoto.userBal);
 
     const userAddFromReducerStorage = useSelector((state) => state.spoto.userAdd)
+    const userBal = useSelector((state) => state.spoto.userBal);
+
 
     useEffect(() => {
         ethe()
@@ -111,14 +113,14 @@ const NavigationBar = () => {
         console.log(response.Profile);
         setUserProfile(response.Profile)
     };
-    // console.log(userProfile);
+    console.log(userBalance);
     const connectedDropdown = <>
         {userAdd && (
             <div className="connected_main_container ant-dropdown-menu">
                 <div className="connected_container">
                     <div className="dropdown_list_container">
                         <div className="left_container">Balance : </div>
-                        <div className="right_container">{userBalance} SPT</div>
+                        <div className="right_container">{userBal} SPT</div>
                     </div>
                     <div className="dropdown_list_container">
                         <div className="left_container">ETH Price : </div>
