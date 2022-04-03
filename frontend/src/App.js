@@ -22,7 +22,6 @@ function App() {
   const walletAddress = useSelector((state) => state.spoto.userAdd);
   const userBal = useSelector((state) => state.spoto.userBal);
   useEffect(() => {
-    console.log(location.pathname);
     requestBalance()
     let userAccAdd = localStorage.getItem("userAddresss")
     dispatch(setUserAdd(userAccAdd))
@@ -78,11 +77,9 @@ function App() {
     );
 
     try {
-      console.log("balances line code start");
       const data = await Spotogame.balanceOf(requestAccount());
 
       const bal = bigNumberToDecimal(data);
-      console.log(bal);
       localStorage.setItem("userBal", bal);
       dispatch(setUserBal(bal))
     } catch (error) {
@@ -94,7 +91,6 @@ function App() {
 
 
   };
-  console.log(userBal);
 
   return (
     <>

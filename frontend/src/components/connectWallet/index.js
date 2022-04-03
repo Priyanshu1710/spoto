@@ -32,7 +32,7 @@ const ConnectWallet = () => {
     };
     const metaMaskConnectHandle = async () => {
         const metaMaskAccount = await requestAccount();
-        console.log(metaMaskAccount);
+        // console.log(metaMaskAccount);
         localStorage.setItem("userAddresss", metaMaskAccount);
         let userAccBal = localStorage.getItem("userBal")
         // console.log("userbal--->", userAccBal);

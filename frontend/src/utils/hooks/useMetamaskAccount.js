@@ -6,14 +6,8 @@ const UseMetamaskAccount = () => {
 
   const getAccount = async () => {
     const metamaskAccount = await requestAccount();
-    // metamaskAccount = metamaskAccount.JSON();
-    console.log(metamaskAccount);
-    // metamaskAccount.then((response) => {
-    //   console.log(response);
-    // });
 
     setAccount(metamaskAccount);
-    // console.log(account);
   };
 
   useEffect(() => {

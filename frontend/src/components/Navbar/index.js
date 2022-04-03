@@ -47,7 +47,7 @@ const ethe = async () => {
     const price = await spotogame.getLatestEthPrice();
     var pr = price.toString().substr(0, price.toString().length - 8)
     localStorage.setItem('ethPrice', pr)
-    console.log(pr)
+    // console.log(pr)
 
 };
 
@@ -108,12 +108,12 @@ const NavigationBar = () => {
         let url = qrw.toString();
         let response = await fetch(url);
         response = await response.json()
-        console.log(qrw)
-        console.log(response);
-        console.log(response.Profile);
+        // console.log(qrw)
+        // console.log(response);
+        // console.log(response.Profile);
         setUserProfile(response.Profile)
     };
-    console.log(userBalance);
+    // console.log(userBalance);
     const connectedDropdown = <>
         {userAdd && (
             <div className="connected_main_container ant-dropdown-menu">

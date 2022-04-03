@@ -82,7 +82,6 @@ const LiveMatches = () => {
             .then(response => response.json())
             .then(response => {
                 let data = response.response;
-                console.log(response);
                 setLiveMatchesData(data);
             })
             .catch(err => console.error(err));
@@ -119,7 +118,7 @@ const LiveMatches = () => {
             .then(response => response.json())
             .then(response => {
                 let data = response.response;
-                console.log("Upcoming data--->", response);
+                // console.log("Upcoming data--->", response);
                 setUpcomingMatchesData(data);
             })
             .catch(err => console.error(err));

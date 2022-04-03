@@ -56,7 +56,6 @@ const LiquidityPage = () => {
             contracts.LPT.abi,
             signer
         );
-        console.log(ethers.utils.parseEther(eth))
         const transaction = await LiqPool.addLiquidity({ value: ethers.utils.parseEther(eth) });
         console.log(transaction);
         let tx = await transaction.wait();
@@ -65,7 +64,6 @@ const LiquidityPage = () => {
     };
 
     const getlpBalance = async () => {
-        console.log("run get bal func ");
         const web3Modal = new Web3Modal();
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
@@ -77,7 +75,6 @@ const LiquidityPage = () => {
             signer
         );
         const getbal = await LPbalance.balanceOf(requestAccount());
-        console.log(getbal);
         let value=parseInt( getbal._hex);
         value=value/1000000000000000000
         setLP(value)
@@ -92,7 +89,6 @@ const LiquidityPage = () => {
             getlpBalance()
         )
     }, [lp])
-    console.log(lp);
     
     return (
         <div className="liquidity_pool">

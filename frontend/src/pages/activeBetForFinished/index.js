@@ -45,7 +45,6 @@ const FinishedActiveBet = () => {
             contracts.SPOTO_GAME.abi,
             signer
         );
-        console.log("matchid", matchID, "selectedTeam", selectedTeam, "nftId", nftId, "betAmt", betAmt);
         const transaction = await Spotogame.createBet(matchID, selectedTeam, localStorage.getItem("userhex"), betAmt);
         console.log(transaction);
         let tx = await transaction.wait();
@@ -66,11 +65,9 @@ const FinishedActiveBet = () => {
         );
 
         const queryBets = await Spotogame.getActiveBets();
-        console.log(queryBets)
         setActiveBet(queryBets)
         let ourBetFilterData = queryBets.filter(data => data['nftid_player1'] == nftIdFLocal || data['nftid_player2'] == nftIdFLocal);
 
-        console.log(ourBetFilterData)
         setOurBetData(ourBetFilterData)
 
     };
@@ -177,11 +174,9 @@ const FinishedActiveBet = () => {
     const { Option } = Select;
 
     function handleChange(value) {
-        console.log(`selected ${value}`);
         setSelectedTeam(value);
     }
     function placeBetHandleChange(value) {
-        console.log(`selected ${value}`);
         setSelectedTeam(value);
     }
 
@@ -238,7 +233,6 @@ const FinishedActiveBet = () => {
             .then(response => response.json())
             .then(response => {
                 let data = response.response;
-                console.log(response);
                 setLiveMatchesData(data);
             })
             .catch(err => console.error(err));
@@ -256,15 +250,12 @@ const FinishedActiveBet = () => {
     const [upcomingMatchesData, setUpcomingMatchesData] = useState([]);
     const upcomingMatches = [];
 
-    console.log(activebet["1"]);
-    console.log(nftIdFLocal);
-    console.log(ourBetData);
+
 
 
 
     //Our Bet Data 
     for (let i = ourBetData?.length - 1; i >= 0; i--) {
-        console.log(ourBetData[i]["bettingPairId"]._hex);
         ourBet.push({
             key: ourBetData[i]['bettingPairId']['_hex'],
             home:

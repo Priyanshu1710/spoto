@@ -43,9 +43,7 @@ const ActiveBet = () => {
             contracts.SPOTO_GAME.abi,
             signer
         );
-        console.log("matchid", matchID, "selectedTeam", selectedTeam, "nftId", nftId, "betAmt", betAmt);
         const transaction = await Spotogame.createBet(matchID, selectedTeam, localStorage.getItem("userhex"), betAmt);
-        console.log(transaction);
         let tx = await transaction.wait();
         console.log(tx)
 
@@ -64,11 +62,9 @@ const ActiveBet = () => {
         );
 
         const queryBets = await Spotogame.getActiveBets();
-        console.log(queryBets)
         setActiveBet(queryBets)
         let ourBetFilterData = queryBets.filter(data => data['nftid_player1'] == nftIdFLocal || data['nftid_player2'] == nftIdFLocal);
 
-        console.log(ourBetFilterData)
         setOurBetData(ourBetFilterData)
 
     };
@@ -246,9 +242,7 @@ const ActiveBet = () => {
     const [upcomingMatchesData, setUpcomingMatchesData] = useState([]);
     const upcomingMatches = [];
 
-    console.log(activebet["1"]);
-    console.log(nftIdFLocal);
-    console.log(ourBetData);
+
     // let ourBetFilterData = ourBetData.filter(data => data['nftid_player1'] == nftIdFLocal);
     // console.log(ourBetFilterData)
 

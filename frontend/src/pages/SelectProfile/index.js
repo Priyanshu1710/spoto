@@ -83,13 +83,7 @@ const SelectProfile = () => {
 
             }, 3000)
         );
-        console.log(profDetails);
 
-
-        console.log("NFT Id ", profDetails.nft_token_id._hex);
-        console.log("bets Lost ", profDetails.bets_lost._hex);
-        console.log("bets Won ", profDetails.bets_won._hex);
-        console.log("Profile Level ", profDetails.profile_level._hex);
         return (
             setuserDetail((prevStage) => ({
                 ...prevStage,
@@ -102,8 +96,6 @@ const SelectProfile = () => {
         );
     }
 
-    console.log(userDetail);
-    console.log(userNftId);
     // setuserDetail({ ...userDetail, NFTId: userNftId })
 
     const fetProfile = () => {
@@ -120,21 +112,18 @@ const SelectProfile = () => {
     function returnUserHex(value) {
         userData._hex.map(async (item, index) => {
             if (index === value) {
-                console.log(item, index);
                 return (
                     dispatch(setUserHexValue(item)),
                     setUserNftid(item),
                     localStorage.setItem("userhex", item)
                 )
             }
-            console.log("selected value", value);
         })
         NftProfile();
     }
 
     useEffect(() => {
         listTokenIds().then((res) => {
-            console.log(res);
             fetProfile()
         })
         dispatch(setUserDetails({ userDetail }))

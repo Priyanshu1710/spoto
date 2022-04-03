@@ -64,11 +64,9 @@ export const requestBalance = async () => {
   );
 
   try {
-    console.log("balances line code start");
     const data = await Spotogame.balanceOf(requestAccount());
 
     const bal = bigNumberToDecimal(data);
-    console.log(bal);
     localStorage.setItem("userBal", bal);
   } catch (error) {
     console.log(error);

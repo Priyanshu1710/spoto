@@ -33,7 +33,6 @@ const ProfilePage = () => {
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
-        console.log(signer)
 
         const NFTContract = new ethers.Contract(
             contracts.NFT_PROFILE.address,
@@ -47,7 +46,6 @@ const ProfilePage = () => {
         console.log(tx)
         let event = tx.events[0];
         let value = event.args[2];
-        console.log(tx)
 
         if (tx['transactionIndex'] != null) {
             // window.location.href = '/selectProfile';
@@ -74,7 +72,6 @@ const ProfilePage = () => {
                 return console.log(err);
             }
             setIpfsUrl('https://ipfs.infura.io/ipfs/' + hash);
-            console.log('https://ipfs.infura.io/ipfs/' + hash);
         })
     }
 
@@ -84,7 +81,6 @@ const ProfilePage = () => {
 
     const { Option } = Select;
     function handleChange(value) {
-        console.log(value);
         setTrait(value);
     }
     const userImg = [
