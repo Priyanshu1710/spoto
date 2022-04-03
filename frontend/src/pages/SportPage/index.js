@@ -85,9 +85,12 @@ const SelectSport = () => {
 
                                     <div className="coming_soon_cards">
                                         <Card title="Coming Soon">
-                                            <Card.Grid style={gridStyle}>Cricket</Card.Grid>
-                                            <Card.Grid style={gridStyle}>Basketball</Card.Grid>
-                                            {/* <Card.Grid style={gridStyle}>Game 3</Card.Grid> */}
+                                            <div className="cards_container">
+                                                <div className="cards">
+                                                    <div className="single_cards"><div className="overlay">Cricket</div> </div>
+                                                    <div className="single_cards"><div className="overlay">Basketball</div> </div>
+                                                </div>
+                                            </div>
 
                                         </Card>
                                     </div>

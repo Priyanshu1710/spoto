@@ -31,6 +31,80 @@
   }
 }
 .coming_soon_cards {
+  .ant-card-body {
+    // display: flex !important;
+    // width: 100% !important;
+    // justify-content: center !important;
+  }
+  .cards {
+    .ant-card-grid {
+      float: left;
+      width: 33.33%;
+      padding: 24px;
+      border: 0;
+      color: white;
+      border-radius: 0;
+      //   box-shadow: 1px 0 0 0 #ce18c5, 0 1px 0 0 #ce18c5, 1px 1px 0 0 #ce18c5,
+      //     1px 0 0 0 #ce18c5 inset, 0 1px 0 0 #ce18c5 inset;
+      border: 2px solid #ce18c5;
+      transition: all 0.3s;
+      box-shadow: none;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 1rem;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      &:hover {
+        box-shadow: 2px 2px 10px #ce18c5;
+      }
+    }
+    display: flex;
+    justify-content: center;
+    .single_cards {
+      color: $tersiary-color;
+      font-size: 1rem;
+      border: 2px solid #ce18c5;
+      transition: all 0.3s;
+      box-shadow: none;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 1rem;
+      margin: 0 0.5rem;
+
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 2px 2px 10px #ce18c5;
+      }
+      .overlay {
+        opacity: 0;
+        transition: all 0.3s;
+        padding: 24px;
+        border-radius: 5px;
+      }
+      &:hover .overlay {
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.6);
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .single_cards:nth-child(1) {
+    background-image: url("../../assets/images/cricket.jpeg");
+    background-size: cover;
+    &:hover {
+      // filter: blur(2px);
+    }
+  }
+  .single_cards:nth-child(2) {
+    background-image: url("../../assets/images/basketball.jpeg");
+    background-size: cover;
+    background-position: center;
+    &:hover {
+      // filter: blur(2px);
+    }
+  }
   .ant-card {
     background: transparent;
     border: none;
