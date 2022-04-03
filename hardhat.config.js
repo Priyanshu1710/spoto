@@ -19,10 +19,14 @@ module.exports = {
         count: 40,
       },
     },
-    rinkeby: {
-      url: "https://eth-rinkeby.alchemyapi.io/v2/MRtDTqSU_Ls4RzMrX-qqOOnaKxv-ALr1",
-      accounts: [process.env.PRIVATE_KEY],
-      gas: 5000000,
-    },
+    // rinkeby: {
+    //   url: "https://eth-rinkeby.alchemyapi.io/v2/MRtDTqSU_Ls4RzMrX-qqOOnaKxv-ALr1",
+    //   accounts: [process.env.PRIVATE_KEY],
+    //   gas: 5000000,
+    // },
+    matic: {
+      url: "https://rpc-mumbai.maticvigil.com",
+      accounts: [process.env.PRIVATE_KEY]
+    }
   },
 };

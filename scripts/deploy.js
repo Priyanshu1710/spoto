@@ -35,8 +35,8 @@ async function main() {
   const liqPool = await LiqPool.deploy(
     "SPT LPT token",
     "LPT",
-    "0xf8c329E0880D7ca3E8c44Ee048E17cBc833d5139",
-    3478,
+    spotoCoin.address,
+    1,
     1
   )
   console.log("Deploying Liq pool");
