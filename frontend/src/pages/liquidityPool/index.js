@@ -48,7 +48,7 @@ const LiquidityPage = () => {
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
-    
+
         const LiqPool = new ethers.Contract(
             contracts.LPT.address,
             contracts.LPT.abi,
@@ -59,7 +59,7 @@ const LiquidityPage = () => {
         console.log(transaction);
         let tx = await transaction.wait();
         console.log(tx)
-    
+
     };
 
 
@@ -91,7 +91,10 @@ const LiquidityPage = () => {
                                                 provideLiq()
                                             }}><span>Add Liquidity</span> </div>
                                         </div>
-                                        <button onClick={approveTx}>test new</button>
+                                        <div className="approve_btn">
+
+                                            <button className='button' onClick={approveTx}>Approve Once</button>
+                                        </div>
                                         <div className="pool_cards_container">
                                             <div className="pool_cards">
                                                 <div className="head">My LP Shares</div>
